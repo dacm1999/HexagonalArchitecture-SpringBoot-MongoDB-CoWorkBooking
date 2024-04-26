@@ -22,27 +22,6 @@ public class RegisterController {
 
     @PostMapping
     public ResponseEntity<JwtResponse> register(@RequestBody RegisterDto request) {
-
-        if(StringUtils.isEmpty(request.getUsername())){
-            throw new IllegalArgumentException("Username must be mandatory");
-        } else if (userRepository.existsByEmail(request.getEmail())) {
-            throw new IllegalArgumentException("Email already registered.");
-        }
-
-        if(StringUtils.isEmpty(request.getEmail())){
-            throw new IllegalArgumentException("Email must be mandatory");
-
-        } else if(userRepository.existsByUsernameContainsIgnoreCase(request.getUsername())){
-            throw new IllegalArgumentException("Username already registered.");
-        }
-
-        if (StringUtils.isEmpty(request.getPassword())) {
-            throw new IllegalArgumentException("Password must be mandatory.");
-        } else if (request.getPassword().length() < 5) {
-            throw new IllegalArgumentException("The password must be more than 5 characters.");
-        }
-
         return ResponseEntity.ok(registerService.signUp(request));
-
     }
 }

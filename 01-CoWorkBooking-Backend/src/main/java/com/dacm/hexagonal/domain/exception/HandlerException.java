@@ -9,12 +9,12 @@ import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
-@EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
+//@EqualsAndHashCode(callSuper = true)
+//@AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class HandlerException extends RuntimeException {
-    private Integer code;
+public class HandlerException {
+    private Integer statusCode;
     private String message;
     private HttpStatus status;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-mm-yyyy hh:mm:ss")

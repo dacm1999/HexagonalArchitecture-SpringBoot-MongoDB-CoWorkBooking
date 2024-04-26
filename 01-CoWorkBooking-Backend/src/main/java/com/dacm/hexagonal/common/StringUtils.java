@@ -1,8 +1,6 @@
 package com.dacm.hexagonal.common;
 
 
-import com.dacm.hexagonal.domain.exception.RegisterErrorResponse;
-
 public class StringUtils {
 
     public static boolean isEmpty(String str) {

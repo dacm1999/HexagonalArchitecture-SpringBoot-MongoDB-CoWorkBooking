@@ -2,6 +2,13 @@ package com.dacm.hexagonal.common;
 
 public class Message {
 
+    public static final String USERNAME_TAKEN= "Username is already taken";
+    public static final String EMAIL_TAKEN = "Email is already taken";
+    public static final String PASSWORD_LENGTH= "Password must be more than 5 characters";
+    public static final String PASSWORD_MANDATORY= "Password must be mandatory";
+    public static final String EMAIL_MANDATORY= "Email must be mandatory";
+    public static final String USERNAME_MANDATORY= "Username must be mandatory";
+
     public static final String LOGIN_SUCCESSFULLY= "login successfully";
     public static final String LOGIN_FAILED= "login failed";
     public static final String LOGOUT_SUCCESSFULLY= "logout successfully";
@@ -38,4 +45,6 @@ public class Message {
 
     public static final String AuthErrorResponse= "An error occurred while processing your request";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";
+
+
 }

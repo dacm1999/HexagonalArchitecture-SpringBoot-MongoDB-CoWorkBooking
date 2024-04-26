@@ -2,6 +2,7 @@ package com.dacm.hexagonal.infrastructure.web.security.jwt;
 
 import com.dacm.hexagonal.application.port.in.JwtService;
 import io.jsonwebtoken.Claims;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,12 @@ import java.util.function.Function;
 @Service
 public class JwtServiceImpl implements JwtService{
 
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    public JwtServiceImpl(JwtTokenProvider jwtTokenProvider) {
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
 
     @Override
     public String getUsernameFromToken(String token) {

@@ -34,6 +34,7 @@ public class JwtTokenProvider {
                 .claims(extraClaims)
                 .claim("firstName", user.getFirstName())
                 .claim("lastName", user.getLastName())
+                .claim("role", user.getRole())
                 .subject(user.getUsername())
                 .issuedAt(new java.util.Date(System.currentTimeMillis()))
                 .expiration(new java.util.Date(System.currentTimeMillis() + 1000 * 60 * 60))
@@ -50,7 +51,7 @@ public class JwtTokenProvider {
                     .parseSignedClaims(token)
                     .getPayload();
         } catch (ExpiredJwtException e) {
-            throw new ExpiredJwtException(null, null, Message.JWT_TOKEN_EXPIRED);
+            throw new ExpiredJwtException(null, null, Message.JWT_TOKEN_EXPIRED,e.getCause());
         }
 
     }

@@ -10,7 +10,7 @@ import com.dacm.hexagonal.infrastructure.web.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtResponse;
 import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +18,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RegisterServiceImpl implements RegisterService {
 
+    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
-
-    private final AuthenticationManager authenticationManager;
 
 
     @Override

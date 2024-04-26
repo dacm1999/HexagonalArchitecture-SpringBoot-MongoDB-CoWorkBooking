@@ -3,6 +3,7 @@ package com.dacm.hexagonal.infrastructure.web.security;
 import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtAuthenticationFilter;
 import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    @Autowired
     private final JwtAuthenticationFilter jwtTokenProvider;
+    @Autowired
     private final AuthenticationProvider authProvider;
 
     @Bean
@@ -33,6 +36,7 @@ public class SecurityConfig {
 
                                 //Login endpoint
                                 .requestMatchers("api/v1/login/auth").permitAll()
+                                .requestMatchers("api/v1/login/logout").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager

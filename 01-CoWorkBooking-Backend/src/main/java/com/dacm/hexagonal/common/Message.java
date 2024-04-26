@@ -4,8 +4,8 @@ public class Message {
 
     public static final String LOGIN_SUCCESSFULLY= "login successfully";
     public static final String LOGIN_FAILED= "login failed";
-    public static final String INVALID_USERNAME_OR_PASSWORD= "Invalid username or password";
     public static final String LOGOUT_SUCCESSFULLY= "logout successfully";
+    public static final String LOGIN_INVALID_USERNAME_OR_PASSWORD= "Invalid username or password";
 
     public static final String JWT_TOKEN_EXPIRED= "Jwt token expired";
     public static final String JWT_TOKEN_INVALID= "Jwt token invalid";
@@ -37,4 +37,5 @@ public class Message {
     public static final String BOOKING_EMAIL_ALREADY_EXISTS= "booking email already exists";
 
     public static final String AuthErrorResponse= "An error occurred while processing your request";
+    public static final String INTERNAL_SERVER_ERROR = "Internal server error";
 }

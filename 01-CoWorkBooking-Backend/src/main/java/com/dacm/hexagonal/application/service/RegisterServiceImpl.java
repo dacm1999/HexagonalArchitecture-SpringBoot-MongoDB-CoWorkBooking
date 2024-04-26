@@ -16,9 +16,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RegisterServiceImpl implements RegisterService {
 
-    private final UserRepository userRepository;
+    private JwtTokenProvider jwtTokenProvider;
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 

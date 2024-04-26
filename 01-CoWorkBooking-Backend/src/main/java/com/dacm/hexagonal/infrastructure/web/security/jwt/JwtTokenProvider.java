@@ -11,14 +11,14 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
 
-@Service
+@Component
 public class JwtTokenProvider {
 
     @Value("${jwt.secret}")
@@ -28,7 +28,7 @@ public class JwtTokenProvider {
         return getToken(new HashMap<>(), user);
     }
 
-    private String getToken(HashMap<String, Object> extraClaims, UserEntity user) {
+    private String getToken(HashMap<String,Object> extraClaims, UserEntity user) {
         return Jwts
                 .builder()
                 .claims(extraClaims)
@@ -41,7 +41,7 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public Claims getAllClaims(String token) throws ExpiredJwtException {
+    public Claims getAllClaims(String token) {
         try {
             return Jwts
                     .parser()
@@ -50,10 +50,10 @@ public class JwtTokenProvider {
                     .parseSignedClaims(token)
                     .getPayload();
         } catch (ExpiredJwtException e) {
-            throw e;
+            throw new ExpiredJwtException(null, null, Message.JWT_TOKEN_EXPIRED);
         }
-    }
 
+    }
 
     private SecretKey getKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);

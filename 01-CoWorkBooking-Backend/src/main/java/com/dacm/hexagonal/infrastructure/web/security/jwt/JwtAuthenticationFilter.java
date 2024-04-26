@@ -61,9 +61,9 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
                 }
             }
         }catch (ExpiredJwtException e){
-            throw new JwtErrorResponse(Message.JWT_TOKEN_EXPIRED, e);
+//            throw new JwtErrorResponse(Message.JWT_TOKEN_EXPIRED, e);
         }catch (IOException e){
-            throw new JwtErrorResponse(Message.JWT_TOKEN_ACCESS_DENIED, e);
+//            throw new JwtErrorResponse(Message.JWT_TOKEN_ACCESS_DENIED, e);
         }
 
         filterChain.doFilter(request, response);

@@ -1,3 +1,9 @@
 package com.dacm.hexagonal.infrastructure.web.dto;
 
-public record UserDto(String id, String name, String email, String password) { }
+public record UserDto(
+        String firstName,
+        String lastName,
+        String email,
+        String username,
+        String password) {
+}

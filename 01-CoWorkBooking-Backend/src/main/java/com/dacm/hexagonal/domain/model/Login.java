@@ -1,18 +1,18 @@
 package com.dacm.hexagonal.domain.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class Users {
+@AllArgsConstructor
+@NoArgsConstructor
+public class Login {
 
-    private String id;
-    private String firstName;
-    private String lastName;
-    private String email;
     private String username;
     private String password;
-    private String role;
+
 
 }

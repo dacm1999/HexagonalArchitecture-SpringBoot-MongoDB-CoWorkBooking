@@ -25,9 +25,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResponse save(UserDto user) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(user.id());
-        userEntity.setName(user.name());
+        userEntity.setFirstName(user.firstName());
+        userEntity.setLastName(user.lastName());
         userEntity.setEmail(user.email());
+        userEntity.setUsername(user.username());
         userEntity.setPassword(user.password());
         userRepository.save(userEntity);
         return new ApiResponse( 201,Message.USER_SAVE_SUCCESSFULLY ,HttpStatus.CREATED, LocalDateTime.now());

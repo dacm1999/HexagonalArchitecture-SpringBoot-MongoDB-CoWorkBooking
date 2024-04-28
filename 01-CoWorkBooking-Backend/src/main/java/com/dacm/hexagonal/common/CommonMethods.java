@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.common;
 
 
-public class StringUtils {
+public class CommonMethods {
 
     public static boolean isEmpty(String str) {
         return str == null || str.isEmpty();

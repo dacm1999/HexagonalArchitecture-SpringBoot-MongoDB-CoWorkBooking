@@ -3,11 +3,11 @@ package com.dacm.hexagonal.application.service;
 import com.dacm.hexagonal.application.port.in.RegisterService;
 import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.common.Message;
-import com.dacm.hexagonal.common.StringUtils;
+import com.dacm.hexagonal.common.CommonMethods;
 import com.dacm.hexagonal.domain.enums.Role;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.RegisterDto;
-import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtResponse;
+import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtLoginResponse;
 import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +27,21 @@ public class RegisterServiceImpl implements RegisterService {
 
 
     @Override
-    public JwtResponse signUp(RegisterDto request) {
+    public JwtLoginResponse signUp(RegisterDto request) {
 
-        if (StringUtils.isEmpty(request.getUsername())) {
+        if (CommonMethods.isEmpty(request.getUsername())) {
             throw new IllegalArgumentException(Message.USERNAME_MANDATORY);
         } else if (userRepository.existsByUsername(request.getUsername())) {
             throw new IllegalArgumentException(Message.USERNAME_TAKEN);
         }
 
-        if (StringUtils.isEmpty(request.getEmail())) {
+        if (CommonMethods.isEmpty(request.getEmail())) {
             throw new IllegalArgumentException(Message.EMAIL_MANDATORY);
         } else if (userRepository.existsByEmail(request.getEmail())) {
             throw new IllegalArgumentException(Message.EMAIL_TAKEN);
         }
 
-        if (StringUtils.isEmpty(request.getPassword())) {
+        if (CommonMethods.isEmpty(request.getPassword())) {
             throw new IllegalArgumentException(Message.PASSWORD_MANDATORY);
         } else if (request.getPassword().length() < 5) {
             throw new IllegalArgumentException(Message.PASSWORD_LENGTH);
@@ -58,7 +58,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         userRepository.save(user);
 
-        return JwtResponse.builder()
+        return JwtLoginResponse.builder()
                 .token(jwtTokenProvider.getToken(user))
                 .build();
     }

@@ -37,6 +37,10 @@ public class SecurityConfig {
                                 //Login endpoint
                                 .requestMatchers("api/v1/login/auth").permitAll()
                                 .requestMatchers("api/v1/login/logout").hasRole("ADMIN")
+
+                                //User endpoint
+                                .requestMatchers("api/v1/users/find/{username}").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("api/v1/users/delete/{username}").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager

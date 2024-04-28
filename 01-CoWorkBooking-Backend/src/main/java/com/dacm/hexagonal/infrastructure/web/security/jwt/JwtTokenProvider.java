@@ -1,20 +1,16 @@
 package com.dacm.hexagonal.infrastructure.web.security.jwt;
 
-import com.dacm.hexagonal.common.ApiResponse;
-import com.dacm.hexagonal.common.Message;
-import com.dacm.hexagonal.common.Response;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 
 
@@ -28,7 +24,7 @@ public class JwtTokenProvider {
         return getToken(new HashMap<>(), user);
     }
 
-    private String getToken(HashMap<String,Object> extraClaims, UserEntity user) {
+    private String getToken(HashMap<String, Object> extraClaims, UserEntity user) {
         return Jwts
                 .builder()
                 .claims(extraClaims)
@@ -42,18 +38,13 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public Claims getAllClaims(String token) {
-        try {
-            return Jwts
-                    .parser()
-                    .verifyWith(getKey())
-                    .build()
-                    .parseSignedClaims(token)
-                    .getPayload();
-        } catch (ExpiredJwtException e) {
-            throw new ExpiredJwtException(null, null, Message.JWT_TOKEN_EXPIRED,e.getCause());
-        }
-
+    public Claims getAllClaims(String token) throws SignatureException, ExpiredJwtException {
+        return Jwts
+                .parser()
+                .verifyWith(getKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     private SecretKey getKey() {

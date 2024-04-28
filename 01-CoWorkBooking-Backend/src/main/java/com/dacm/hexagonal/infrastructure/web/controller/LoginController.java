@@ -2,7 +2,7 @@ package com.dacm.hexagonal.infrastructure.web.controller;
 
 import com.dacm.hexagonal.application.service.LoginServiceImpl;
 import com.dacm.hexagonal.domain.model.Login;
-import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtResponse;
+import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtLoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ public class LoginController {
     private final LoginServiceImpl loginService;
 
     @PostMapping("/auth")
-    public ResponseEntity<JwtResponse> login(@RequestBody Login request) {
+    public ResponseEntity<JwtLoginResponse> login(@RequestBody Login request) {
         return ResponseEntity.ok(loginService.login(request));
     }
 

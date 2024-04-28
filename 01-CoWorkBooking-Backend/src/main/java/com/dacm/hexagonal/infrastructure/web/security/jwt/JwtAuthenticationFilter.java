@@ -1,8 +1,9 @@
 package com.dacm.hexagonal.infrastructure.web.security.jwt;
 
-import com.dacm.hexagonal.common.ApiResponse;
 import com.dacm.hexagonal.common.Message;
-import com.dacm.hexagonal.domain.exception.JwtErrorResponse;
+import com.dacm.hexagonal.domain.exception.HandlerException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter  extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
     private final JwtServiceImpl jwtService;
@@ -33,7 +34,7 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        try{
+        try {
             final String token = getTokenFromRequest(request);
             final String username;
 
@@ -60,12 +61,12 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authenticationToken);// Set the created authentication token in the security context
                 }
             }
-        }catch (ExpiredJwtException e){
-            throw new JwtErrorResponse(Message.JWT_TOKEN_EXPIRED, e);
-        }catch (IOException e){
-            throw new JwtErrorResponse(Message.JWT_TOKEN_ACCESS_DENIED, e);
+        } catch (ExpiredJwtException e) {
+            sendJsonErrorResponse(response, Message.JWT_TOKEN_EXPIRED, HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        } catch (IOException e) {
+            throw new IOException(Message.JWT_TOKEN_INVALID);
         }
-
         filterChain.doFilter(request, response);
     }
 
@@ -73,10 +74,26 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
 
         if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer")) {
-
             return authHeader.substring(7);
         }
 
         return null;
     }
+
+    private void sendJsonErrorResponse(HttpServletResponse response, String message, int status) throws IOException {
+        HandlerException error = new HandlerException();
+        error.setStatusCode(status);
+        error.setMessage(message);
+        error.setStatus(HttpStatus.valueOf(status));
+        error.setTimestamp(LocalDateTime.now());
+
+        response.setStatus(status);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        response.getWriter().write(mapper.writeValueAsString(error));
+        response.getWriter().flush();
+    }
+
 }

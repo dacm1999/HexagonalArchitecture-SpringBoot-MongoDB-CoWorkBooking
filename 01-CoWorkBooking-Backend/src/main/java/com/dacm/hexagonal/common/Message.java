@@ -2,6 +2,7 @@ package com.dacm.hexagonal.common;
 
 public class Message {
 
+    // Messages for user registration
     public static final String USERNAME_TAKEN= "Username is already taken";
     public static final String EMAIL_TAKEN = "Email is already taken";
     public static final String PASSWORD_LENGTH= "Password must be more than 5 characters";
@@ -9,16 +10,18 @@ public class Message {
     public static final String EMAIL_MANDATORY= "Email must be mandatory";
     public static final String USERNAME_MANDATORY= "Username must be mandatory";
 
+    // Messages for user login
     public static final String LOGIN_SUCCESSFULLY= "login successfully";
     public static final String LOGIN_FAILED= "login failed";
-    public static final String LOGOUT_SUCCESSFULLY= "logout successfully";
-    public static final String LOGIN_INVALID_USERNAME_OR_PASSWORD= "Invalid username or password";
+    public static final String LOGIN_INVALID_USERNAME= "Invalid username";
+    public static final String LOGIN_INVALID_PASSWORD= "Invalid password";
 
+    // Messages for JWT
     public static final String JWT_TOKEN_EXPIRED= "Jwt token expired";
     public static final String JWT_TOKEN_INVALID= "Jwt token invalid";
     public static final String JWT_TOKEN_ACCESS_DENIED= "Jwt token access denied";
 
-
+    // Messages for update user
     public static final String USER_SAVE_SUCCESSFULLY= "user saved successfully";
     public static final String USER_UPDATE_SUCCESSFULLY= "user updated successfully";
     public static final String USER_DELETE_SUCCESSFULLY= "user deleted successfully";

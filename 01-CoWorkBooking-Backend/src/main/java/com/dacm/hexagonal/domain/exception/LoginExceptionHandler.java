@@ -24,7 +24,18 @@ public class LoginExceptionHandler {
     public ResponseEntity<HandlerException> handle(BadCredentialsException e){
         error = new HandlerException();
         error.setStatusCode(HttpStatus.NOT_FOUND.value());
-        error.setMessage(Message.LOGIN_INVALID_USERNAME_OR_PASSWORD);
+        error.setMessage(e.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND);
+        error.setTimestamp(LocalDateTime.now());
+
+        return  new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<HandlerException> handle(IllegalStateException e){
+        error = new HandlerException();
+        error.setStatusCode(HttpStatus.NOT_FOUND.value());
+        error.setMessage(e.getMessage());
         error.setStatus(HttpStatus.NOT_FOUND);
         error.setTimestamp(LocalDateTime.now());
 

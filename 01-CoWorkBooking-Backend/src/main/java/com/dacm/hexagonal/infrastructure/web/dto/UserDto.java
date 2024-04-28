@@ -1,9 +1,14 @@
 package com.dacm.hexagonal.infrastructure.web.dto;
 
-public record UserDto(
-        String firstName,
-        String lastName,
-        String email,
-        String username,
-        String password) {
+import lombok.*;
+
+@Data
+@AllArgsConstructor
+public class UserDto {
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String username;
+
 }

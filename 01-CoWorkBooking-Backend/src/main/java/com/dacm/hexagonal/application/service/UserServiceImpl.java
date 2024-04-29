@@ -7,7 +7,7 @@ import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.enums.Role;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.web.dto.UserDtoL;
+import com.dacm.hexagonal.infrastructure.web.dto.UserRecord;
 import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.web.response.UserErrorResponse;
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
      * @return ApiResponse object encapsulating the status and message of the operation.
      */
     @Override
-    public ApiResponse save(UserDtoL user) {
+    public ApiResponse save(UserRecord user) {
         UserEntity userEntity = new UserEntity();
         userEntity.setFirstName(user.firstName());
         userEntity.setLastName(user.lastName());

@@ -2,7 +2,7 @@ package com.dacm.hexagonal.application.port.in;
 
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.web.dto.UserDtoL;
+import com.dacm.hexagonal.infrastructure.web.dto.UserRecord;
 import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    ApiResponse save (UserDtoL user);
+    ApiResponse save (UserRecord user);
 
     AddedResponse saveMultipleUsers (UserEntity[] users);
 

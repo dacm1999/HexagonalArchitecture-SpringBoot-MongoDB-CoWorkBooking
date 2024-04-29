@@ -4,7 +4,7 @@ import com.dacm.hexagonal.application.port.in.UserService;
 import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.web.dto.UserDtoL;
+import com.dacm.hexagonal.infrastructure.web.dto.UserRecord;
 import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.web.response.UserPaginationResponse;
@@ -41,7 +41,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createProduct(@RequestBody UserDtoL userDto) {
+    public ResponseEntity<ApiResponse> createProduct(@RequestBody UserRecord userDto) {
         return ResponseEntity.ok(userService.save(userDto));
     }
 

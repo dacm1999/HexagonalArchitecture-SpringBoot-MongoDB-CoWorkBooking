@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.web.dto;
 
-public record UserDtoL(
+public record UserRecord(
         String firstName,
         String lastName,
         String email,

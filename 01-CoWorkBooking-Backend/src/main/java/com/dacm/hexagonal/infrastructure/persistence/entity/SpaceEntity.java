@@ -1,15 +1,18 @@
-package com.dacm.hexagonal.domain.model;
+package com.dacm.hexagonal.infrastructure.persistence.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.annotation.processing.Generated;
 import java.util.List;
 
 @Data
 @Builder
-public class Space {
+@AllArgsConstructor
+@Document(collection = "Spaces")
+public class SpaceEntity {
 
     @Id
     private String id;
@@ -19,6 +22,5 @@ public class Space {
     private List<String> amenities; // Available amenities
     private boolean available; // Is the space available?
     private String location; // Localization of the space
-
 
 }

@@ -7,17 +7,26 @@ import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDtoL;
+import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
+import com.dacm.hexagonal.infrastructure.web.response.UserErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the user service that manages business logic related to users.
@@ -36,16 +45,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     private MongoTemplate mongoTemplate;
+    private PasswordEncoder passwordEncoder;
 
     /**
      * Constructor for injecting necessary dependencies for repository operations and MongoDB.
      *
-     * @param userRepository Repository for standard CRUD operations with user entities.
-     * @param mongoTemplate  MongoDB template to execute queries that need advanced customization.
+     * @param userRepository  Repository for standard CRUD operations with user entities.
+     * @param mongoTemplate   MongoDB template to execute queries that need advanced customization.
+     * @param passwordEncoder Component used for encoding passwords securely.
      */
-    public UserServiceImpl(UserRepository userRepository, MongoTemplate mongoTemplate) {
+    public UserServiceImpl(UserRepository userRepository, MongoTemplate mongoTemplate, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.mongoTemplate = mongoTemplate;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -67,10 +79,82 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * Saves multiple user entities to the database while checking for duplicates in usernames and emails.
+     * This method iterates over an array of UserEntity objects, checks for existing usernames and emails,
+     * and processes each user accordingly. If the username or email already exists, the user is not added,
+     * and an error report is generated. Successful additions are tracked and returned in the response.
+     *
+     * @param users An array of UserEntity objects to be saved.
+     * @return An AddedResponse object that includes details about the success of the operation,
+     * the total number of users attempted to be added, the number of successful additions,
+     * the number of failures, lists of successfully added users and failed users, and a reason for any failures.
+     */
+    @Override
+    public AddedResponse saveMultipleUsers(UserEntity[] users) {
+        AddedResponse result = null;
+
+        List<UserDto> addedUsers = new ArrayList<>();
+        List<UserErrorResponse> usersFailed = new ArrayList<>();
+        String reason = "";
+        String errorDescription = "";
+
+        List<String> usernames = getAllUsernames();
+        List<String> emails = getAllEmails();
+
+        Set<String> existingUsernames = new HashSet<>(usernames);
+        Set<String> existingEmails = new HashSet<>(emails);
+
+        for (UserEntity user : users) {
+            String username = user.getUsername();
+            String email = user.getEmail();
+
+            reason = "Could not add this users  ";
+            errorDescription = "Username duplicated";
+
+            if (existingUsernames.contains(username)) {
+                usersFailed.add(new UserErrorResponse(username, email, errorDescription));
+                continue;
+            }
+
+            if (existingEmails.contains(email)) {
+                errorDescription = "Email duplicated";
+                usersFailed.add(new UserErrorResponse(username, email, errorDescription));
+                continue;
+            }
+
+            UserEntity userEntity = UserEntity.builder()
+                    .username(username)
+                    .password(passwordEncoder.encode(user.getPassword()))
+                    .firstName(user.getFirstName())
+                    .lastName(user.getLastName())
+                    .email(email)
+                    .build();
+
+            userRepository.save(userEntity);
+
+            reason = "Could not add this users  ";
+            existingUsernames.add(username);
+            existingEmails.add(email);
+
+            addedUsers.add(UserMapper.toDto(userEntity));
+        }
+
+        int total = users.length;
+        int totalUsersAdded = addedUsers.size();
+        int totalUsersFailed = usersFailed.size();
+
+        boolean success = totalUsersAdded > 0;
+
+        result = new AddedResponse(success, total, totalUsersAdded, totalUsersFailed, (ArrayList) addedUsers, (ArrayList) usersFailed, reason);
+
+        return ResponseEntity.ok(result).getBody();
+    }
+
+    /**
      * Updates a user by username and returns the result as an API response.
      *
      * @param username The username of the user to update.
-     * @param userDto New user data for the update.
+     * @param userDto  New user data for the update.
      * @return ApiResponse indicating success or failure of the update.
      */
     @Override
@@ -137,11 +221,11 @@ public class UserServiceImpl implements UserService {
     /**
      * Finds all users based on filters and pagination parameters and returns the results paginated.
      *
-     * @param username Optional filter by username.
-     * @param lastname Optional filter by last name.
+     * @param username  Optional filter by username.
+     * @param lastname  Optional filter by last name.
      * @param firstname Optional filter by first name.
-     * @param email Optional filter by email.
-     * @param pageable Pagination parameters.
+     * @param email     Optional filter by email.
+     * @param pageable  Pagination parameters.
      * @return A page of UserDto objects corresponding to the filtered and paginated results.
      */
     @Override
@@ -165,6 +249,24 @@ public class UserServiceImpl implements UserService {
         Page<UserEntity> userPage = userRepository.findAll(pageable);
 
         return userPage.map(UserMapper::toDto);
+    }
+
+    @Override
+    public List<String> getAllUsernames() {
+        List<UserEntity> users = userRepository.findAll();
+        List<String> usernames = users.stream()
+                .map(UserEntity::getUsername)
+                .collect(Collectors.toList());
+        return usernames;
+    }
+
+    @Override
+    public List<String> getAllEmails() {
+        List<UserEntity> users = userRepository.findAll();
+        List<String> emails = users.stream()
+                .map(UserEntity::getEmail)
+                .collect(Collectors.toList());
+        return emails;
     }
 
 }

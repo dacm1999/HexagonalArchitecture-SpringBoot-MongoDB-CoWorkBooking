@@ -5,6 +5,7 @@ import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDtoL;
+import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.web.response.UserPaginationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,16 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse> createProduct(@RequestBody UserDtoL userDto) {
         return ResponseEntity.ok(userService.save(userDto));
+    }
+
+    /**
+     * Create multiple users
+     * @param users
+     * @return
+     */
+    @PostMapping("/createMultiple")
+    public ResponseEntity<AddedResponse> createMultipleUsers(@RequestBody UserEntity[] users) {
+        return ResponseEntity.ok(userService.saveMultipleUsers(users));
     }
 
     /**

@@ -39,6 +39,8 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/login/logout").hasRole("ADMIN")
 
                                 //User endpoint
+                                .requestMatchers("api/v1/users/create").hasAnyRole("ADMIN")
+                                .requestMatchers("api/v1/users/createMultiple").hasRole("ADMIN")
                                 .requestMatchers("api/v1/users/find/{username}").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("api/v1/users/delete/{username}").hasRole("ADMIN")
                                 .requestMatchers("api/v1/users/update/{username}").hasAnyRole("ADMIN", "USER")

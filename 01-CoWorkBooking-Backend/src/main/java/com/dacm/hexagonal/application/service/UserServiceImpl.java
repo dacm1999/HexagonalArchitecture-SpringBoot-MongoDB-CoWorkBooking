@@ -4,6 +4,7 @@ import com.dacm.hexagonal.application.mapper.UserMapper;
 import com.dacm.hexagonal.application.port.in.UserService;
 import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.common.Message;
+import com.dacm.hexagonal.domain.enums.Role;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDtoL;
@@ -91,11 +92,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public AddedResponse saveMultipleUsers(UserEntity[] users) {
-        AddedResponse result = null;
-
         List<UserDto> addedUsers = new ArrayList<>();
         List<UserErrorResponse> usersFailed = new ArrayList<>();
-        String reason = "";
         String errorDescription = "";
 
         List<String> usernames = getAllUsernames();
@@ -108,7 +106,6 @@ public class UserServiceImpl implements UserService {
             String username = user.getUsername();
             String email = user.getEmail();
 
-            reason = "Could not add this users  ";
             errorDescription = "Username duplicated";
 
             if (existingUsernames.contains(username)) {
@@ -127,12 +124,12 @@ public class UserServiceImpl implements UserService {
                     .password(passwordEncoder.encode(user.getPassword()))
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
+                    .role(Role.ROLE_USER)
                     .email(email)
                     .build();
 
             userRepository.save(userEntity);
 
-            reason = "Could not add this users  ";
             existingUsernames.add(username);
             existingEmails.add(email);
 
@@ -145,7 +142,7 @@ public class UserServiceImpl implements UserService {
 
         boolean success = totalUsersAdded > 0;
 
-        result = new AddedResponse(success, total, totalUsersAdded, totalUsersFailed, (ArrayList) addedUsers, (ArrayList) usersFailed, reason);
+        AddedResponse result = new AddedResponse(success, total, totalUsersAdded, totalUsersFailed, (ArrayList) addedUsers, (ArrayList) usersFailed);
 
         return ResponseEntity.ok(result).getBody();
     }

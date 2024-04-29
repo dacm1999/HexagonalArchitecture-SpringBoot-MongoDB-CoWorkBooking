@@ -7,7 +7,7 @@ import com.dacm.hexagonal.common.CommonMethods;
 import com.dacm.hexagonal.domain.enums.Role;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.RegisterDto;
-import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtLoginResponse;
+import com.dacm.hexagonal.infrastructure.web.response.JwtLoginResponse;
 import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

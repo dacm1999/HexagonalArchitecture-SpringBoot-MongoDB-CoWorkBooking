@@ -5,7 +5,7 @@ import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.model.Login;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtLoginResponse;
+import com.dacm.hexagonal.infrastructure.web.response.JwtLoginResponse;
 import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

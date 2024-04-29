@@ -1,7 +1,6 @@
-package com.dacm.hexagonal.common;
+package com.dacm.hexagonal.infrastructure.web.response;
 
 
-import lombok.Builder;
 import org.springframework.http.HttpStatus;
 
 

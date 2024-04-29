@@ -1,4 +1,4 @@
-package com.dacm.hexagonal.common;
+package com.dacm.hexagonal.infrastructure.web.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

@@ -3,7 +3,7 @@ package com.dacm.hexagonal.infrastructure.web.controller;
 import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.application.service.RegisterServiceImpl;
 import com.dacm.hexagonal.infrastructure.web.dto.RegisterDto;
-import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtLoginResponse;
+import com.dacm.hexagonal.infrastructure.web.response.JwtLoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

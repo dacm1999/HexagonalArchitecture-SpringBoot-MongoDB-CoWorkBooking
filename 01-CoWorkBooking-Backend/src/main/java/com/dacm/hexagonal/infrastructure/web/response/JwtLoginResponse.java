@@ -1,4 +1,4 @@
-package com.dacm.hexagonal.infrastructure.web.security.jwt;
+package com.dacm.hexagonal.infrastructure.web.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

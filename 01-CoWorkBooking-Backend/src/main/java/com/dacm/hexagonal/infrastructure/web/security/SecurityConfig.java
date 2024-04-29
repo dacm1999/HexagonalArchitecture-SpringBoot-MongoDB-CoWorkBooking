@@ -41,6 +41,8 @@ public class SecurityConfig {
                                 //User endpoint
                                 .requestMatchers("api/v1/users/find/{username}").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("api/v1/users/delete/{username}").hasRole("ADMIN")
+                                .requestMatchers("api/v1/users/update/{username}").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("api/v1/users/allUsers").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager

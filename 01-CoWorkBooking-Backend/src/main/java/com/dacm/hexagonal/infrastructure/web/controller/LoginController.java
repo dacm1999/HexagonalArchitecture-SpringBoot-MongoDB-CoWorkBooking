@@ -2,7 +2,7 @@ package com.dacm.hexagonal.infrastructure.web.controller;
 
 import com.dacm.hexagonal.application.service.LoginServiceImpl;
 import com.dacm.hexagonal.domain.model.Login;
-import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtLoginResponse;
+import com.dacm.hexagonal.infrastructure.web.response.JwtLoginResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.infrastructure.web.controller;
 
 import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.application.port.out.SpaceRepository;
+import com.dacm.hexagonal.application.port.out2.SpaceRepository;
 import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

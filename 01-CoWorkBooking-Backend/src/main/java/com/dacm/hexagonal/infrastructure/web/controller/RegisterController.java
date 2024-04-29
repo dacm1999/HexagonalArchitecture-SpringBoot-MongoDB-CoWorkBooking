@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.web.controller;
 
-import com.dacm.hexagonal.application.port.out.UserRepository;
+import com.dacm.hexagonal.application.port.out2.UserRepository;
 import com.dacm.hexagonal.application.service.RegisterServiceImpl;
 import com.dacm.hexagonal.infrastructure.web.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.web.response.JwtLoginResponse;

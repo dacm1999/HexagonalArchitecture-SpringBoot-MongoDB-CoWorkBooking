@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.application.port.out.SpaceRepository;
+import com.dacm.hexagonal.application.port.out2.SpaceRepository;
 import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.SpaceRecord;
 import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;

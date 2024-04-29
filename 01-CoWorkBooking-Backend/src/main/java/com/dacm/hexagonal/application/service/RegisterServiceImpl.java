@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.RegisterService;
-import com.dacm.hexagonal.application.port.out.UserRepository;
+import com.dacm.hexagonal.application.port.out2.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.common.CommonMethods;
 import com.dacm.hexagonal.domain.enums.Role;

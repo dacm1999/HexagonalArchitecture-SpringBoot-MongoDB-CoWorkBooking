@@ -5,6 +5,7 @@ import com.dacm.hexagonal.infrastructure.web.dto.SpaceRecord;
 import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public interface SpaceService {
     ApiResponse updateSpace(String spaceName, SpaceRecord spaceRecord);
     ApiResponse deleteBySpaceName(String spaceName);
     SpaceRecord findBySpaceName(String spaceName);
-    Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location,String capacity, boolean available ,Page pageable);
+    Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity , Pageable pageable);
     List<String> getAllSpaceNames();
 }

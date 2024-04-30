@@ -45,6 +45,18 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/users/delete/{username}").hasRole("ADMIN")
                                 .requestMatchers("api/v1/users/update/{username}").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("api/v1/users/allUsers").hasRole("ADMIN")
+
+                                //Space endpoint
+                                .requestMatchers("api/v1/spaces/create").hasAnyRole("ADMIN")
+                                .requestMatchers("api/v1/spaces/createMultiple").hasRole("ADMIN")
+                                .requestMatchers("api/v1/spaces/find/{spaceName}").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("api/v1/spaces/all").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("api/v1/spaces/delete/{spaceName}").hasRole("ADMIN")
+                                .requestMatchers("api/v1/spaces/update/{spaceName}").hasAnyRole("ADMIN")
+                                .requestMatchers("api/v1/spaces/allSpaceNames").hasAnyRole("ADMIN", "USER")
+
+                                //Booking endpoint
+
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager

@@ -4,13 +4,13 @@ import com.dacm.hexagonal.application.port.in.SpaceService;
 import com.dacm.hexagonal.application.port.out2.SpaceRepository;
 import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.SpaceRecord;
+import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.web.response.SpacePaginationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,11 +39,11 @@ public class SpaceController {
         return ResponseEntity.ok(spaceService.save(spaceDto));
     }
 
-//    @PostMapping("/createMultiple")
-//    public ResponseEntity<ApiResponse> createMultipleSpaces(@RequestBody SpaceEntity[] spaces) {
-//        return ResponseEntity.ok(spaceService.saveMultipleSpaces(spaces));
-//    }
-
+    @PostMapping("/createMultiple")
+    public ResponseEntity<AddedResponse> createMultipleProducts(@RequestBody SpaceEntity[] spaces) {
+        return ResponseEntity.ok(spaceService.saveMultipleSpaces(spaces));
+    }
+    
     @GetMapping("/find/{spaceName}")
     public ResponseEntity<SpaceRecord> findSpaceByName(@PathVariable String spaceName) {
         return ResponseEntity.ok(spaceService.findBySpaceName(spaceName));

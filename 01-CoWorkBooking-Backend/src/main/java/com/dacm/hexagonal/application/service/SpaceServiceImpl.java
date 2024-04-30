@@ -8,6 +8,7 @@ import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.SpaceRecord;
 import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
+import com.dacm.hexagonal.infrastructure.web.response.SpaceErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -16,9 +17,11 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,8 +62,37 @@ public class SpaceServiceImpl implements SpaceService {
      */
     @Override
     public AddedResponse saveMultipleSpaces(SpaceEntity[] spaces) {
+        List<SpaceRecord> addedSpaces = new ArrayList<>();
+        List<SpaceErrorResponse> spacesAddFailed = new ArrayList<>();
+        String errorDescription = "";
 
-        return null;
+        List<String> spaceNames = getAllSpaceNames();
+
+        for(SpaceEntity space : spaces){
+            String spaceName = space.getSpaceName();
+            errorDescription = "Space name already exists";
+            if(spaceNames.contains(spaceName)) {
+                spacesAddFailed.add(new SpaceErrorResponse(spaceName, errorDescription));
+                continue;
+            }
+            SpaceEntity spaceEntity = SpaceEntity.builder()
+                    .spaceName(space.getSpaceName())
+                    .description(space.getDescription())
+                    .capacity(space.getCapacity())
+                    .amenities(space.getAmenities())
+                    .available(space.isAvailable())
+                    .location(space.getLocation())
+                    .build();
+            spaceRepository.save(spaceEntity);
+            addedSpaces.add(SpaceMapper.toDto(spaceEntity));
+        }
+        int total = spaces.length;
+        int success = addedSpaces.size();
+        int failed = spacesAddFailed.size();
+        boolean sucess = success > 0;
+
+        AddedResponse response = new AddedResponse(sucess, total, success, failed, (ArrayList) addedSpaces, (ArrayList) spacesAddFailed);
+        return ResponseEntity.ok(response).getBody();
     }
 
     /**

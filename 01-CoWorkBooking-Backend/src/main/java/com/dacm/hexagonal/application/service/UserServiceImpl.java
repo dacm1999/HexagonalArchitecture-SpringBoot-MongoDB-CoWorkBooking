@@ -1,11 +1,14 @@
 package com.dacm.hexagonal.application.service;
 
+import com.dacm.hexagonal.application.mapper.SpaceMapper;
 import com.dacm.hexagonal.application.mapper.UserMapper;
 import com.dacm.hexagonal.application.port.in.UserService;
 import com.dacm.hexagonal.application.port.out2.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.enums.Role;
+import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
+import com.dacm.hexagonal.infrastructure.web.dto.SpaceRecord;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.web.dto.UserRecord;
 import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
@@ -13,9 +16,11 @@ import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.web.response.UserErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -219,33 +224,39 @@ public class UserServiceImpl implements UserService {
      * Finds all users based on filters and pagination parameters and returns the results paginated.
      *
      * @param username  Optional filter by username.
-     * @param lastname  Optional filter by last name.
-     * @param firstname Optional filter by first name.
+     * @param lastName  Optional filter by last name.
+     * @param firstName Optional filter by first name.
      * @param email     Optional filter by email.
      * @param pageable  Pagination parameters.
      * @return A page of UserDto objects corresponding to the filtered and paginated results.
      */
     @Override
-    public Page<UserDto> findAllUsers(String username, String lastname, String firstname, String email, Pageable pageable) {
+    public Page<UserDto> findAllUsers(String username, String lastName, String firstName, String email, Pageable pageable) {
         Criteria criteria = new Criteria();
 
         // Agregar filtros solo si no son nulos o vacíos
         if (username != null && !username.isEmpty()) {
             criteria.and("username").is(username);
         }
-        if (lastname != null && !lastname.isEmpty()) {
-            criteria.and("lastname").is(lastname);
+        if (lastName != null && !lastName.isEmpty()) {
+            criteria.and("lastName").is(lastName);
         }
-        if (firstname != null && !firstname.isEmpty()) {
-            criteria.and("firstname").is(firstname);
+        if (firstName != null && !firstName.isEmpty()) {
+            criteria.and("firstName").is(firstName);
         }
         if (email != null && !email.isEmpty()) {
             criteria.and("email").is(email);
         }
 
-        Page<UserEntity> userPage = userRepository.findAll(pageable);
+        Query query = Query.query(criteria).with(pageable);
+        List<UserEntity> spaces = mongoTemplate.find(query, UserEntity.class);
+        long total = mongoTemplate.count(Query.query(criteria), UserEntity.class);
 
-        return userPage.map(UserMapper::toDto);
+        List<UserDto> records = spaces.stream()
+                .map(UserMapper::toDto)
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(records, pageable, total);
     }
 
     @Override

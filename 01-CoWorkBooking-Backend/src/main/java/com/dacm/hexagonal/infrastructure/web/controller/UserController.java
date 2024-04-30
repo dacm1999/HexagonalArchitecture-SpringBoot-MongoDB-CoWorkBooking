@@ -70,8 +70,8 @@ public class UserController {
      * @param page
      * @param size
      * @param username
-     * @param firstname
-     * @param lastname
+     * @param firstName
+     * @param lastName
      * @param email
      * @return
      */
@@ -80,18 +80,14 @@ public class UserController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String username,
-            @RequestParam(required = false) String firstname,
-            @RequestParam(required = false) String lastname,
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String email
     ) {
 
-        Page<UserDto> userPage = userService.findAllUsers(
-                username,
-                lastname,
-                firstname,
-                email,
-                Pageable.ofSize(size).withPage(page)
-                );
+        Pageable pageable = Pageable.ofSize(size).withPage(page);
+        Page<UserDto> userPage = userService.findAllUsers(username, firstName, lastName, email, pageable);
+
         UserPaginationResponse response = new UserPaginationResponse();
         response.setUsers(userPage.getContent());
         response.setTotalPages(userPage.getTotalPages());

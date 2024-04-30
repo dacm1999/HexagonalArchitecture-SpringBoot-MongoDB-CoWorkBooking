@@ -59,7 +59,7 @@ public class SpaceServiceImpl implements SpaceService {
      */
     @Override
     public AddedResponse saveMultipleSpaces(SpaceEntity[] spaces) {
-        
+
         return null;
     }
 

@@ -6,10 +6,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Space Repository interface for handling database operations related to Space entities.
+ * This repository interface provides CRUD operations inherited from MongoRepository
+ * and includes custom query methods for spaces.
+ */
 public interface SpaceRepository extends MongoRepository<SpaceEntity, String> {
 
-    void deleteBySpaceName(String spaceName);
-    List<SpaceEntity> findByAvailable();
-    Optional<SpaceEntity> findBySpaceName(String spaceName);
     Optional<SpaceEntity> findBySpaceId(String spaceId);
+
 }

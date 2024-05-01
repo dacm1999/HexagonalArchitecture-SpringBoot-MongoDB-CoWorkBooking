@@ -26,12 +26,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service class for managing spaces.
+ * <p>
+ * This class handles business logic related to space entities. It interacts
+ * with the MongoDB database through the {@link SpaceRepository} and {@link MongoTemplate}.
+ */
 @Service
 public class SpaceServiceImpl implements SpaceService {
 
     private final SpaceRepository spaceRepository;
     private final MongoTemplate mongoTemplate;
 
+    /**
+     * Constructs a new SpaceServiceImpl with necessary dependencies.
+     *
+     * @param spaceRepository the repository for space data interaction
+     * @param mongoTemplate   the MongoDB operations template
+     */
     @Autowired
     public SpaceServiceImpl(SpaceRepository spaceRepository, MongoTemplate mongoTemplate) {
         this.spaceRepository = spaceRepository;
@@ -39,8 +51,16 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param space
-     * @return
+     * Saves a new space record to the database.
+     * <p>
+     * This method converts a {@link SpaceRecord} DTO to a {@link SpaceEntity} which is then saved
+     * into the database using the {@link SpaceRepository}. After the save operation, it returns
+     * an {@ApiResponse} indicating the success of the operation.
+     *
+     * @param space the {@link SpaceRecord} DTO containing the data to be saved. This data includes
+     *              identifiers, names, descriptions, capacity, amenities, availability status, and location.
+     * @return an {@ApiResponse} containing the status code, message, HTTP status, and the timestamp
+     * of the operation. It returns HTTP status 200 and a success message if the operation is successful.
      */
     @Override
     public ApiResponse save(SpaceRecord space) {
@@ -58,8 +78,15 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param spaces
-     * @return
+     * Saves multiple space entities to the database.
+     * <p>
+     * Processes an array of {@link SpaceEntity}, attempting to save each to the database. It checks
+     * if the space ID already exists to prevent duplicates. The method accumulates successful saves
+     * and errors, returning detailed information about the results of these operations.
+     *
+     * @param spaces the array of {@link SpaceEntity} to be saved
+     * @return {@link AddedResponse} containing details of operation results, including success status,
+     * total number of attempts, count of successes, failures, and lists of added spaces and failed attempts.
      */
     @Override
     public AddedResponse saveMultipleSpaces(SpaceEntity[] spaces) {
@@ -69,10 +96,10 @@ public class SpaceServiceImpl implements SpaceService {
 
         List<String> spaceNames = getAllSpaceNames();
 
-        for(SpaceEntity space : spaces){
+        for (SpaceEntity space : spaces) {
             String spaceId = space.getSpaceId();
             errorDescription = "Space ID already exists";
-            if(spaceNames.contains(spaceId)) {
+            if (spaceNames.contains(spaceId)) {
                 spacesAddFailed.add(new SpaceErrorResponse(spaceId, errorDescription));
                 continue;
             }
@@ -98,9 +125,16 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param spaceId
-     * @param spaceRecord
-     * @return
+     * Updates an existing space in the database based on the provided space ID and space record.
+     * <p>
+     * This method first retrieves the existing space by space ID. If not found, it throws an exception.
+     * It checks if the new space ID from the provided space record is already in use and returns an error if so.
+     * Otherwise, it updates the space entity with new values and saves it back to the repository.
+     *
+     * @param spaceId     the ID of the space to update
+     * @param spaceRecord the new space details to update
+     * @return {@link ApiResponse} indicating the result of the operation. It returns a success message and status
+     * code 200 if the update is successful, or an error message and status code 400 if the space ID is already in use.
      */
     @Override
     public ApiResponse updateSpace(String spaceId, SpaceRecord spaceRecord) {
@@ -110,8 +144,8 @@ public class SpaceServiceImpl implements SpaceService {
         );
 
         //verity if the spaceId is already in use
-        if(!spaceId.equals(spaceRecord.spaceName())){
-            if(spaceRepository.findBySpaceId(spaceRecord.spaceId()).isPresent()){
+        if (!spaceId.equals(spaceRecord.spaceName())) {
+            if (spaceRepository.findBySpaceId(spaceRecord.spaceId()).isPresent()) {
                 return new ApiResponse(400, Message.SPACE_ID_ALREADY_EXISTS, HttpStatus.BAD_REQUEST, LocalDateTime.now());
             }
         }
@@ -129,8 +163,15 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param spaceId
-     * @return
+     * Deletes a space entity from the database based on the provided space ID.
+     * <p>
+     * Retrieves the space entity by its ID and deletes it. If no space is found with the provided ID,
+     * throws an {@link IllegalArgumentException}. This ensures that only existing spaces can be deleted.
+     *
+     * @param spaceId the ID of the space to be deleted
+     * @return {@link ApiResponse} indicating the result of the deletion operation. Returns a success message
+     * and status code 200 if the deletion is successful. If the space is not found, an exception
+     * is thrown and should be handled appropriately.
      */
     @Override
     public ApiResponse deleteBySpaceId(String spaceId) {
@@ -143,11 +184,16 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param spaceId
-     * @return
+     * Retrieves a space record by its space ID.
+     * <p>
+     * This method searches for a space entity using the provided space ID. If found, it converts the entity
+     * to a DTO using {@link SpaceMapper}. If no entity is found, it throws an IllegalArgumentException.
+     *
+     * @param spaceId the ID of the space to retrieve
+     * @return {@link SpaceRecord} the DTO representation of the space entity
      */
     @Override
-    public SpaceRecord findBySpaceName(String spaceId) {
+    public SpaceRecord findBySpaceId(String spaceId) {
         SpaceEntity spaceEntity = spaceRepository.findBySpaceId(spaceId).orElseThrow(
                 () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
         );
@@ -155,12 +201,17 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param spaceName
-     * @param description
-     * @param location
-     * @param capacity
-     * @param pageable
-     * @return
+     * Retrieves a paginated list of all spaces matching the given filters.
+     * <p>
+     * Applies filters for space name, description, location, and capacity if provided.
+     * The results are returned in a paginated format.
+     *
+     * @param spaceName   the filter for the space name
+     * @param description the filter for the space description
+     * @param location    the filter for the space location
+     * @param capacity    the filter for the space capacity, interpreted as a string
+     * @param pageable    the pagination information
+     * @return a paginated {@link Page} of {@link SpaceRecord} matching the criteria
      */
     @Override
     public Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity, Pageable pageable) {
@@ -192,8 +243,23 @@ public class SpaceServiceImpl implements SpaceService {
         return new PageImpl<>(records, pageable, total);
     }
 
+    /**
+     * Retrieves a paginated list of available spaces matching the given filters.
+     * <p>
+     * Filters for available spaces based on space name, description, location, and capacity.
+     * Only includes spaces that are currently marked as available.
+     *
+     * @param spaceId     optional filter for space ID (currently not used in filtering)
+     * @param spaceName   the filter for the space name
+     * @param description the filter for the space description
+     * @param available   boolean flag to include only available spaces (true) - currently hardcoded
+     * @param location    the filter for the space location
+     * @param capacity    the filter for the space capacity, interpreted as a string
+     * @param pageable    the pagination information
+     * @return a paginated {@link Page} of {@link SpaceRecord} for available spaces
+     */
     @Override
-    public Page<SpaceRecord> findAvailableSpaces(String spaceId,String spaceName, String description, boolean available, String location, String capacity, Pageable pageable) {
+    public Page<SpaceRecord> findAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable) {
         Criteria criteria = new Criteria("available").is(true);
 
         if (spaceName != null && !spaceName.isEmpty()) {
@@ -221,8 +287,23 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
 
+    /**
+     * Retrieves a paginated list of unavailable spaces matching the given filters.
+     * <p>
+     * Filters for unavailable spaces based on space ID, name, description, location, and capacity.
+     * Only includes spaces that are currently marked as unavailable.
+     *
+     * @param spaceId optional filter for space ID (should be spaceName for correction)
+     * @param spaceName the filter for the space name
+     * @param description the filter for the space description
+     * @param available boolean flag to include only unavailable spaces (false) - currently hardcoded
+     * @param location the filter for the space location
+     * @param capacity the filter for the space capacity, interpreted as a string
+     * @param pageable the pagination information
+     * @return a paginated {@link Page} of {@link SpaceRecord} for unavailable spaces
+     */
     @Override
-    public Page<SpaceRecord> getUnAvailableSpaces(String spaceId,String spaceName, String description,boolean available ,String location, String capacity, Pageable pageable) {
+    public Page<SpaceRecord> getUnAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable) {
         Criteria criteria = new Criteria();
 
         if (spaceId != null && !spaceId.isEmpty()) {
@@ -253,7 +334,12 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @return
+     * Retrieves a list of all unique space IDs from the database.
+     * <p>
+     * This method fetches all space entities, extracts their IDs, and returns a list of unique IDs.
+     * It uses a HashSet to ensure that all IDs in the returned list are distinct.
+     *
+     * @return a List of unique space IDs currently stored in the database
      */
     @Override
     public List<String> getAllSpaceNames() {
@@ -265,6 +351,15 @@ public class SpaceServiceImpl implements SpaceService {
         return List.copyOf(spacesId);
     }
 
+    /**
+     * Changes the availability status of a given space entity and saves the update to the database.
+     * <p>
+     * This method sets the availability of the specified space to the provided boolean value, then
+     * persists the updated space entity to the repository.
+     *
+     * @param space the space entity whose availability is to be changed
+     * @param available the new availability status to set (true for available, false for unavailable)
+     */
     @Override
     public void changeSpaceAvailability(SpaceEntity space, boolean available) {
         space.setAvailable(available);

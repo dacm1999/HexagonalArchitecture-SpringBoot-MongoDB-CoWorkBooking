@@ -11,20 +11,32 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Space Service
- * This class is responsible for handling the space requests
+ * Interface for the Space Service.
+ * <p>
+ * This service layer interface manages all operations related to space entities.
+ * It provides methods to create, update, delete, and query space records. It also includes
+ * functionality to handle bulk operations and availability changes of spaces.
  */
 @Service
 public interface SpaceService {
 
-    ApiResponse save (SpaceRecord space);
-    AddedResponse saveMultipleSpaces (SpaceEntity[] spaces);
+    ApiResponse save(SpaceRecord space);
+
+    AddedResponse saveMultipleSpaces(SpaceEntity[] spaces);
+
     ApiResponse updateSpace(String spaceName, SpaceRecord spaceRecord);
+
     ApiResponse deleteBySpaceId(String spaceName);
-    SpaceRecord findBySpaceName(String spaceName);
-    Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity , Pageable pageable);
-    Page<SpaceRecord> findAvailableSpaces(String spaceId,String spaceName, String description, boolean available, String location, String capacity, Pageable pageable);
-    Page<SpaceRecord> getUnAvailableSpaces(String spaceId,String spaceName, String description,boolean available, String location, String capacity , Pageable pageable);
+
+    SpaceRecord findBySpaceId(String spaceName);
+
+    Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity, Pageable pageable);
+
+    Page<SpaceRecord> findAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable);
+
+    Page<SpaceRecord> getUnAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable);
+
     List<String> getAllSpaceNames();
+
     void changeSpaceAvailability(SpaceEntity space, boolean b);
 }

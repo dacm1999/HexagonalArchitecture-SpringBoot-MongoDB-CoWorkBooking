@@ -18,6 +18,7 @@ public class SpaceEntity {
 
     @Id
     private String id;
+    private String spaceId; // Unique identifier of the space
     private String spaceName; // Name of the space
     private String description; // Description of the space
     private int capacity; // Max capacity of the space

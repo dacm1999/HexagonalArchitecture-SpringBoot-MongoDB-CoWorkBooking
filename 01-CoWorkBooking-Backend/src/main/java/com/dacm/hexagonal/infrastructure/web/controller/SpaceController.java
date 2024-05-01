@@ -43,10 +43,10 @@ public class SpaceController {
     public ResponseEntity<AddedResponse> createMultipleProducts(@RequestBody SpaceEntity[] spaces) {
         return ResponseEntity.ok(spaceService.saveMultipleSpaces(spaces));
     }
-    
-    @GetMapping("/find/{spaceName}")
-    public ResponseEntity<SpaceRecord> findSpaceByName(@PathVariable String spaceName) {
-        return ResponseEntity.ok(spaceService.findBySpaceName(spaceName));
+
+    @GetMapping("/find/{spaceId}")
+    public ResponseEntity<SpaceRecord> findSpaceByName(@PathVariable String spaceId) {
+        return ResponseEntity.ok(spaceService.findBySpaceName(spaceId));
     }
 
     @GetMapping("/all")
@@ -75,14 +75,14 @@ public class SpaceController {
     }
 
 
-    @DeleteMapping("/delete/{spaceName}")
-    public ResponseEntity<ApiResponse> deleteSpace(@PathVariable String spaceName) {
-        return ResponseEntity.ok(spaceService.deleteBySpaceName(spaceName));
+    @DeleteMapping("/delete/{spaceId}")
+    public ResponseEntity<ApiResponse> deleteSpace(@PathVariable String spaceId) {
+        return ResponseEntity.ok(spaceService.deleteBySpaceId(spaceId));
     }
 
-    @PutMapping("/update/{spaceName}")
-    public ResponseEntity<ApiResponse> updateSpace(@PathVariable String spaceName, @RequestBody SpaceRecord spaceRecord) {
-        return ResponseEntity.ok(spaceService.updateSpace(spaceName, spaceRecord));
+    @PutMapping("/update/{spaceId}")
+    public ResponseEntity<ApiResponse> updateSpace(@PathVariable String spaceId, @RequestBody SpaceRecord spaceRecord) {
+        return ResponseEntity.ok(spaceService.updateSpace(spaceId, spaceRecord));
     }
 
 

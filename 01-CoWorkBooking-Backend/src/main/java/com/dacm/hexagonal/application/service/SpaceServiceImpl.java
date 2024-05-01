@@ -45,6 +45,7 @@ public class SpaceServiceImpl implements SpaceService {
     @Override
     public ApiResponse save(SpaceRecord space) {
         SpaceEntity spaceEntity = SpaceEntity.builder()
+                .spaceId(space.spaceId())
                 .spaceName(space.spaceName())
                 .description(space.description())
                 .capacity(space.capacity())
@@ -69,13 +70,14 @@ public class SpaceServiceImpl implements SpaceService {
         List<String> spaceNames = getAllSpaceNames();
 
         for(SpaceEntity space : spaces){
-            String spaceName = space.getSpaceName();
-            errorDescription = "Space name already exists";
-            if(spaceNames.contains(spaceName)) {
-                spacesAddFailed.add(new SpaceErrorResponse(spaceName, errorDescription));
+            String spaceId = space.getSpaceId();
+            errorDescription = "Space ID already exists";
+            if(spaceNames.contains(spaceId)) {
+                spacesAddFailed.add(new SpaceErrorResponse(spaceId, errorDescription));
                 continue;
             }
             SpaceEntity spaceEntity = SpaceEntity.builder()
+                    .spaceId(space.getSpaceId())
                     .spaceName(space.getSpaceName())
                     .description(space.getDescription())
                     .capacity(space.getCapacity())
@@ -96,17 +98,24 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param spaceName
+     * @param spaceId
      * @param spaceRecord
      * @return
      */
     @Override
-    public ApiResponse updateSpace(String spaceName, SpaceRecord spaceRecord) {
+    public ApiResponse updateSpace(String spaceId, SpaceRecord spaceRecord) {
 
-        SpaceEntity spaceEntity = spaceRepository.findBySpaceName(spaceName).orElseThrow(
-                () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceName)
+        SpaceEntity spaceEntity = spaceRepository.findBySpaceId(spaceId).orElseThrow(
+                () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
         );
 
+        //verity if the spaceId is already in use
+        if(!spaceId.equals(spaceRecord.spaceName())){
+            if(spaceRepository.findBySpaceId(spaceRecord.spaceId()).isPresent()){
+                return new ApiResponse(400, Message.SPACE_ID_ALREADY_EXISTS, HttpStatus.BAD_REQUEST, LocalDateTime.now());
+            }
+        }
+        spaceEntity.setSpaceId(spaceRecord.spaceId());
         spaceEntity.setSpaceName(spaceRecord.spaceName());
         spaceEntity.setDescription(spaceRecord.description());
         spaceEntity.setCapacity(spaceRecord.capacity());
@@ -120,13 +129,13 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param spaceName
+     * @param spaceId
      * @return
      */
     @Override
-    public ApiResponse deleteBySpaceName(String spaceName) {
-        SpaceEntity space = spaceRepository.findBySpaceName(spaceName).orElseThrow(
-                () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceName)
+    public ApiResponse deleteBySpaceId(String spaceId) {
+        SpaceEntity space = spaceRepository.findBySpaceId(spaceId).orElseThrow(
+                () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
         );
         spaceRepository.delete(space);
 
@@ -134,13 +143,13 @@ public class SpaceServiceImpl implements SpaceService {
     }
 
     /**
-     * @param spaceName
+     * @param spaceId
      * @return
      */
     @Override
-    public SpaceRecord findBySpaceName(String spaceName) {
-        SpaceEntity spaceEntity = spaceRepository.findBySpaceName(spaceName).orElseThrow(
-                () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceName)
+    public SpaceRecord findBySpaceName(String spaceId) {
+        SpaceEntity spaceEntity = spaceRepository.findBySpaceId(spaceId).orElseThrow(
+                () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
         );
         return SpaceMapper.toDto(spaceEntity);
     }
@@ -189,10 +198,10 @@ public class SpaceServiceImpl implements SpaceService {
     @Override
     public List<String> getAllSpaceNames() {
         HashSet<SpaceEntity> spaces = new HashSet<>(spaceRepository.findAll());
-        HashSet<String> spaceNames =
+        HashSet<String> spacesId =
                 spaces.stream().
-                        map(SpaceEntity::getSpaceName).
+                        map(SpaceEntity::getSpaceId).
                         collect(HashSet::new, HashSet::add, HashSet::addAll);
-        return List.copyOf(spaceNames);
+        return List.copyOf(spacesId);
     }
 }

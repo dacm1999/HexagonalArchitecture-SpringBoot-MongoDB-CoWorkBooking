@@ -30,13 +30,13 @@ public class Message {
     public static final String USER_EMAIL_ALREADY_EXISTS= "user email already exists";
     public static final String USER_NAME_ALREADY_EXISTS= "user firstName already exists";
 
+    // Messages for space
     public static final String SPACE_SAVE_SUCCESSFULLY= "space saved successfully";
     public static final String SPACE_UPDATE_SUCCESSFULLY= "space updated successfully";
     public static final String SPACE_DELETE_SUCCESSFULLY= "space deleted successfully";
     public static final String SPACE_NOT_FOUND= "space not found";
-    public static final String SPACE_ALREADY_EXISTS= "space already exists";
-    public static final String SPACE_NAME_ALREADY_EXISTS= "space firstName already exists";
-    public static final String SPACE_DESCRIPTION_ALREADY_EXISTS= "space description already exists";
+    public static final String SPACE_ID_ALREADY_EXISTS = "space id already exists";
+
 
     public static final String BOOKING_SAVE_SUCCESSFULLY= "booking saved successfully";
     public static final String BOOKING_UPDATE_SUCCESSFULLY= "booking updated successfully";

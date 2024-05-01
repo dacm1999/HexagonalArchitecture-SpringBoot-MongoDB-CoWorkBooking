@@ -10,5 +10,6 @@ public interface SpaceRepository extends MongoRepository<SpaceEntity, String> {
     void deleteBySpaceName(String spaceName);
     boolean existsBySpaceName(String spaceName);
     Optional<SpaceEntity> findBySpaceName(String spaceName);
+    Optional<SpaceEntity> findBySpaceId(String spaceId);
 
 }

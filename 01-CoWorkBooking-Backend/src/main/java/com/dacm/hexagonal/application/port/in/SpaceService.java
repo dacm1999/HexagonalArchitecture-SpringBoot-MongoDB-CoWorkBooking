@@ -20,7 +20,7 @@ public interface SpaceService {
     ApiResponse save (SpaceRecord space);
     AddedResponse saveMultipleSpaces (SpaceEntity[] spaces);
     ApiResponse updateSpace(String spaceName, SpaceRecord spaceRecord);
-    ApiResponse deleteBySpaceName(String spaceName);
+    ApiResponse deleteBySpaceId(String spaceName);
     SpaceRecord findBySpaceName(String spaceName);
     Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity , Pageable pageable);
     List<String> getAllSpaceNames();

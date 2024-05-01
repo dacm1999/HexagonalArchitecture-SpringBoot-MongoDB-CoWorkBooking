@@ -7,7 +7,15 @@ public class SpaceMapper {
 
     private SpaceRecord spaceRecord;
 
-        public static SpaceRecord toDto(SpaceEntity space){
-            return new SpaceRecord(space.getSpaceName(), space.getDescription(), space.getCapacity(), space.getAmenities(), space.isAvailable(), space.getLocation());
-        }
+    public static SpaceRecord toDto(SpaceEntity space) {
+        return new SpaceRecord(
+                space.getSpaceId(),
+                space.getSpaceName(),
+                space.getDescription(),
+                space.getCapacity(),
+                space.getAmenities(),
+                space.isAvailable(),
+                space.getLocation()
+        );
+    }
 }

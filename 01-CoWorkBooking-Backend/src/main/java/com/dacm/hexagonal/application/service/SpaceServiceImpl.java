@@ -159,7 +159,6 @@ public class SpaceServiceImpl implements SpaceService {
      * @param description
      * @param location
      * @param capacity
-     * @param available
      * @param pageable
      * @return
      */
@@ -180,6 +179,7 @@ public class SpaceServiceImpl implements SpaceService {
             criteria = criteria.and("capacity").is(capacity);
         }
 
+
         Query query = Query.query(criteria).with(pageable);
         System.out.println(query.toString());
         List<SpaceEntity> spaces = mongoTemplate.find(query, SpaceEntity.class);
@@ -188,6 +188,66 @@ public class SpaceServiceImpl implements SpaceService {
         List<SpaceRecord> records = spaces.stream()
                 .map(SpaceMapper::toDto)
                 .collect(Collectors.toList());
+
+        return new PageImpl<>(records, pageable, total);
+    }
+
+    @Override
+    public Page<SpaceRecord> findAvailableSpaces(String spaceId,String spaceName, String description, boolean available, String location, String capacity, Pageable pageable) {
+        Criteria criteria = new Criteria("available").is(true);
+
+        if (spaceName != null && !spaceName.isEmpty()) {
+            criteria = Criteria.where("spaceName").is(spaceName);
+        }
+        if (description != null && !description.isEmpty()) {
+            criteria = criteria.and("description").is(description);
+        }
+        if (location != null && !location.isEmpty()) {
+            criteria = criteria.and("location").is(location);
+        }
+        if (capacity != null && !capacity.isEmpty()) {
+            criteria = criteria.and("capacity").is(capacity);
+        }
+
+//        criteria = criteria.and("available").is(available);
+
+        Query query = Query.query(criteria).with(pageable);
+        List<SpaceEntity> spaces = mongoTemplate.find(query, SpaceEntity.class);
+        long total = mongoTemplate.count(query.limit(-1).skip(-1), SpaceEntity.class);
+
+        List<SpaceRecord> records = spaces.stream().map(SpaceMapper::toDto).collect(Collectors.toList());
+
+        return new PageImpl<>(records, pageable, total);
+    }
+
+
+    @Override
+    public Page<SpaceRecord> getUnAvailableSpaces(String spaceId,String spaceName, String description,boolean available ,String location, String capacity, Pageable pageable) {
+        Criteria criteria = new Criteria();
+
+        if (spaceId != null && !spaceId.isEmpty()) {
+            criteria = Criteria.where("spaceId").is(spaceName);
+        }
+        if (spaceName != null && !spaceName.isEmpty()) {
+            criteria = Criteria.where("spaceName").is(spaceName);
+        }
+        if (description != null && !description.isEmpty()) {
+            criteria = criteria.and("description").is(description);
+        }
+        if (location != null && !location.isEmpty()) {
+            criteria = criteria.and("location").is(location);
+        }
+        if (capacity != null && !capacity.isEmpty()) {
+            criteria = criteria.and("capacity").is(capacity);
+        }
+
+        criteria = criteria.and("available").is(false);
+
+        Query query = Query.query(criteria).with(pageable);
+        List<SpaceEntity> spaces = mongoTemplate.find(query, SpaceEntity.class);
+        long total = mongoTemplate.count(query.limit(-1).skip(-1), SpaceEntity.class);
+
+        List<SpaceRecord> records = spaces.stream().map(SpaceMapper::toDto).collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
     }

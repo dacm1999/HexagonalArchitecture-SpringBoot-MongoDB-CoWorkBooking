@@ -23,6 +23,8 @@ public interface SpaceService {
     ApiResponse deleteBySpaceId(String spaceName);
     SpaceRecord findBySpaceName(String spaceName);
     Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity , Pageable pageable);
+    Page<SpaceRecord> findAvailableSpaces(String spaceId,String spaceName, String description, boolean available, String location, String capacity, Pageable pageable);
+    Page<SpaceRecord> getUnAvailableSpaces(String spaceId,String spaceName, String description,boolean available, String location, String capacity , Pageable pageable);
     List<String> getAllSpaceNames();
     void changeSpaceAvailability(SpaceEntity space, boolean b);
 }

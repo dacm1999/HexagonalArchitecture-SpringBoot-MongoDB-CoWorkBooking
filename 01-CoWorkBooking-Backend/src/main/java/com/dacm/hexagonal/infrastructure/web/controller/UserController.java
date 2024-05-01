@@ -2,6 +2,7 @@ package com.dacm.hexagonal.infrastructure.web.controller;
 
 import com.dacm.hexagonal.application.port.in.UserService;
 import com.dacm.hexagonal.application.port.out2.UserRepository;
+import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.web.dto.UserRecord;
@@ -11,8 +12,11 @@ import com.dacm.hexagonal.infrastructure.web.response.UserPaginationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 /**
  * User Controller
@@ -41,7 +45,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createProduct(@RequestBody UserRecord userDto) {
+    public ResponseEntity<ApiResponse> createUser(@RequestBody UserRecord userDto) {
         return ResponseEntity.ok(userService.save(userDto));
     }
 
@@ -61,8 +65,17 @@ public class UserController {
      * @return
      */
     @GetMapping("/find/{username}")
-    public ResponseEntity<UserDto> findByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(userService.findByUsername(username));
+    public ResponseEntity<?> findByUsername(@PathVariable String username) {
+        UserDto userDto = userService.findByUsername(username);
+
+        if(userDto == null) {
+            return ResponseEntity.badRequest().body(new ApiResponse(
+                    HttpStatus.NOT_FOUND.value(),
+                    Message.USER_NOT_FOUND,
+                    HttpStatus.NOT_FOUND,
+                    LocalDateTime.now()));
+        }
+        return ResponseEntity.ok(userDto);
     }
 
     /**

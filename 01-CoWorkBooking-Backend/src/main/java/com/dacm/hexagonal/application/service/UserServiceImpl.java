@@ -163,8 +163,12 @@ public class UserServiceImpl implements UserService {
     public ApiResponse updateUser(String username, UserDto userDto) {
 
         // Verify if the user exists
-        UserEntity user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + username));
+
+        UserEntity user = userRepository.findByUsername(username);
+        if(userRepository.existsByUsername(username)) {
+            throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + username);
+        }
+//                .orElseThrow(() -> new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + username));
 
         // Verify if the username or email already exists
         if (userRepository.existsByUsername(userDto.getUsername())) {
@@ -194,8 +198,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public UserDto findByUsername(String username) {
-        UserEntity userEntity = userRepository.findByUsername(username)
-                .orElseThrow(() -> new IllegalStateException(Message.USER_NOT_FOUND + " " + username));
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
+            return null;
+        }
         return UserMapper.toDto(userEntity);
     }
 

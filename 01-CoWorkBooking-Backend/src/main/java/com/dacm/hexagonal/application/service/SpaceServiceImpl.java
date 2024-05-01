@@ -204,4 +204,10 @@ public class SpaceServiceImpl implements SpaceService {
                         collect(HashSet::new, HashSet::add, HashSet::addAll);
         return List.copyOf(spacesId);
     }
+
+    @Override
+    public void changeSpaceAvailability(SpaceEntity space, boolean available) {
+        space.setAvailable(available);
+        spaceRepository.save(space);
+    }
 }

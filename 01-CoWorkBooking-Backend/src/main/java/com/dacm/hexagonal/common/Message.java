@@ -11,8 +11,6 @@ public class Message {
     public static final String USERNAME_MANDATORY= "Username must be mandatory";
 
     // Messages for user login
-    public static final String LOGIN_SUCCESSFULLY= "login successfully";
-    public static final String LOGIN_FAILED= "login failed";
     public static final String LOGIN_INVALID_USERNAME= "Invalid username";
     public static final String LOGIN_INVALID_PASSWORD= "Invalid password";
 
@@ -26,7 +24,6 @@ public class Message {
     public static final String USER_UPDATE_SUCCESSFULLY= "user updated successfully";
     public static final String USER_DELETE_SUCCESSFULLY= "user deleted successfully";
     public static final String USER_NOT_FOUND= "user not found";
-    public static final String USER_ALREADY_EXISTS= "user already exists";
     public static final String USER_EMAIL_ALREADY_EXISTS= "user email already exists";
     public static final String USER_NAME_ALREADY_EXISTS= "user firstName already exists";
 
@@ -35,11 +32,13 @@ public class Message {
     public static final String SPACE_UPDATE_SUCCESSFULLY= "space updated successfully";
     public static final String SPACE_DELETE_SUCCESSFULLY= "space deleted successfully";
     public static final String SPACE_NOT_FOUND= "space not found";
+    public static final String SPACE_NOT_AVAILABLE = "space not available";
     public static final String SPACE_ID_ALREADY_EXISTS = "space id already exists";
 
 
-    public static final String BOOKING_SAVE_SUCCESSFULLY= "booking saved successfully";
+    public static final String BOOKING_CREATED_SUCCESSFULLY= "booking saved successfully";
     public static final String BOOKING_UPDATE_SUCCESSFULLY= "booking updated successfully";
+    public static final String BOOKING_ERROR = "Could not book";
     public static final String BOOKING_DELETE_SUCCESSFULLY= "booking deleted successfully";
     public static final String BOOKING_NOT_FOUND= "booking not found";
     public static final String BOOKING_ALREADY_EXISTS= "booking already exists";

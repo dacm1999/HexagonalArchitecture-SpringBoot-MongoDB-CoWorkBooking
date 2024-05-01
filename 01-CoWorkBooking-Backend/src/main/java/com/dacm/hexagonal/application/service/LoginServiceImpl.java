@@ -32,8 +32,10 @@ public class LoginServiceImpl implements LoginService {
 
         }
 
-        UserEntity user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new IllegalStateException(Message.LOGIN_INVALID_USERNAME));
+        UserEntity user = userRepository.findByUsername(request.getUsername());
+        if (user == null) {
+            throw new IllegalStateException(Message.LOGIN_INVALID_USERNAME);
+        }
 
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));

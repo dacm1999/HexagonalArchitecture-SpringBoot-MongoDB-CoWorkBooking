@@ -24,4 +24,5 @@ public interface SpaceService {
     SpaceRecord findBySpaceName(String spaceName);
     Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity , Pageable pageable);
     List<String> getAllSpaceNames();
+    void changeSpaceAvailability(SpaceEntity space, boolean b);
 }

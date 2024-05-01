@@ -10,7 +10,7 @@ public interface UserRepository extends MongoRepository<UserEntity, String> {
 
     void deleteByUsername(String username);
     boolean existsByEmail(String email);
-    Optional<UserEntity> findByUsername(String username);
+    UserEntity findByUsername(String username);
     boolean existsByUsername(String username);
 
 }

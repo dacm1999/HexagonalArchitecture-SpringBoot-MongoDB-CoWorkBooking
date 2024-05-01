@@ -56,6 +56,7 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/spaces/allSpaceNames").hasAnyRole("ADMIN", "USER")
 
                                 //Booking endpoint
+                                .requestMatchers("api/v1/bookings/create").permitAll()
 
                                 .anyRequest().authenticated()
                 )

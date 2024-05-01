@@ -1,14 +1,11 @@
 package com.dacm.hexagonal.application.service;
 
-import com.dacm.hexagonal.application.mapper.SpaceMapper;
 import com.dacm.hexagonal.application.mapper.UserMapper;
 import com.dacm.hexagonal.application.port.in.UserService;
-import com.dacm.hexagonal.application.port.out2.UserRepository;
+import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.enums.Role;
-import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.web.dto.SpaceRecord;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.web.dto.UserRecord;
 import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;

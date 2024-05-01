@@ -2,9 +2,9 @@ package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
 import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.application.port.out2.BookingRepository;
-import com.dacm.hexagonal.application.port.out2.SpaceRepository;
-import com.dacm.hexagonal.application.port.out2.UserRepository;
+import com.dacm.hexagonal.application.port.out.BookingRepository;
+import com.dacm.hexagonal.application.port.out.SpaceRepository;
+import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.persistence.entity.BookingEntity;
 import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
@@ -13,12 +13,10 @@ import com.dacm.hexagonal.infrastructure.web.dto.BookingRecord;
 import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Service
 public class BookingServiceImpl implements BookingService {

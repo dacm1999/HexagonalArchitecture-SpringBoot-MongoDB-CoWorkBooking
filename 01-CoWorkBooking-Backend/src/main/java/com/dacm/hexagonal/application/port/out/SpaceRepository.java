@@ -1,4 +1,4 @@
-package com.dacm.hexagonal.application.port.out2;
+package com.dacm.hexagonal.application.port.out;
 
 import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;

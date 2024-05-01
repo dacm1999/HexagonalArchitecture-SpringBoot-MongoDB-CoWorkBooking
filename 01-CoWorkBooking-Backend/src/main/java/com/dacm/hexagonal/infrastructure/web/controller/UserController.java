@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.infrastructure.web.controller;
 
 import com.dacm.hexagonal.application.port.in.UserService;
-import com.dacm.hexagonal.application.port.out2.UserRepository;
+import com.dacm.hexagonal.application.port.out.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.web.dto.UserDto;

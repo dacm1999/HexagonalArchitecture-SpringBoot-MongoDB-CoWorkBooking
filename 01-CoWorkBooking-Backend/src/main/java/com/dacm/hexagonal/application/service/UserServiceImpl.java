@@ -1,16 +1,16 @@
 package com.dacm.hexagonal.application.service;
 
-import com.dacm.hexagonal.application.mapper.UserMapper;
+import com.dacm.hexagonal.infrastructure.adapters.input.mapper.UserMapper;
 import com.dacm.hexagonal.application.port.in.UserService;
-import com.dacm.hexagonal.application.port.out.UserRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.enums.Role;
-import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.web.dto.UserRecord;
-import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
-import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
-import com.dacm.hexagonal.infrastructure.web.response.UserErrorResponse;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
+import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserDto;
+import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserRecord;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.UserErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

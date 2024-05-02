@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.application.port.in;
 
 import com.dacm.hexagonal.domain.model.Login;
-import com.dacm.hexagonal.infrastructure.web.response.JwtLoginResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
 
 public interface LoginService {
 

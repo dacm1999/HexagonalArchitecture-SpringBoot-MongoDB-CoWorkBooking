@@ -2,15 +2,15 @@ package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
 import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.application.port.out.BookingRepository;
-import com.dacm.hexagonal.application.port.out.SpaceRepository;
-import com.dacm.hexagonal.application.port.out.UserRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.BookingRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
-import com.dacm.hexagonal.infrastructure.persistence.entity.BookingEntity;
-import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
-import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.web.dto.BookingRecord;
-import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.BookingEntity;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
+import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserBookingRecord;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,7 +35,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public ApiResponse saveBooking(BookingRecord bookingRecord) {
+    public ApiResponse saveBooking(UserBookingRecord bookingRecord) {
         // Check if user exists
         UserEntity user = userRepository.findByUsername(bookingRecord.username());
         if (user == null) {

@@ -1,10 +1,10 @@
 package com.dacm.hexagonal.application.port.in;
 
-import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.web.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.web.dto.UserRecord;
-import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
-import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
+import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserDto;
+import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserRecord;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

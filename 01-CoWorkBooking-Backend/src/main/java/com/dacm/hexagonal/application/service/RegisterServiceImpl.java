@@ -1,14 +1,14 @@
 package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.RegisterService;
-import com.dacm.hexagonal.application.port.out.UserRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.common.CommonMethods;
 import com.dacm.hexagonal.domain.enums.Role;
-import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.web.dto.RegisterDto;
-import com.dacm.hexagonal.infrastructure.web.response.JwtLoginResponse;
-import com.dacm.hexagonal.infrastructure.web.security.jwt.JwtTokenProvider;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
+import com.dacm.hexagonal.infrastructure.adapters.input.dto.RegisterDto;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
+import com.dacm.hexagonal.infrastructure.config.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

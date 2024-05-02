@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.domain.model;
 
-import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
-import com.dacm.hexagonal.infrastructure.persistence.entity.UserEntity;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import lombok.Builder;
 import lombok.Data;
 

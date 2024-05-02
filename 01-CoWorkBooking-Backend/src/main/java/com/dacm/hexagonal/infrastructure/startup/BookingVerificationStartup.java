@@ -1,9 +1,9 @@
 package com.dacm.hexagonal.infrastructure.startup;
 
-import com.dacm.hexagonal.application.port.out.BookingRepository;
-import com.dacm.hexagonal.application.port.out.SpaceRepository;
-import com.dacm.hexagonal.infrastructure.persistence.entity.BookingEntity;
-import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.BookingRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.BookingEntity;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;

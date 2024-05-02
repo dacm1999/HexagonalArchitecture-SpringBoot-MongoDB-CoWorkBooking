@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.config;
 
-import com.dacm.hexagonal.application.port.out.UserRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

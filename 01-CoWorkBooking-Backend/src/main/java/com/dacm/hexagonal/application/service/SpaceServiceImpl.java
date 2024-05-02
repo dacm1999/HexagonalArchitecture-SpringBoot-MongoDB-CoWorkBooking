@@ -1,14 +1,14 @@
 package com.dacm.hexagonal.application.service;
 
-import com.dacm.hexagonal.application.mapper.SpaceMapper;
+import com.dacm.hexagonal.infrastructure.adapters.input.mapper.SpaceMapper;
 import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.application.port.out.SpaceRepository;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
 import com.dacm.hexagonal.common.Message;
-import com.dacm.hexagonal.infrastructure.persistence.entity.SpaceEntity;
-import com.dacm.hexagonal.infrastructure.web.dto.SpaceRecord;
-import com.dacm.hexagonal.infrastructure.web.response.AddedResponse;
-import com.dacm.hexagonal.infrastructure.web.response.ApiResponse;
-import com.dacm.hexagonal.infrastructure.web.response.SpaceErrorResponse;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
+import com.dacm.hexagonal.infrastructure.adapters.input.dto.SpaceRecord;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.SpaceErrorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

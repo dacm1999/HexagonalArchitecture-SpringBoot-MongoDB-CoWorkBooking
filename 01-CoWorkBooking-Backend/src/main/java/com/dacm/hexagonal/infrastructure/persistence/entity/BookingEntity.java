@@ -1,5 +1,6 @@
 package com.dacm.hexagonal.infrastructure.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,11 @@ public class BookingEntity {
     private UserEntity user;
     @DBRef
     private SpaceEntity space;
+    private String spaceId;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime startTime;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime endTime;
+    private boolean active;
 
 }

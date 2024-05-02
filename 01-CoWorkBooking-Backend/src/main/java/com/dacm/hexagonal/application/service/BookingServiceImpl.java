@@ -36,33 +36,42 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public ApiResponse saveBooking(BookingRecord bookingRecord) {
-        // Verify if the user exists
+        // Check if user exists
         UserEntity user = userRepository.findByUsername(bookingRecord.username());
         if (user == null) {
-            throw new UsernameNotFoundException(Message.USER_NOT_FOUND);
+            throw new UsernameNotFoundException("User not found");
         }
 
-        // Verify if the space exists
-        SpaceEntity space = spaceRepository.findBySpaceId(bookingRecord.spaceId()).
-                orElseThrow(() -> new RuntimeException(Message.SPACE_NOT_FOUND));
+        // Check if space exists
+        SpaceEntity space = spaceRepository.findBySpaceId(bookingRecord.spaceId())
+                .orElseThrow(() -> new RuntimeException("Space not found"));
 
-        // Verify if the space is avaliable
+        // Check if space is available
         if (!space.isAvailable()) {
             return new ApiResponse(400, Message.SPACE_NOT_AVAILABLE, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
 
-        // change availability of the space
+        // Check if booking start time is after end time
+        if (bookingRecord.startTime().isAfter(bookingRecord.endTime())) {
+            return new ApiResponse(400, Message.BOOKING_INVALID_START_TIME, HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        }
+
+        // Check if booking start time is before current time
+        if (bookingRecord.startTime().isBefore(LocalDateTime.now())) {
+            return new ApiResponse(400, Message.BOOKING_INVALID_TIME, HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        }
+
+        // Set space as unavailable
         spaceService.changeSpaceAvailability(space, false);
 
-        // Create the booking
-        BookingEntity booking = BookingEntity.builder()
-                .user(user)
-                .space(space)
-                .startTime(LocalDateTime.parse(bookingRecord.startTime()))
-                .endTime(LocalDateTime.parse(bookingRecord.endTime()))
-                .build();
-
-        // Save the booking
+        BookingEntity booking = BookingEntity.builder().
+                user(user).
+                space(space).
+                spaceId(bookingRecord.spaceId()).
+                startTime(bookingRecord.startTime()).
+                endTime(bookingRecord.endTime()).
+                active(true).
+                build();
         bookingRepository.save(booking);
 
         return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now());

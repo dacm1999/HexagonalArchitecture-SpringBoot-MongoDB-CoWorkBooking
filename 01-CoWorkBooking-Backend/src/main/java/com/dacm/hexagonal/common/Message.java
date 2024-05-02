@@ -1,5 +1,7 @@
 package com.dacm.hexagonal.common;
 
+import javax.swing.plaf.PanelUI;
+
 public class Message {
 
     // Messages for user registration
@@ -42,8 +44,9 @@ public class Message {
     public static final String BOOKING_DELETE_SUCCESSFULLY= "booking deleted successfully";
     public static final String BOOKING_NOT_FOUND= "booking not found";
     public static final String BOOKING_ALREADY_EXISTS= "booking already exists";
-    public static final String BOOKING_NAME_ALREADY_EXISTS= "booking firstName already exists";
-    public static final String BOOKING_EMAIL_ALREADY_EXISTS= "booking email already exists";
+    public static final String BOOKING_INVALID_END_TIME= "Booking end time is before start time";
+    public static final String BOOKING_INVALID_START_TIME= "Booking start time is after end time";
+    public static final String BOOKING_INVALID_TIME= "Booking time is before current time";
 
     public static final String AuthErrorResponse= "An error occurred while processing your request";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";

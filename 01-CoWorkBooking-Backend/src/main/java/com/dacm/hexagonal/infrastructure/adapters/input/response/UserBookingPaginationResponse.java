@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.response;
 
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.BookingDto;
+import com.dacm.hexagonal.domain.model.dto.BookingDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

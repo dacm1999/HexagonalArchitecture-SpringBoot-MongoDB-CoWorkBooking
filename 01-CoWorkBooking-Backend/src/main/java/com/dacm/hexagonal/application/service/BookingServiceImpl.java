@@ -2,6 +2,8 @@ package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
 import com.dacm.hexagonal.application.port.in.SpaceService;
+import com.dacm.hexagonal.domain.model.dto.BookingDto;
+import com.dacm.hexagonal.infrastructure.adapters.input.mapper.BookingMapper;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.BookingRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
@@ -9,9 +11,12 @@ import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.BookingEntity;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserBookingRecord;
+import com.dacm.hexagonal.domain.model.dto.UserBookingRecord;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -25,13 +30,18 @@ public class BookingServiceImpl implements BookingService {
     private final SpaceRepository spaceRepository;
     private final BookingRepository bookingRepository;
     private final SpaceService spaceService;
+    private final BookingMapper bookingMapper;
+    private final MongoTemplate mongoTemplate;
+
 
     @Autowired
-    public BookingServiceImpl(UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, SpaceService spaceService) {
+    public BookingServiceImpl(UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, SpaceService spaceService, BookingMapper bookingMapper, MongoTemplate mongoTemplate) {
         this.userRepository = userRepository;
         this.spaceRepository = spaceRepository;
         this.bookingRepository = bookingRepository;
         this.spaceService = spaceService;
+        this.bookingMapper = bookingMapper;
+        this.mongoTemplate = mongoTemplate;
     }
 
     @Override
@@ -76,5 +86,26 @@ public class BookingServiceImpl implements BookingService {
 
         return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now());
     }
+
+    @Override
+    public Page<BookingDto> getBookingsByUser(String username, Pageable pageable) {
+        UserEntity user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(Message.USER_NOT_FOUND);
+        }
+
+        return bookingRepository.findByUserId(user.getId(), pageable);
+    }
+
+    @Override
+    public Page<BookingEntity> getSpacesBySpaceId(String spaceId, Pageable pageable) {
+        // Asegurarse de que el espacio existe
+        SpaceEntity space = spaceRepository.findBySpaceId(spaceId)
+                .orElseThrow(() -> new RuntimeException(Message.SPACE_WITHOUT_BOOKING));
+
+        // Devolver las reservas asociadas a este espacio
+        return bookingRepository.findBySpaceId(space.getId(), pageable);
+    }
+
 
 }

@@ -1,13 +1,13 @@
 package com.dacm.hexagonal.application.service;
 
+import com.dacm.hexagonal.domain.model.User;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.UserMapper;
 import com.dacm.hexagonal.application.port.in.UserService;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.enums.Role;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserRecord;
+import com.dacm.hexagonal.domain.model.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.UserErrorResponse;
@@ -70,13 +70,15 @@ public class UserServiceImpl implements UserService {
      * @return ApiResponse object encapsulating the status and message of the operation.
      */
     @Override
-    public ApiResponse save(UserRecord user) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setFirstName(user.firstName());
-        userEntity.setLastName(user.lastName());
-        userEntity.setEmail(user.email());
-        userEntity.setUsername(user.username());
-        userEntity.setPassword(user.password());
+    public ApiResponse save(User user) {
+        UserEntity userEntity = UserEntity.builder()
+                .username(user.getUsername())
+                .password(passwordEncoder.encode(user.getPassword()))
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .role(Role.ROLE_USER)
+                .email(user.getEmail())
+                .build();
         userRepository.save(userEntity);
         return new ApiResponse(201, Message.USER_SAVE_SUCCESSFULLY, HttpStatus.CREATED, LocalDateTime.now());
     }
@@ -93,7 +95,7 @@ public class UserServiceImpl implements UserService {
      * the number of failures, lists of successfully added users and failed users, and a reason for any failures.
      */
     @Override
-    public AddedResponse saveMultipleUsers(UserEntity[] users) {
+    public AddedResponse saveMultipleUsers(User[] users) {
         List<UserDto> addedUsers = new ArrayList<>();
         List<UserErrorResponse> usersFailed = new ArrayList<>();
         String errorDescription = "";
@@ -104,7 +106,7 @@ public class UserServiceImpl implements UserService {
         Set<String> existingUsernames = new HashSet<>(usernames);
         Set<String> existingEmails = new HashSet<>(emails);
 
-        for (UserEntity user : users) {
+        for (User user : users) {
             String username = user.getUsername();
             String email = user.getEmail();
 
@@ -135,7 +137,7 @@ public class UserServiceImpl implements UserService {
             existingUsernames.add(username);
             existingEmails.add(email);
 
-            addedUsers.add(UserMapper.toDto(userEntity));
+            addedUsers.add(UserMapper.domainToDto(user));
         }
 
         int total = users.length;
@@ -153,36 +155,34 @@ public class UserServiceImpl implements UserService {
      * Updates a user by username and returns the result as an API response.
      *
      * @param username The username of the user to update.
-     * @param userDto  New user data for the update.
+     * @param user  New user data for the update.
      * @return ApiResponse indicating success or failure of the update.
      */
     @Override
-    public ApiResponse updateUser(String username, UserDto userDto) {
+    public ApiResponse updateUser(String username, User user) {
 
         // Verify if the user exists
-
-        UserEntity user = userRepository.findByUsername(username);
-        if(userRepository.existsByUsername(username)) {
+        UserEntity userEntity = userRepository.findByUsername(username);
+        if (userEntity == null) {
             throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + username);
         }
-//                .orElseThrow(() -> new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + username));
 
         // Verify if the username or email already exists
-        if (userRepository.existsByUsername(userDto.getUsername())) {
+        if (userRepository.existsByUsername(user.getUsername())) {
             throw new IllegalArgumentException(Message.USERNAME_TAKEN);
         }
-        if (userRepository.existsByEmail(userDto.getEmail())) {
+        if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalArgumentException(Message.EMAIL_TAKEN);
         }
 
-        // Update user
-        user.setUsername(userDto.getUsername());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
+        // Update user data
+        userEntity.setUsername(user.getUsername());
+        userEntity.setFirstName(user.getFirstName());
+        userEntity.setLastName(user.getLastName());
+        userEntity.setEmail(user.getEmail());
 
         // Save user
-        UserEntity updateUser = userRepository.save(user);
+        UserEntity updateUser = userRepository.save(userEntity);
 
         return new ApiResponse(200, Message.USER_UPDATE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now());
     }
@@ -199,7 +199,7 @@ public class UserServiceImpl implements UserService {
         if (userEntity == null) {
             return null;
         }
-        return UserMapper.toDto(userEntity);
+        return UserMapper.entityToDto(userEntity);
     }
 
     /**
@@ -210,17 +210,13 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ApiResponse deleteByUsername(String username) {
-        UserDto userDto = findByUsername(username);
-        if (userDto == null) {
+        UserEntity user = userRepository.findByUsername(username);
+        if (user == null) {
             throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + username);
         }
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(username);
-        userEntity.setFirstName(userDto.getFirstName());
-        userEntity.setLastName(userDto.getLastName());
-        userEntity.setEmail(userDto.getEmail());
-        userRepository.deleteByUsername(username);
-        return new ApiResponse(204, Message.USER_DELETE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now());
+        UserDto userDto = UserMapper.entityToDto(user);
+        userRepository.delete(user);
+        return new ApiResponse(204, Message.USER_DELETE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), userDto);
     }
 
     /**
@@ -256,7 +252,7 @@ public class UserServiceImpl implements UserService {
         long total = mongoTemplate.count(Query.query(criteria), UserEntity.class);
 
         List<UserDto> records = spaces.stream()
-                .map(UserMapper::toDto)
+                .map(UserMapper::entityToDto)
                 .collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);

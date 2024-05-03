@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.controller;
 
 import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.SpaceRecord;
+import com.dacm.hexagonal.domain.model.dto.SpaceRecord;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;

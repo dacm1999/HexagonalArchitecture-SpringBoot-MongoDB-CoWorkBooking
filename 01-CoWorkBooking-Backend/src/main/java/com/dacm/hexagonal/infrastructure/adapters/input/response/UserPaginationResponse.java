@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.response;
 
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserDto;
+import com.dacm.hexagonal.domain.model.dto.UserDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

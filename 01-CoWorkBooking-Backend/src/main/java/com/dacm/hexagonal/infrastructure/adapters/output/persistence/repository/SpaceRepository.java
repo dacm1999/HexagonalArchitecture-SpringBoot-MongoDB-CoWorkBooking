@@ -14,4 +14,5 @@ public interface SpaceRepository extends MongoRepository<SpaceEntity, String> {
 
     Optional<SpaceEntity> findBySpaceId(String spaceId);
 
+
 }

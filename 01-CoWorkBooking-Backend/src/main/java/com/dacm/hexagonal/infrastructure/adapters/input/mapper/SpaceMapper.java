@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.mapper;
 
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.SpaceRecord;
+import com.dacm.hexagonal.domain.model.dto.SpaceRecord;
 
 public class SpaceMapper {
 

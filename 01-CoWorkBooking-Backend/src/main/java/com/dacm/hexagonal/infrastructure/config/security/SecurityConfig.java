@@ -57,7 +57,7 @@ public class SecurityConfig {
 
                                 //Booking endpoint
                                 .requestMatchers("api/v1/bookings/create").permitAll()
-
+                                .requestMatchers("api/v1/bookings/user/{username}").hasAnyRole("ADMIN", "USER")
 
                                 .anyRequest().authenticated()
                 )

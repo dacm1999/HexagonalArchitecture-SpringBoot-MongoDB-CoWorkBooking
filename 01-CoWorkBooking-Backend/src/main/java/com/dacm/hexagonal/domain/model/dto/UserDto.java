@@ -1,4 +1,4 @@
-package com.dacm.hexagonal.infrastructure.adapters.input.dto;
+package com.dacm.hexagonal.domain.model.dto;
 
 import lombok.*;
 

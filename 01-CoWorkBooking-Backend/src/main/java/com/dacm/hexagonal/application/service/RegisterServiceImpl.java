@@ -6,7 +6,7 @@ import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.common.CommonMethods;
 import com.dacm.hexagonal.domain.enums.Role;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.RegisterDto;
+import com.dacm.hexagonal.domain.model.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
 import com.dacm.hexagonal.infrastructure.config.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;

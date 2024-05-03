@@ -47,6 +47,7 @@ public class Message {
     public static final String BOOKING_INVALID_END_TIME= "Booking end time is before start time";
     public static final String BOOKING_INVALID_START_TIME= "Booking start time is after end time";
     public static final String BOOKING_INVALID_TIME= "Booking time is before current time";
+    public static final String SPACE_WITHOUT_BOOKING= "Space without booking";
 
     public static final String AuthErrorResponse= "An error occurred while processing your request";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";

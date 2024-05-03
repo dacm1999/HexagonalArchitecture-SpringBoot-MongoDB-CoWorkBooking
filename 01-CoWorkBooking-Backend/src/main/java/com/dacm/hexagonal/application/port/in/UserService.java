@@ -1,8 +1,7 @@
 package com.dacm.hexagonal.application.port.in;
 
-import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserRecord;
+import com.dacm.hexagonal.domain.model.User;
+import com.dacm.hexagonal.domain.model.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import org.springframework.data.domain.Page;
@@ -18,17 +17,18 @@ import java.util.List;
 @Service
 public interface UserService {
 
-    ApiResponse save (UserRecord user);
+    ApiResponse save(User user);
 
-    AddedResponse saveMultipleUsers (UserEntity[] users);
+    AddedResponse saveMultipleUsers(User[] users);
 
-    ApiResponse updateUser(String username, UserDto userDto);
+    ApiResponse updateUser(String username, User user);
 
     ApiResponse deleteByUsername(String username);
 
     UserDto findByUsername(String username);
 
     Page<UserDto> findAllUsers(String username, String lastname, String firstname, String email, Pageable pageable);
+
     List<String> getAllUsernames();
 
     List<String> getAllEmails();

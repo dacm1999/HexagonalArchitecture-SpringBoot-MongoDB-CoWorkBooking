@@ -1,7 +1,7 @@
 package com.dacm.hexagonal.application.port.in;
 
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.SpaceRecord;
+import com.dacm.hexagonal.domain.model.dto.SpaceRecord;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import org.springframework.data.domain.Page;

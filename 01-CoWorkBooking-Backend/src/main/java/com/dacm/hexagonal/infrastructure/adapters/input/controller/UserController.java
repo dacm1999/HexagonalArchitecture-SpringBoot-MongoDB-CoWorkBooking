@@ -1,11 +1,11 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.controller;
 
 import com.dacm.hexagonal.application.port.in.UserService;
+import com.dacm.hexagonal.domain.model.User;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.adapters.input.dto.UserRecord;
+import com.dacm.hexagonal.domain.model.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.UserPaginationResponse;
@@ -41,12 +41,12 @@ public class UserController {
 
     /**
      * Create a new user
-     * @param userDto
+     * @param user
      * @return
      */
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createUser(@RequestBody UserRecord userDto) {
-        return ResponseEntity.ok(userService.save(userDto));
+    public ResponseEntity<ApiResponse> createUser(@RequestBody User user) {
+        return ResponseEntity.ok(userService.save(user));
     }
 
     /**
@@ -55,7 +55,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/createMultiple")
-    public ResponseEntity<AddedResponse> createMultipleUsers(@RequestBody UserEntity[] users) {
+    public ResponseEntity<AddedResponse> createMultipleUsers(@RequestBody User[] users) {
         return ResponseEntity.ok(userService.saveMultipleUsers(users));
     }
 
@@ -125,12 +125,12 @@ public class UserController {
     /**
      * Update user by username
      * @param username
-     * @param userDto
+     * @param user
      * @return
      */
     @PutMapping("/update/{username}")
-    public ResponseEntity<ApiResponse> updateByUsername(@PathVariable String username, @RequestBody UserDto userDto) {
-        return ResponseEntity.ok(userService.updateUser(username, userDto));
+    public ResponseEntity<ApiResponse> updateByUsername(@PathVariable String username, @RequestBody User user) {
+        return ResponseEntity.ok(userService.updateUser(username, user));
     }
 
 }

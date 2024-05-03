@@ -1,7 +1,8 @@
 package com.dacm.hexagonal.application.port.in;
 
+import com.dacm.hexagonal.domain.model.Space;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
-import com.dacm.hexagonal.domain.model.dto.SpaceRecord;
+import com.dacm.hexagonal.domain.model.dto.SpaceDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import org.springframework.data.domain.Page;
@@ -20,21 +21,21 @@ import java.util.List;
 @Service
 public interface SpaceService {
 
-    ApiResponse save(SpaceRecord space);
+    ApiResponse save(Space space);
 
-    AddedResponse saveMultipleSpaces(SpaceEntity[] spaces);
+    AddedResponse saveMultipleSpaces(Space[] spaces);
 
-    ApiResponse updateSpace(String spaceName, SpaceRecord spaceRecord);
+    ApiResponse updateSpace(String spaceName, SpaceDto spaceRecord);
 
     ApiResponse deleteBySpaceId(String spaceName);
 
-    SpaceRecord findBySpaceId(String spaceName);
+    SpaceDto findBySpaceId(String spaceName);
 
-    Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity, Pageable pageable);
+    Page<SpaceDto> findAllSpaces(String spaceName, String description, String location, String capacity, Pageable pageable);
 
-    Page<SpaceRecord> findAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable);
+    Page<SpaceDto> findAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable);
 
-    Page<SpaceRecord> getUnAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable);
+    Page<SpaceDto> getUnAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable);
 
     List<String> getAllSpaceNames();
 

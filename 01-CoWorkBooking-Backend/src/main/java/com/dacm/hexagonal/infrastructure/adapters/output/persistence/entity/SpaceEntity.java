@@ -1,5 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity;
 
+import com.dacm.hexagonal.domain.model.Space;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

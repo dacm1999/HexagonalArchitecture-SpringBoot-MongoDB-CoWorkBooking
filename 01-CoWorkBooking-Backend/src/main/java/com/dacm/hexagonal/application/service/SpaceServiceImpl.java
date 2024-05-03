@@ -1,11 +1,12 @@
 package com.dacm.hexagonal.application.service;
 
+import com.dacm.hexagonal.domain.model.Space;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.SpaceMapper;
 import com.dacm.hexagonal.application.port.in.SpaceService;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
-import com.dacm.hexagonal.domain.model.dto.SpaceRecord;
+import com.dacm.hexagonal.domain.model.dto.SpaceDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.SpaceErrorResponse;
@@ -53,28 +54,24 @@ public class SpaceServiceImpl implements SpaceService {
     /**
      * Saves a new space record to the database.
      * <p>
-     * This method converts a {@link SpaceRecord} DTO to a {@link SpaceEntity} which is then saved
+     * This method converts a {@link SpaceDto} DTO to a {@link SpaceEntity} which is then saved
      * into the database using the {@link SpaceRepository}. After the save operation, it returns
      * an {@ApiResponse} indicating the success of the operation.
      *
-     * @param space the {@link SpaceRecord} DTO containing the data to be saved. This data includes
+     * @param space the {@link SpaceDto} DTO containing the data to be saved. This data includes
      *              identifiers, names, descriptions, capacity, amenities, availability status, and location.
      * @return an {@ApiResponse} containing the status code, message, HTTP status, and the timestamp
      * of the operation. It returns HTTP status 200 and a success message if the operation is successful.
      */
     @Override
-    public ApiResponse save(SpaceRecord space) {
-        SpaceEntity spaceEntity = SpaceEntity.builder()
-                .spaceId(space.spaceId())
-                .spaceName(space.spaceName())
-                .description(space.description())
-                .capacity(space.capacity())
-                .amenities(space.amenities())
-                .available(space.available())
-                .location(space.location())
-                .build();
+    public ApiResponse save(Space space) {
+        if (spaceRepository.findBySpaceId(space.getSpaceId()).isPresent()) {
+            return new ApiResponse(400, Message.SPACE_ID_ALREADY_EXISTS, HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        }
+        SpaceEntity spaceEntity = SpaceMapper.modelToEntity(space);
+        SpaceDto spaceDto = SpaceMapper.entityDto(spaceEntity);
         spaceRepository.save(spaceEntity);
-        return new ApiResponse(200, Message.SPACE_SAVE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now());
+        return new ApiResponse(204, Message.SPACE_SAVE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), spaceDto);
     }
 
     /**
@@ -89,38 +86,27 @@ public class SpaceServiceImpl implements SpaceService {
      * total number of attempts, count of successes, failures, and lists of added spaces and failed attempts.
      */
     @Override
-    public AddedResponse saveMultipleSpaces(SpaceEntity[] spaces) {
-        List<SpaceRecord> addedSpaces = new ArrayList<>();
-        List<SpaceErrorResponse> spacesAddFailed = new ArrayList<>();
+    public AddedResponse saveMultipleSpaces(Space[] spaces) {
+        List<SpaceDto> addedSpaces = new ArrayList<>();
+        List<SpaceErrorResponse> failedAddSpaces = new ArrayList<>();
         String errorDescription = "";
 
         List<String> spaceNames = getAllSpaceNames();
 
-        for (SpaceEntity space : spaces) {
+        for (Space space : spaces) {
             String spaceId = space.getSpaceId();
             errorDescription = "Space ID already exists";
             if (spaceNames.contains(spaceId)) {
-                spacesAddFailed.add(new SpaceErrorResponse(spaceId, errorDescription));
+                failedAddSpaces.add(new SpaceErrorResponse(spaceId, errorDescription));
                 continue;
             }
-            SpaceEntity spaceEntity = SpaceEntity.builder()
-                    .spaceId(space.getSpaceId())
-                    .spaceName(space.getSpaceName())
-                    .description(space.getDescription())
-                    .capacity(space.getCapacity())
-                    .amenities(space.getAmenities())
-                    .available(space.isAvailable())
-                    .location(space.getLocation())
-                    .build();
+            SpaceEntity spaceEntity = SpaceMapper.modelToEntity(space);
             spaceRepository.save(spaceEntity);
             addedSpaces.add(SpaceMapper.toDto(spaceEntity));
         }
-        int total = spaces.length;
-        int success = addedSpaces.size();
-        int failed = spacesAddFailed.size();
-        boolean sucess = success > 0;
+        boolean success = !addedSpaces.isEmpty();
 
-        AddedResponse response = new AddedResponse(sucess, total, success, failed, (ArrayList) addedSpaces, (ArrayList) spacesAddFailed);
+        AddedResponse response = new AddedResponse(success, spaces.length, addedSpaces.size(), failedAddSpaces.size(), (ArrayList) addedSpaces, (ArrayList) failedAddSpaces);
         return ResponseEntity.ok(response).getBody();
     }
 
@@ -137,7 +123,7 @@ public class SpaceServiceImpl implements SpaceService {
      * code 200 if the update is successful, or an error message and status code 400 if the space ID is already in use.
      */
     @Override
-    public ApiResponse updateSpace(String spaceId, SpaceRecord spaceRecord) {
+    public ApiResponse updateSpace(String spaceId, SpaceDto spaceRecord) {
 
         SpaceEntity spaceEntity = spaceRepository.findBySpaceId(spaceId).orElseThrow(
                 () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
@@ -149,6 +135,7 @@ public class SpaceServiceImpl implements SpaceService {
                 return new ApiResponse(400, Message.SPACE_ID_ALREADY_EXISTS, HttpStatus.BAD_REQUEST, LocalDateTime.now());
             }
         }
+
         spaceEntity.setSpaceId(spaceRecord.spaceId());
         spaceEntity.setSpaceName(spaceRecord.spaceName());
         spaceEntity.setDescription(spaceRecord.description());
@@ -178,9 +165,9 @@ public class SpaceServiceImpl implements SpaceService {
         SpaceEntity space = spaceRepository.findBySpaceId(spaceId).orElseThrow(
                 () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
         );
+        SpaceDto spaceDto = SpaceMapper.entityDto(space);
         spaceRepository.delete(space);
-
-        return new ApiResponse(200, Message.SPACE_DELETE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now());
+        return new ApiResponse(200, Message.SPACE_DELETE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), spaceDto);
     }
 
     /**
@@ -190,14 +177,14 @@ public class SpaceServiceImpl implements SpaceService {
      * to a DTO using {@link SpaceMapper}. If no entity is found, it throws an IllegalArgumentException.
      *
      * @param spaceId the ID of the space to retrieve
-     * @return {@link SpaceRecord} the DTO representation of the space entity
+     * @return {@link SpaceDto} the DTO representation of the space entity
      */
     @Override
-    public SpaceRecord findBySpaceId(String spaceId) {
+    public SpaceDto findBySpaceId(String spaceId) {
         SpaceEntity spaceEntity = spaceRepository.findBySpaceId(spaceId).orElseThrow(
                 () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
         );
-        return SpaceMapper.toDto(spaceEntity);
+        return SpaceMapper.entityDto(spaceEntity);
     }
 
     /**
@@ -211,10 +198,10 @@ public class SpaceServiceImpl implements SpaceService {
      * @param location    the filter for the space location
      * @param capacity    the filter for the space capacity, interpreted as a string
      * @param pageable    the pagination information
-     * @return a paginated {@link Page} of {@link SpaceRecord} matching the criteria
+     * @return a paginated {@link Page} of {@link SpaceDto} matching the criteria
      */
     @Override
-    public Page<SpaceRecord> findAllSpaces(String spaceName, String description, String location, String capacity, Pageable pageable) {
+    public Page<SpaceDto> findAllSpaces(String spaceName, String description, String location, String capacity, Pageable pageable) {
         Criteria criteria = new Criteria();
 
         if (spaceName != null && !spaceName.isEmpty()) {
@@ -236,8 +223,8 @@ public class SpaceServiceImpl implements SpaceService {
         List<SpaceEntity> spaces = mongoTemplate.find(query, SpaceEntity.class);
         long total = mongoTemplate.count(Query.query(criteria), SpaceEntity.class);
 
-        List<SpaceRecord> records = spaces.stream()
-                .map(SpaceMapper::toDto)
+        List<SpaceDto> records = spaces.stream()
+                .map(SpaceMapper::entityDto)
                 .collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
@@ -256,10 +243,10 @@ public class SpaceServiceImpl implements SpaceService {
      * @param location    the filter for the space location
      * @param capacity    the filter for the space capacity, interpreted as a string
      * @param pageable    the pagination information
-     * @return a paginated {@link Page} of {@link SpaceRecord} for available spaces
+     * @return a paginated {@link Page} of {@link SpaceDto} for available spaces
      */
     @Override
-    public Page<SpaceRecord> findAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable) {
+    public Page<SpaceDto> findAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable) {
         Criteria criteria = new Criteria("available").is(true);
 
         if (spaceName != null && !spaceName.isEmpty()) {
@@ -281,7 +268,7 @@ public class SpaceServiceImpl implements SpaceService {
         List<SpaceEntity> spaces = mongoTemplate.find(query, SpaceEntity.class);
         long total = mongoTemplate.count(query.limit(-1).skip(-1), SpaceEntity.class);
 
-        List<SpaceRecord> records = spaces.stream().map(SpaceMapper::toDto).collect(Collectors.toList());
+        List<SpaceDto> records = spaces.stream().map(SpaceMapper::entityDto).collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
     }
@@ -293,17 +280,17 @@ public class SpaceServiceImpl implements SpaceService {
      * Filters for unavailable spaces based on space ID, name, description, location, and capacity.
      * Only includes spaces that are currently marked as unavailable.
      *
-     * @param spaceId optional filter for space ID (should be spaceName for correction)
-     * @param spaceName the filter for the space name
+     * @param spaceId     optional filter for space ID (should be spaceName for correction)
+     * @param spaceName   the filter for the space name
      * @param description the filter for the space description
-     * @param available boolean flag to include only unavailable spaces (false) - currently hardcoded
-     * @param location the filter for the space location
-     * @param capacity the filter for the space capacity, interpreted as a string
-     * @param pageable the pagination information
-     * @return a paginated {@link Page} of {@link SpaceRecord} for unavailable spaces
+     * @param available   boolean flag to include only unavailable spaces (false) - currently hardcoded
+     * @param location    the filter for the space location
+     * @param capacity    the filter for the space capacity, interpreted as a string
+     * @param pageable    the pagination information
+     * @return a paginated {@link Page} of {@link SpaceDto} for unavailable spaces
      */
     @Override
-    public Page<SpaceRecord> getUnAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable) {
+    public Page<SpaceDto> getUnAvailableSpaces(String spaceId, String spaceName, String description, boolean available, String location, String capacity, Pageable pageable) {
         Criteria criteria = new Criteria();
 
         if (spaceId != null && !spaceId.isEmpty()) {
@@ -328,7 +315,7 @@ public class SpaceServiceImpl implements SpaceService {
         List<SpaceEntity> spaces = mongoTemplate.find(query, SpaceEntity.class);
         long total = mongoTemplate.count(query.limit(-1).skip(-1), SpaceEntity.class);
 
-        List<SpaceRecord> records = spaces.stream().map(SpaceMapper::toDto).collect(Collectors.toList());
+        List<SpaceDto> records = spaces.stream().map(SpaceMapper::entityDto).collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
     }
@@ -357,7 +344,7 @@ public class SpaceServiceImpl implements SpaceService {
      * This method sets the availability of the specified space to the provided boolean value, then
      * persists the updated space entity to the repository.
      *
-     * @param space the space entity whose availability is to be changed
+     * @param space     the space entity whose availability is to be changed
      * @param available the new availability status to set (true for available, false for unavailable)
      */
     @Override

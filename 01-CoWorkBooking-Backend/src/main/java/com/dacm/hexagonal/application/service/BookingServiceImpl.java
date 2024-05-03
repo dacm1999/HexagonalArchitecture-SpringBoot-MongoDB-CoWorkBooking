@@ -11,7 +11,7 @@ import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.BookingEntity;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
-import com.dacm.hexagonal.domain.model.dto.UserBookingRecord;
+import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +45,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public ApiResponse saveBooking(UserBookingRecord bookingRecord) {
+    public ApiResponse saveBooking(UserBookingDto bookingRecord) {
         // Check if user exists
         UserEntity user = userRepository.findByUsername(bookingRecord.username());
         if (user == null) {

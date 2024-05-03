@@ -1,7 +1,8 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.controller;
 
 import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.domain.model.dto.SpaceRecord;
+import com.dacm.hexagonal.domain.model.Space;
+import com.dacm.hexagonal.domain.model.dto.SpaceDto;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
@@ -47,7 +48,7 @@ public class SpaceController {
      * @return ResponseEntity containing the operation's ApiResponse.
      */
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createProduct(@RequestBody SpaceRecord spaceDto) {
+    public ResponseEntity<?> createSpace(@RequestBody Space spaceDto) {
         return ResponseEntity.ok(spaceService.save(spaceDto));
     }
 
@@ -58,7 +59,7 @@ public class SpaceController {
      * @return ResponseEntity containing the operation's AddedResponse.
      */
     @PostMapping("/createMultiple")
-    public ResponseEntity<AddedResponse> createMultipleSpaces(@RequestBody SpaceEntity[] spaces) {
+    public ResponseEntity<AddedResponse> createMultipleSpaces(@RequestBody Space[] spaces) {
         return ResponseEntity.ok(spaceService.saveMultipleSpaces(spaces));
     }
 
@@ -69,7 +70,7 @@ public class SpaceController {
      * @return ResponseEntity containing the found SpaceRecord.
      */
     @GetMapping("/find/{spaceId}")
-    public ResponseEntity<SpaceRecord> findSpaceById(@PathVariable String spaceId) {
+    public ResponseEntity<SpaceDto> findSpaceById(@PathVariable String spaceId) {
         return ResponseEntity.ok(spaceService.findBySpaceId(spaceId));
     }
 
@@ -97,7 +98,7 @@ public class SpaceController {
     ) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<SpaceRecord> spaces = spaceService.findAllSpaces(spaceName, description, location, capacity, pageable);
+        Page<SpaceDto> spaces = spaceService.findAllSpaces(spaceName, description, location, capacity, pageable);
 
         SpacePaginationResponse response = new SpacePaginationResponse();
         response.setSpaces(spaces.getContent());
@@ -136,7 +137,7 @@ public class SpaceController {
     ) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<SpaceRecord> spaces = spaceService.findAvailableSpaces(spaceId, spaceName, description, available, location, capacity, pageable);
+        Page<SpaceDto> spaces = spaceService.findAvailableSpaces(spaceId, spaceName, description, available, location, capacity, pageable);
 
         SpacePaginationResponse response = new SpacePaginationResponse();
         response.setSpaces(spaces.getContent());
@@ -175,7 +176,7 @@ public class SpaceController {
     ) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<SpaceRecord> spaces = spaceService.getUnAvailableSpaces(spaceId, spaceName, description, available, location, capacity, pageable);
+        Page<SpaceDto> spaces = spaceService.getUnAvailableSpaces(spaceId, spaceName, description, available, location, capacity, pageable);
 
         SpacePaginationResponse response = new SpacePaginationResponse();
         response.setSpaces(spaces.getContent());
@@ -207,7 +208,7 @@ public class SpaceController {
      * @return ResponseEntity containing the result of the update operation.
      */
     @PutMapping("/update/{spaceId}")
-    public ResponseEntity<ApiResponse> updateSpace(@PathVariable String spaceId, @RequestBody SpaceRecord spaceRecord) {
+    public ResponseEntity<ApiResponse> updateSpace(@PathVariable String spaceId, @RequestBody SpaceDto spaceRecord) {
         return ResponseEntity.ok(spaceService.updateSpace(spaceId, spaceRecord));
     }
 

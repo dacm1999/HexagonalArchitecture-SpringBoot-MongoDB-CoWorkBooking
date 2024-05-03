@@ -2,7 +2,7 @@ package com.dacm.hexagonal.infrastructure.adapters.input.controller;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
-import com.dacm.hexagonal.domain.model.dto.UserBookingRecord;
+import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.UserBookingPaginationResponse;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.BookingEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class BookingController {
     private BookingService bookingService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createBooking(@RequestBody UserBookingRecord bookingRecord) {
+    public ResponseEntity<?> createBooking(@RequestBody UserBookingDto bookingRecord) {
         return ResponseEntity.ok(bookingService.saveBooking(bookingRecord));
     }
 

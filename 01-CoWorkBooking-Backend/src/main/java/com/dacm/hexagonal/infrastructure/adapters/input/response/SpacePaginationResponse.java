@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.response;
 
-import com.dacm.hexagonal.domain.model.dto.SpaceRecord;
+import com.dacm.hexagonal.domain.model.dto.SpaceDto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SpacePaginationResponse {
 
-    private List<SpaceRecord> spaces;
+    private List<SpaceDto> spaces;
     private long totalElements;
     private int totalPages;
     private int numberOfElements;

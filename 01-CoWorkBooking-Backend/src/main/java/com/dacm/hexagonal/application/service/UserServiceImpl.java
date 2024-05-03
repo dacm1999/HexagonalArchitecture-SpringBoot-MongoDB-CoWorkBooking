@@ -140,13 +140,9 @@ public class UserServiceImpl implements UserService {
             addedUsers.add(UserMapper.domainToDto(user));
         }
 
-        int total = users.length;
-        int totalUsersAdded = addedUsers.size();
-        int totalUsersFailed = usersFailed.size();
+        boolean success = !addedUsers.isEmpty();
 
-        boolean success = totalUsersAdded > 0;
-
-        AddedResponse result = new AddedResponse(success, total, totalUsersAdded, totalUsersFailed, (ArrayList) addedUsers, (ArrayList) usersFailed);
+        AddedResponse result = new AddedResponse(success, users.length, addedUsers.size(), usersFailed.size(), (ArrayList) addedUsers, (ArrayList) usersFailed);
 
         return ResponseEntity.ok(result).getBody();
     }

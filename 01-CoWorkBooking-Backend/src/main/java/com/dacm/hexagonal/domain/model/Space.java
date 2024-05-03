@@ -1,18 +1,20 @@
 package com.dacm.hexagonal.domain.model;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import javax.annotation.processing.Generated;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Space {
 
-    @Id
     private String id;
+    private String spaceId; // Unique identifier of the space
     private String spaceName; // Name of the space
     private String description; // Description of the space
     private int capacity; // Max capacity of the space

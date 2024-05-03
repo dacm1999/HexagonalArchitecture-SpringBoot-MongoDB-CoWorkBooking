@@ -15,4 +15,5 @@ public class BookingDto {
     public LocalDateTime startTime;
     public LocalDateTime endTime;
     public boolean active;
+
 }

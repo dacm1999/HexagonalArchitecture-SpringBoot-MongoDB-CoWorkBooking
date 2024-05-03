@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
 public class Booking {
 
     private String id;
-    private String user;
-    private String space;
-    private String spaceId;
+    private User user;
+    private Space space;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private boolean active;

@@ -69,7 +69,7 @@ public class SpaceServiceImpl implements SpaceService {
             return new ApiResponse(400, Message.SPACE_ID_ALREADY_EXISTS, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
         SpaceEntity spaceEntity = SpaceMapper.modelToEntity(space);
-        SpaceDto spaceDto = SpaceMapper.entityDto(spaceEntity);
+        SpaceDto spaceDto = SpaceMapper.entityToDto(spaceEntity);
         spaceRepository.save(spaceEntity);
         return new ApiResponse(204, Message.SPACE_SAVE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), spaceDto);
     }
@@ -102,7 +102,7 @@ public class SpaceServiceImpl implements SpaceService {
             }
             SpaceEntity spaceEntity = SpaceMapper.modelToEntity(space);
             spaceRepository.save(spaceEntity);
-            addedSpaces.add(SpaceMapper.toDto(spaceEntity));
+            addedSpaces.add(SpaceMapper.entityToDto(spaceEntity));
         }
         boolean success = !addedSpaces.isEmpty();
 
@@ -165,7 +165,7 @@ public class SpaceServiceImpl implements SpaceService {
         SpaceEntity space = spaceRepository.findBySpaceId(spaceId).orElseThrow(
                 () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
         );
-        SpaceDto spaceDto = SpaceMapper.entityDto(space);
+        SpaceDto spaceDto = SpaceMapper.entityToDto(space);
         spaceRepository.delete(space);
         return new ApiResponse(200, Message.SPACE_DELETE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), spaceDto);
     }
@@ -184,7 +184,7 @@ public class SpaceServiceImpl implements SpaceService {
         SpaceEntity spaceEntity = spaceRepository.findBySpaceId(spaceId).orElseThrow(
                 () -> new IllegalArgumentException(Message.SPACE_NOT_FOUND + " " + spaceId)
         );
-        return SpaceMapper.entityDto(spaceEntity);
+        return SpaceMapper.entityToDto(spaceEntity);
     }
 
     /**
@@ -224,7 +224,7 @@ public class SpaceServiceImpl implements SpaceService {
         long total = mongoTemplate.count(Query.query(criteria), SpaceEntity.class);
 
         List<SpaceDto> records = spaces.stream()
-                .map(SpaceMapper::entityDto)
+                .map(SpaceMapper::entityToDto)
                 .collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
@@ -268,7 +268,7 @@ public class SpaceServiceImpl implements SpaceService {
         List<SpaceEntity> spaces = mongoTemplate.find(query, SpaceEntity.class);
         long total = mongoTemplate.count(query.limit(-1).skip(-1), SpaceEntity.class);
 
-        List<SpaceDto> records = spaces.stream().map(SpaceMapper::entityDto).collect(Collectors.toList());
+        List<SpaceDto> records = spaces.stream().map(SpaceMapper::entityToDto).collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
     }
@@ -315,7 +315,7 @@ public class SpaceServiceImpl implements SpaceService {
         List<SpaceEntity> spaces = mongoTemplate.find(query, SpaceEntity.class);
         long total = mongoTemplate.count(query.limit(-1).skip(-1), SpaceEntity.class);
 
-        List<SpaceDto> records = spaces.stream().map(SpaceMapper::entityDto).collect(Collectors.toList());
+        List<SpaceDto> records = spaces.stream().map(SpaceMapper::entityToDto).collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
     }

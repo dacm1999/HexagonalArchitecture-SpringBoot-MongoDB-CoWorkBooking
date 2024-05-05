@@ -21,13 +21,13 @@ public interface UserService {
 
     AddedResponse saveMultipleUsers(User[] users);
 
-    ApiResponse updateUser(String username, User user);
+    ApiResponse updateUser(String userId, User user);
 
-    ApiResponse deleteByUsername(String username);
+    ApiResponse deleteByUserId(String userId);
 
-    UserDto findByUsername(String username);
+    UserDto findByUserId(String userId);
 
-    Page<UserDto> findAllUsers(String username, String lastname, String firstname, String email, Pageable pageable);
+    Page<UserDto> findAllUsers(String userId, String lastname, String firstname, String email, Pageable pageable);
 
     List<String> getAllUsernames();
 

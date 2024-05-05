@@ -25,20 +25,20 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public JwtLoginResponse login(Login request) {
-        if (!StringUtils.hasText(request.getUsername())) {
+        if (!StringUtils.hasText(request.getUserId())) {
             throw new IllegalArgumentException(Message.USERNAME_MANDATORY);
         } else if (!StringUtils.hasText(request.getPassword())) {
             throw new IllegalArgumentException(Message.PASSWORD_MANDATORY);
 
         }
 
-        UserEntity user = userRepository.findByUsername(request.getUsername());
+        UserEntity user = userRepository.findByUserId(request.getUserId());
         if (user == null) {
             throw new IllegalStateException(Message.LOGIN_INVALID_USERNAME);
         }
 
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUserId(), request.getPassword()));
         } catch (BadCredentialsException e) {
             throw new IllegalStateException(Message.LOGIN_INVALID_PASSWORD);
         }

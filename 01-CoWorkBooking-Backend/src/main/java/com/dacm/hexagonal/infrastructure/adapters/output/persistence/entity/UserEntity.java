@@ -15,15 +15,15 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor
-@Document(collection = "User")
+@Document(collection = "Users")
 public class UserEntity implements UserDetails {
 
     @Id
     private String id;
+    private String userId;
     private String firstName;
     private String lastName;
     private String email;
-    private String username;
     private String password;
     private Role role;
 
@@ -35,6 +35,11 @@ public class UserEntity implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return userId;
     }
 
     @Override

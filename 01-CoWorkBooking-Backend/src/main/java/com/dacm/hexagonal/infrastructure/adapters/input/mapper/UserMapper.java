@@ -19,7 +19,7 @@ public class UserMapper {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
-                user.getUsername());
+                user.getUserId());
     }
 
     /**
@@ -33,7 +33,7 @@ public class UserMapper {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getEmail(),
-                user.getUsername()
+                user.getUserId()
         );
     }
 
@@ -53,7 +53,7 @@ public class UserMapper {
                 .firstName(entity.getFirstName())
                 .lastName(entity.getLastName())
                 .email(entity.getEmail())
-                .username(entity.getUsername())
+                .userId(entity.getUserId())
                 .build();
     }
 }

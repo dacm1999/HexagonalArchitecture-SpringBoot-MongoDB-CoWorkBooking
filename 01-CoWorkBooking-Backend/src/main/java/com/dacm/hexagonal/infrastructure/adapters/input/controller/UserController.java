@@ -60,13 +60,13 @@ public class UserController {
     }
 
     /**
-     * Find user by username
-     * @param username
+     * Find user by userId
+     * @param userId
      * @return
      */
-    @GetMapping("/find/{username}")
-    public ResponseEntity<?> findByUsername(@PathVariable String username) {
-        UserDto userDto = userService.findByUsername(username);
+    @GetMapping("/find/{userId}")
+    public ResponseEntity<?> findByUserID(@PathVariable String userId) {
+        UserDto userDto = userService.findByUserId(userId);
 
         if(userDto == null) {
             return ResponseEntity.badRequest().body(new ApiResponse(
@@ -113,17 +113,17 @@ public class UserController {
     }
 
     /**
-     * Delete user by username
-     * @param username
+     * Delete user by userId
+     * @param userId
      * @return
      */
-    @DeleteMapping("/delete/{username}")
-    public ResponseEntity<ApiResponse> deleteByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(userService.deleteByUsername(username));
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<ApiResponse> deleteByUserId(@PathVariable String userId) {
+        return ResponseEntity.ok(userService.deleteByUserId(userId));
     }
 
     /**
-     * Update user by username
+     * Update user by userId
      * @param username
      * @param user
      * @return

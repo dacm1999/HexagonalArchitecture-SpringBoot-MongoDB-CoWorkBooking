@@ -1,15 +1,15 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.response;
 
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserBookingPaginationResponse {
 
     private String username;

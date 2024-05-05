@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResponse save(User user) {
         UserEntity userEntity = UserEntity.builder()
-                .username(user.getUsername())
+                .userId(user.getUserId())
                 .password(passwordEncoder.encode(user.getPassword()))
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
     /**
      * Saves multiple user entities to the database while checking for duplicates in usernames and emails.
      * This method iterates over an array of UserEntity objects, checks for existing usernames and emails,
-     * and processes each user accordingly. If the username or email already exists, the user is not added,
+     * and processes each user accordingly. If the userId or email already exists, the user is not added,
      * and an error report is generated. Successful additions are tracked and returned in the response.
      *
      * @param users An array of UserEntity objects to be saved.
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
         Set<String> existingEmails = new HashSet<>(emails);
 
         for (User user : users) {
-            String username = user.getUsername();
+            String username = user.getUserId();
             String email = user.getEmail();
 
             errorDescription = "Username duplicated";
@@ -124,7 +124,7 @@ public class UserServiceImpl implements UserService {
             }
 
             UserEntity userEntity = UserEntity.builder()
-                    .username(username)
+                    .userId(username)
                     .password(passwordEncoder.encode(user.getPassword()))
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
@@ -148,23 +148,23 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Updates a user by username and returns the result as an API response.
+     * Updates a user by userId and returns the result as an API response.
      *
-     * @param username The username of the user to update.
+     * @param userId The userId of the user to update.
      * @param user  New user data for the update.
      * @return ApiResponse indicating success or failure of the update.
      */
     @Override
-    public ApiResponse updateUser(String username, User user) {
+    public ApiResponse updateUser(String userId, User user) {
 
         // Verify if the user exists
-        UserEntity userEntity = userRepository.findByUsername(username);
+        UserEntity userEntity = userRepository.findByUserId(userId);
         if (userEntity == null) {
-            throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + username);
+            throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + userId);
         }
 
-        // Verify if the username or email already exists
-        if (userRepository.existsByUsername(user.getUsername())) {
+        // Verify if the userId or email already exists
+        if (userRepository.existsByUserId(user.getUserId())) {
             throw new IllegalArgumentException(Message.USERNAME_TAKEN);
         }
         if (userRepository.existsByEmail(user.getEmail())) {
@@ -172,7 +172,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // Update user data
-        userEntity.setUsername(user.getUsername());
+        userEntity.setUserId(user.getUserId());
         userEntity.setFirstName(user.getFirstName());
         userEntity.setLastName(user.getLastName());
         userEntity.setEmail(user.getEmail());
@@ -184,14 +184,14 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Finds a user by username and returns their data as a DTO.
+     * Finds a user by userId and returns their data as a DTO.
      *
-     * @param username The username of the user to find.
+     * @param userId The userId of the user to find.
      * @return UserDto containing the user's data.
      */
     @Override
-    public UserDto findByUsername(String username) {
-        UserEntity userEntity = userRepository.findByUsername(username);
+    public UserDto findByUserId(String userId) {
+        UserEntity userEntity = userRepository.findByUserId(userId);
         if (userEntity == null) {
             return null;
         }
@@ -199,26 +199,26 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Deletes a user by username and returns an API response to indicate the operation's status.
+     * Deletes a user by userId and returns an API response to indicate the operation's status.
      *
-     * @param username The username of the user to be deleted.
+     * @param userId The userId of the user to be deleted.
      * @return ApiResponse indicating success or failure of the deletion.
      */
     @Override
-    public ApiResponse deleteByUsername(String username) {
-        UserEntity user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + username);
+    public ApiResponse deleteByUserId(String userId) {
+        UserEntity user = userRepository.findByUserId(userId);
+        if(user == null) {
+            throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + userId);
         }
+        userRepository.deleteByUserId(userId);
         UserDto userDto = UserMapper.entityToDto(user);
-        userRepository.delete(user);
-        return new ApiResponse(204, Message.USER_DELETE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), userDto);
+        return new ApiResponse(200, Message.USER_DELETE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), userDto);
     }
 
     /**
      * Finds all users based on filters and pagination parameters and returns the results paginated.
      *
-     * @param username  Optional filter by username.
+     * @param userId  Optional filter by userId.
      * @param lastName  Optional filter by last name.
      * @param firstName Optional filter by first name.
      * @param email     Optional filter by email.
@@ -226,12 +226,12 @@ public class UserServiceImpl implements UserService {
      * @return A page of UserDto objects corresponding to the filtered and paginated results.
      */
     @Override
-    public Page<UserDto> findAllUsers(String username, String lastName, String firstName, String email, Pageable pageable) {
+    public Page<UserDto> findAllUsers(String userId, String lastName, String firstName, String email, Pageable pageable) {
         Criteria criteria = new Criteria();
 
         // Agregar filtros solo si no son nulos o vacíos
-        if (username != null && !username.isEmpty()) {
-            criteria.and("username").is(username);
+        if (userId != null && !userId.isEmpty()) {
+            criteria.and("userId").is(userId);
         }
         if (lastName != null && !lastName.isEmpty()) {
             criteria.and("lastName").is(lastName);
@@ -258,7 +258,7 @@ public class UserServiceImpl implements UserService {
     public List<String> getAllUsernames() {
         List<UserEntity> users = userRepository.findAll();
         List<String> usernames = users.stream()
-                .map(UserEntity::getUsername)
+                .map(UserEntity::getUserId)
                 .collect(Collectors.toList());
         return usernames;
     }

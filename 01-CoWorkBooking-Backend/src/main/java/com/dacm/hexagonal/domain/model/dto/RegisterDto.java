@@ -1,15 +1,15 @@
 package com.dacm.hexagonal.domain.model.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegisterDto {
 
-    private String username;
+    private String userId;
     private String password;
     private String firstname;
     private String lastname;

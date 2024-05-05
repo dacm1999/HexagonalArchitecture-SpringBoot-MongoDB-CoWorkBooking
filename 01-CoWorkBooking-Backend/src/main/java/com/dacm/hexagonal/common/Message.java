@@ -10,10 +10,10 @@ public class Message {
     public static final String PASSWORD_LENGTH= "Password must be more than 5 characters";
     public static final String PASSWORD_MANDATORY= "Password must be mandatory";
     public static final String EMAIL_MANDATORY= "Email must be mandatory";
-    public static final String USERNAME_MANDATORY= "Username must be mandatory";
+    public static final String USERNAME_MANDATORY= "UserID must be mandatory";
 
     // Messages for user login
-    public static final String LOGIN_INVALID_USERNAME= "Invalid username";
+    public static final String LOGIN_INVALID_USERNAME= "Invalid userId";
     public static final String LOGIN_INVALID_PASSWORD= "Invalid password";
 
     // Messages for JWT

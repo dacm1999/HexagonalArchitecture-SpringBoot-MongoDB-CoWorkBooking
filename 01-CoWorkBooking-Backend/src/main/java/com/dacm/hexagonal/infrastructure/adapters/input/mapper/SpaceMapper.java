@@ -18,7 +18,7 @@ public class SpaceMapper {
             return null;
         }
         return new SpaceDto(
-                space.getId(),
+                space.getSpaceId(),
                 space.getSpaceName(),
                 space.getDescription(),
                 space.getCapacity(),
@@ -59,6 +59,7 @@ public class SpaceMapper {
         }
         return SpaceEntity.builder()
                 .id(space.getId())
+                .spaceId(space.getSpaceId())
                 .spaceName(space.getSpaceName())
                 .description(space.getDescription())
                 .capacity(space.getCapacity())

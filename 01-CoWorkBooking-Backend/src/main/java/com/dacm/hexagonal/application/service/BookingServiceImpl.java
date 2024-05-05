@@ -2,6 +2,7 @@ package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
 import com.dacm.hexagonal.application.port.in.SpaceService;
+import com.dacm.hexagonal.domain.model.Booking;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.BookingMapper;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.BookingRepository;
@@ -14,14 +15,14 @@ import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.User
 import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {
@@ -45,15 +46,15 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public ApiResponse saveBooking(UserBookingDto bookingRecord) {
+    public ApiResponse saveBooking(UserBookingDto userBookingDto) {
         // Check if user exists
-        UserEntity user = userRepository.findByUsername(bookingRecord.username());
+        UserEntity user = userRepository.findByUserId(userBookingDto.userId());
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
 
         // Check if space exists
-        SpaceEntity space = spaceRepository.findBySpaceId(bookingRecord.spaceId())
+        SpaceEntity space = spaceRepository.findBySpaceId(userBookingDto.spaceId())
                 .orElseThrow(() -> new RuntimeException("Space not found"));
 
         // Check if space is available
@@ -62,12 +63,12 @@ public class BookingServiceImpl implements BookingService {
         }
 
         // Check if booking start time is after end time
-        if (bookingRecord.startTime().isAfter(bookingRecord.endTime())) {
+        if (userBookingDto.startTime().isAfter(userBookingDto.endTime())) {
             return new ApiResponse(400, Message.BOOKING_INVALID_START_TIME, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
 
         // Check if booking start time is before current time
-        if (bookingRecord.startTime().isBefore(LocalDateTime.now())) {
+        if (userBookingDto.startTime().isBefore(LocalDateTime.now())) {
             return new ApiResponse(400, Message.BOOKING_INVALID_TIME, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
 
@@ -75,36 +76,38 @@ public class BookingServiceImpl implements BookingService {
         spaceService.changeSpaceAvailability(space, false);
 
         BookingEntity booking = BookingEntity.builder().
-                user(user).
+                userId(userBookingDto.userId()).
+//                user(user).
                 space(space).
-                spaceId(bookingRecord.spaceId()).
-                startTime(bookingRecord.startTime()).
-                endTime(bookingRecord.endTime()).
+                spaceId(userBookingDto.spaceId()).
+                startTime(userBookingDto.startTime()).
+                endTime(userBookingDto.endTime()).
                 active(true).
                 build();
+
+
         bookingRepository.save(booking);
 
-        return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now());
+        return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), booking.getId());
     }
 
     @Override
-    public Page<BookingDto> getBookingsByUser(String username, Pageable pageable) {
-        UserEntity user = userRepository.findByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(Message.USER_NOT_FOUND);
-        }
+    public List<Booking> getAllBookings() {
+        List<BookingEntity> bookings = bookingRepository.findAll();
 
-        return bookingRepository.findByUserId(user.getId(), pageable);
+        return bookings.stream()
+                .map(BookingMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Page<BookingEntity> getSpacesBySpaceId(String spaceId, Pageable pageable) {
-        // Asegurarse de que el espacio existe
-        SpaceEntity space = spaceRepository.findBySpaceId(spaceId)
-                .orElseThrow(() -> new RuntimeException(Message.SPACE_WITHOUT_BOOKING));
+    public List<BookingDto> getBookingByUserId(String userId) {
 
-        // Devolver las reservas asociadas a este espacio
-        return bookingRepository.findBySpaceId(space.getId(), pageable);
+        List<BookingEntity> bookings = bookingRepository.findByUserId(userId);
+
+        return bookings.stream()
+                .map(BookingMapper::entityToDto)
+                .collect(Collectors.toList());
     }
 
 

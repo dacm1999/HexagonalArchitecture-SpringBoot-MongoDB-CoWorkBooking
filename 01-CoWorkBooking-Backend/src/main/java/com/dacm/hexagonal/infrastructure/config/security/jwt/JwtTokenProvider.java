@@ -31,7 +31,7 @@ public class JwtTokenProvider {
                 .claim("firstName", user.getFirstName())
                 .claim("lastName", user.getLastName())
                 .claim("role", user.getRole())
-                .subject(user.getUsername())
+                .subject(user.getUserId())
                 .issuedAt(new java.util.Date(System.currentTimeMillis()))
                 .expiration(new java.util.Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(getKey())

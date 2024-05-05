@@ -15,6 +15,7 @@ public class Booking {
 
     private String id;
     private User user;
+//    private String userId;
     private Space space;
     private LocalDateTime startTime;
     private LocalDateTime endTime;

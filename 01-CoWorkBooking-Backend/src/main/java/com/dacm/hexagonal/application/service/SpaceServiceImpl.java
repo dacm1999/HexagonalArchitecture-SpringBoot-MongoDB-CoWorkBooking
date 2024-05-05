@@ -71,7 +71,7 @@ public class SpaceServiceImpl implements SpaceService {
         SpaceEntity spaceEntity = SpaceMapper.modelToEntity(space);
         SpaceDto spaceDto = SpaceMapper.entityToDto(spaceEntity);
         spaceRepository.save(spaceEntity);
-        return new ApiResponse(204, Message.SPACE_SAVE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), spaceDto);
+        return new ApiResponse(200, Message.SPACE_SAVE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), spaceDto);
     }
 
     /**

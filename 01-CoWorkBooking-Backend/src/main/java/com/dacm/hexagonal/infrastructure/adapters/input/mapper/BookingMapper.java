@@ -26,7 +26,8 @@ public class BookingMapper {
 
         return Booking.builder()
                 .id(entity.getId())
-                .user(UserMapper.toDomain(entity.getUser())) // Assuming you have a UserMapper
+                .id(entity.getUserId())
+//                .user(UserMapper.toDomain(entity.getUser())) // Assuming you have a UserMapper
                 .space(SpaceMapper.toDomain(entity.getSpace())) // Assuming you have a SpaceMapper
                 .startTime(entity.getStartTime())
                 .endTime(entity.getEndTime())
@@ -53,5 +54,39 @@ public class BookingMapper {
                 .endTime(booking.getEndTime())
                 .active(booking.isActive())
                 .build();
+    }
+
+    public static BookingDto entityToDto(BookingEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        // Asumiendo que tienes campos id, startTime, etc., en tu BookingEntity y BookingDto
+        return BookingDto.builder()
+                .startTime(entity.getStartTime())
+                .endTime(entity.getEndTime())
+                .active(entity.isActive())
+                .build();
+    }
+
+    /**
+     * Converts a BookingDto to a BookingEntity.
+     *
+     * @param dto the BookingDto to convert.
+     * @return BookingEntity the persistence entity if dto is not null; otherwise, returns null.
+     */
+    public static BookingEntity dtoToEntity(BookingDto dto) {
+        if (dto == null) {
+            return null;
+        }
+
+        BookingEntity entity = new BookingEntity();
+        entity.setStartTime(dto.getStartTime());
+        entity.setEndTime(dto.getEndTime());
+        entity.setActive(dto.isActive());
+        // Assume that you have a way to set the User and Space based on ids or session context
+        // entity.setUser(UserMapper.dtoToEntity(dto.getUserDto())); // Example if you had user data
+        // entity.setSpace(SpaceMapper.dtoToEntity(dto.getSpaceDto())); // Example if you had space data
+        return entity;
     }
 }

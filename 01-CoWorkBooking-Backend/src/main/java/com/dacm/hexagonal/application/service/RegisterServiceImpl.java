@@ -29,9 +29,9 @@ public class RegisterServiceImpl implements RegisterService {
     @Override
     public JwtLoginResponse signUp(RegisterDto request) {
 
-        if (CommonMethods.isEmpty(request.getUsername())) {
+        if (CommonMethods.isEmpty(request.getUserId())) {
             throw new IllegalArgumentException(Message.USERNAME_MANDATORY);
-        } else if (userRepository.existsByUsername(request.getUsername())) {
+        } else if (userRepository.existsByUserId(request.getUserId())) {
             throw new IllegalArgumentException(Message.USERNAME_TAKEN);
         }
 
@@ -48,7 +48,7 @@ public class RegisterServiceImpl implements RegisterService {
         }
 
         UserEntity user = UserEntity.builder()
-                .username(request.getUsername())
+                .userId(request.getUserId())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())

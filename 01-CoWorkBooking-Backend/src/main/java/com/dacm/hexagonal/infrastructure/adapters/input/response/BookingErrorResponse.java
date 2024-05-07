@@ -8,6 +8,7 @@ import lombok.Setter;
 public class BookingErrorResponse {
 
     String username;
+    String spaceId;
     String errorDescription;
 
     public BookingErrorResponse(String username, String errorDescription) {

@@ -2,6 +2,7 @@ package com.dacm.hexagonal.infrastructure.adapters.input.mapper;
 
 import com.dacm.hexagonal.domain.model.Booking;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
+import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.BookingEntity;
 import org.springframework.stereotype.Component;
 
@@ -26,11 +27,11 @@ public class BookingMapper {
 
         return Booking.builder()
                 .id(entity.getId())
-                .id(entity.getUserId())
-//                .user(UserMapper.toDomain(entity.getUser())) // Assuming you have a UserMapper
-                .space(SpaceMapper.toDomain(entity.getSpace())) // Assuming you have a SpaceMapper
+                .userId(entity.getUserId())
+                .spaceId(entity.getSpace().getSpaceId())
                 .startTime(entity.getStartTime())
                 .endTime(entity.getEndTime())
+                .status(entity.getStatus())
                 .active(entity.isActive())
                 .build();
     }
@@ -49,13 +50,20 @@ public class BookingMapper {
         }
 
         return BookingDto.builder()
-                .spaceId(booking.getSpace().getId()) // Assuming Space object has getId()
+                .bookingId(booking.getId())
+                .spaceId(booking.getSpaceId())
                 .startTime(booking.getStartTime())
                 .endTime(booking.getEndTime())
+                .status(booking.getStatus())
                 .active(booking.isActive())
                 .build();
     }
 
+    /**
+     *
+     * @param entity
+     * @return
+     */
     public static BookingDto entityToDto(BookingEntity entity) {
         if (entity == null) {
             return null;
@@ -63,8 +71,11 @@ public class BookingMapper {
 
         // Asumiendo que tienes campos id, startTime, etc., en tu BookingEntity y BookingDto
         return BookingDto.builder()
+                .bookingId(entity.getId())
+                .spaceId(entity.getSpace().getSpaceId())
                 .startTime(entity.getStartTime())
                 .endTime(entity.getEndTime())
+                .status(entity.getStatus())
                 .active(entity.isActive())
                 .build();
     }
@@ -81,12 +92,32 @@ public class BookingMapper {
         }
 
         BookingEntity entity = new BookingEntity();
+        entity.setId(dto.getBookingId());
         entity.setStartTime(dto.getStartTime());
         entity.setEndTime(dto.getEndTime());
+        entity.setStatus(dto.getStatus());
         entity.setActive(dto.isActive());
-        // Assume that you have a way to set the User and Space based on ids or session context
         // entity.setUser(UserMapper.dtoToEntity(dto.getUserDto())); // Example if you had user data
         // entity.setSpace(SpaceMapper.dtoToEntity(dto.getSpaceDto())); // Example if you had space data
         return entity;
+    }
+
+    /**
+     * Converts a BookingEntity to a UserBookingDto.
+     *
+     * @param entity the BookingEntity to convert.
+     * @return BookingEntity the persistence entity if dto is not null; otherwise, returns null.
+     */
+    public static UserBookingDto entityToUserBookingDto(BookingEntity entity) {
+        if (entity == null) {
+            return null;
+        }
+
+        return UserBookingDto.builder()
+                .userId(entity.getUserId())
+                .spaceId(entity.getSpace().getSpaceId())
+                .startTime(entity.getStartTime())
+                .endTime(entity.getEndTime())
+                .build();
     }
 }

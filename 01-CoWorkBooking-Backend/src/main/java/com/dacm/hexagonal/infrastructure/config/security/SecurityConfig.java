@@ -56,10 +56,15 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/spaces/allUnAvailable").hasAnyRole("ADMIN", "USER")
 
                                 //Booking endpoint
-                                .requestMatchers("api/v1/bookings/create").hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("api/v1/bookings/user/{username}").permitAll()
+                                .requestMatchers("api/v1/bookings/create").hasAnyRole("ADMIN", "MANAGER", "USER")
+                                .requestMatchers("api/v1/bookings/confirm/{bookingId}").hasAnyRole("ADMIN","MANAGER", "USER")
+                                .requestMatchers("api/v1/bookings/cancel/{bookingId}").hasAnyRole("ADMIN","MANAGER", "USER")
+                                .requestMatchers("api/v1/bookings/user/{userId}").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("api/v1/bookings/all").hasRole("ADMIN")
-
+                                .requestMatchers("api/v1/bookings/allByStartDate/{startDate}").hasAnyRole("ADMIN", "MANAGER", "USER")
+                                .requestMatchers("api/v1/bookings/update/{bookingId}").hasAnyRole("ADMIN", "MANAGER", "USER")
+                                .requestMatchers("api/v1/bookings/delete/{bookingId}").hasRole("ADMIN")
+                                .requestMatchers("api/v1/bookings/find/{bookingId}").hasAnyRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager

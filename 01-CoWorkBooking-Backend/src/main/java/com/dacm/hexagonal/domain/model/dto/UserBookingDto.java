@@ -1,11 +1,18 @@
 package com.dacm.hexagonal.domain.model.dto;
 
+import com.dacm.hexagonal.domain.enums.Status;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
-public record UserBookingDto(
-        String userId,
-        String spaceId,
-        LocalDateTime startTime,
-        LocalDateTime endTime
-) {
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserBookingDto {
+    String userId;
+    String spaceId;
+    LocalDateTime startTime;
+    LocalDateTime endTime;
 }

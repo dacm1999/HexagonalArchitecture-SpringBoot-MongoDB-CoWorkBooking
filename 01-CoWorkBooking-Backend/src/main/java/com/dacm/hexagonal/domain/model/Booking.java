@@ -1,5 +1,6 @@
 package com.dacm.hexagonal.domain.model;
 
+import com.dacm.hexagonal.domain.enums.Status;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import lombok.AllArgsConstructor;
@@ -14,11 +15,11 @@ import java.time.LocalDateTime;
 public class Booking {
 
     private String id;
-    private User user;
-//    private String userId;
-    private Space space;
+    private String userId;
+    private String spaceId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+    private Status status;
     private boolean active;
 
 }

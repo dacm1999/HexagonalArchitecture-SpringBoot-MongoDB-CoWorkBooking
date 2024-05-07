@@ -1,5 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity;
 
+import com.dacm.hexagonal.domain.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,17 +21,13 @@ public class BookingEntity {
 
     @Id
     private String id;
-    //    @DBRef
-//    private UserEntity user;
     @Field("userId")
     private String userId;
     @DBRef
     private SpaceEntity space;
-    private String spaceId;
-    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime startTime;
-    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime endTime;
+    private Status status;
     private boolean active;
 
 }

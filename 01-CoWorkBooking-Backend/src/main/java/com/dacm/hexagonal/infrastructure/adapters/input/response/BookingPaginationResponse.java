@@ -10,9 +10,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserBookingPaginationResponse {
+public class BookingPaginationResponse {
 
-    private String username;
     List<BookingDto> bookings;
     private long totalElements;
     private int totalPages;

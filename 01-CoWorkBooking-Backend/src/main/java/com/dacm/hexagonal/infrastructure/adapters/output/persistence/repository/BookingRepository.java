@@ -13,9 +13,9 @@ import java.util.List;
 @Repository
 public interface BookingRepository extends MongoRepository<BookingEntity, String> {
 
-//    Page<BookingEntity> findByUserUsername(String username, Pageable pageable);
+    //    Page<BookingEntity> findByUserUsername(String username, Pageable pageable);
 //    Page<BookingDto> findByUserId(String id, Pageable pageable);
-    List<BookingEntity> findByUserId(String id);
+        List<BookingEntity> findByUserId(String id);
 
 //    Page<BookingEntity> findByUserUsername(String userId, Pageable pageable);
 

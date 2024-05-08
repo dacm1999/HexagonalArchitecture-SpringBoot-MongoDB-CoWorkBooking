@@ -2,14 +2,14 @@ package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
 import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.domain.enums.Status;
+import com.dacm.hexagonal.domain.enums.BookingStatus;
 import com.dacm.hexagonal.domain.model.Booking;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
 import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.BookingMapper;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingErrorResponse;
-import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingPaginationResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingHoursResponse;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.BookingRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
@@ -28,10 +28,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,58 +63,61 @@ public class BookingServiceImpl implements BookingService {
     public ApiResponse saveBooking(UserBookingDto userBookingDto) {
         UserEntity user = userRepository.findByUserId(userBookingDto.getUserId());
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + userBookingDto.getUserId());
         }
 
-        // Check if space exists
         SpaceEntity space = spaceRepository.findBySpaceId(userBookingDto.getSpaceId())
-                .orElseThrow(() -> new RuntimeException("Space not found"));
+                .orElseThrow(() -> new RuntimeException(Message.SPACE_NOT_FOUND + " " + userBookingDto.getSpaceId()));
 
-        // Check if space is available
-//        if (!space.isAvailable()) {
-//            return new ApiResponse(400, Message.SPACE_NOT_AVAILABLE, HttpStatus.BAD_REQUEST, LocalDateTime.now());
-//        }
+        LocalDateTime startTime = userBookingDto.getStartTime();
+        LocalDateTime endTime = userBookingDto.getEndTime();
 
-        // Check if booking start time is after end time
-        if (userBookingDto.getStartTime().isAfter(userBookingDto.getEndTime())) {
+        if (startTime.isAfter(endTime)) {
             return new ApiResponse(400, Message.BOOKING_INVALID_START_TIME, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
-
-        // Check if booking start time is before current time
-        if (userBookingDto.getStartTime().isBefore(LocalDateTime.now())) {
+        if (startTime.isBefore(LocalDateTime.now())) {
             return new ApiResponse(400, Message.BOOKING_INVALID_TIME, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
-
-        if (userBookingDto.getStartTime().toLocalTime().isBefore(OPENING_TIME) ||
-                userBookingDto.getEndTime().toLocalTime().isAfter(CLOSING_TIME)) {
+        if (startTime.toLocalTime().isBefore(OPENING_TIME) || endTime.toLocalTime().isAfter(CLOSING_TIME)) {
             return new ApiResponse(400, Message.BOOKING_OUT_OF_OPERATING_HOURS, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
 
-        // Set space as unavailable
-//        spaceService.changeSpaceAvailability(space, false);
+        Optional<BookingEntity> existingBooking = bookingRepository.findByUserIdAndSpaceIdAndStartTimeAndEndTime(
+                user.getUserId(), space.getId(), startTime, endTime);
 
-        BookingEntity booking = BookingEntity.builder().
-                userId(userBookingDto.getUserId()).
-                space(space).
-                startTime(userBookingDto.getStartTime()).
-                endTime(userBookingDto.getEndTime()).
-                status(Status.PENDING).
-                active(true).
-                build();
+        if (existingBooking.isPresent()) {
+            return new ApiResponse(409, Message.BOOKING_ALREADY_EXISTS, HttpStatus.CONFLICT, LocalDateTime.now());
+        }
 
+        List<BookingEntity> existingBookings = bookingRepository.findBySpaceAndStartTimeBetween(
+                space, LocalDateTime.of(startTime.toLocalDate(), OPENING_TIME), LocalDateTime.of(endTime.toLocalDate(), CLOSING_TIME));
+
+        List<LocalTime> availableTimes = findAvailableTimes(existingBookings, startTime.toLocalDate());
+        boolean isRequestedTimeAvailable = availableTimes.contains(startTime.toLocalTime());
+
+        if (!isRequestedTimeAvailable) {
+            return new ApiResponse(409, Message.BOOKING_TIME_NOT_AVAILABLE, HttpStatus.CONFLICT, LocalDateTime.now(), availableTimes);
+        }
+
+        BookingEntity booking = BookingEntity.builder()
+                .userId(user.getUserId())
+                .space(space)
+                .startTime(startTime)
+                .endTime(endTime)
+                .status(BookingStatus.PENDING)
+                .active(true)
+                .build();
 
         bookingRepository.save(booking);
-
         return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), booking.getId());
     }
 
     @Override
     public AddedResponse saveMultipleBookings(UserBookingDto[] bookingDtos) {
-        List<UserBookingDto> addedBookings = new ArrayList<>();
-        List<BookingErrorResponse> failedBookings = new ArrayList<>();
-        String description = "";
 
-
+        for (UserBookingDto bookingDto : bookingDtos) {
+            saveBooking(bookingDto);
+        }
         return null;
     }
 
@@ -122,7 +127,7 @@ public class BookingServiceImpl implements BookingService {
             throw new RuntimeException(Message.BOOKING_NOT_FOUND);
         }
         BookingEntity booking = bookingRepository.findById(bookingId).get();
-        booking.setStatus(Status.CONFIRMED);
+        booking.setStatus(BookingStatus.CONFIRMED);
         bookingRepository.save(booking);
         return bookingMapper.toDomain(booking);
     }
@@ -133,7 +138,7 @@ public class BookingServiceImpl implements BookingService {
             throw new RuntimeException(Message.BOOKING_NOT_FOUND);
         }
         BookingEntity booking = bookingRepository.findById(bookingId).get();
-        booking.setStatus(Status.CANCELLED);
+        booking.setStatus(BookingStatus.CANCELLED);
         booking.setActive(false);
         bookingRepository.save(booking);
         return bookingMapper.toDomain(booking);
@@ -142,7 +147,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking updateBooking(String bookingId, BookingDto bookingDto) {
         BookingEntity bookingEntity = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new RuntimeException(Message.BOOKING_NOT_FOUND+ " " + bookingId));
+                .orElseThrow(() -> new RuntimeException(Message.BOOKING_NOT_FOUND + " " + bookingId));
 
         if (bookingDto.getStartTime() != null) {
             bookingEntity.setStartTime(bookingDto.getStartTime());
@@ -197,6 +202,18 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public List<BookingDto> getBookingsByStatus(String status) {
+        if (bookingRepository.findByStatus(status).isEmpty()) {
+            throw new RuntimeException(Message.BOOKING_NOT_FOUND);
+        }
+        List<BookingEntity> bookingEntities = bookingRepository.findByStatus(status);
+
+        return bookingEntities.stream()
+                .map(BookingMapper::entityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ApiResponse deleteBooking(String bookingId) {
         if (bookingRepository.findById(bookingId).isEmpty()) {
             return new ApiResponse(400, Message.BOOKING_NOT_FOUND, HttpStatus.BAD_REQUEST, LocalDateTime.now());
@@ -207,17 +224,37 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public Page<BookingDto> getAllBookingsByStartDate(String startDate, Pageable pageable) {
-        Query query = new Query().with(pageable);
-        List<BookingEntity> bookings = mongoTemplate.find(query, BookingEntity.class);
-        long total = mongoTemplate.count(new Query(), BookingEntity.class);
+    public List<BookingDto> getBookingsByStartTime(String startDate) {
+        LocalDate date = LocalDate.parse(startDate);
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(21, 00, 00);
 
-        List<BookingDto> bookingDtos = bookings.stream()
+        List<BookingEntity> bookingEntities = bookingRepository.findByStartTimeBetween(startOfDay, endOfDay);
+
+        return bookingEntities.stream()
                 .map(BookingMapper::entityToDto)
                 .collect(Collectors.toList());
-
-        return new PageImpl<>(bookingDtos, pageable, total);
     }
 
+    private List<LocalTime> findAvailableTimes(List<BookingEntity> bookings, LocalDate date) {
+        List<LocalTime> availableTimes = new ArrayList<>();
+        LocalTime time = OPENING_TIME;
+
+        while (time.isBefore(CLOSING_TIME)) {
+            final LocalTime currentTime = time;
+            boolean isAvailable = bookings.stream().noneMatch(
+                    booking -> !currentTime.plusHours(1).isBefore(booking.getStartTime().toLocalTime()) &&
+                            !currentTime.isAfter(booking.getEndTime().toLocalTime())
+            );
+
+            if (isAvailable) {
+                availableTimes.add(time);
+            }
+
+            time = time.plusHours(1); // Incrementar en bloques de 1 hora o el intervalo deseado
+        }
+
+        return availableTimes;
+    }
 
 }

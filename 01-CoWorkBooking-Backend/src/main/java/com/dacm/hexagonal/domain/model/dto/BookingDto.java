@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.domain.model.dto;
 
-import com.dacm.hexagonal.domain.enums.Status;
+import com.dacm.hexagonal.domain.enums.BookingStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,7 +16,7 @@ public class BookingDto {
     public String spaceId;
     public LocalDateTime startTime;
     public LocalDateTime endTime;
-    private Status status;
+    private BookingStatus status;
     public boolean active;
 
 }

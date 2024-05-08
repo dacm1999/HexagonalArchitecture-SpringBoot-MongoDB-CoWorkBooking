@@ -50,6 +50,7 @@ public class Message {
     public static final String SPACE_WITHOUT_BOOKING= "Space without booking";
     public static final String USER_WITHOUT_BOOKING= "User without booking";
     public static final String BOOKING_OUT_OF_OPERATING_HOURS= "Booking out of operating hours";
+    public static final String BOOKING_TIME_NOT_AVAILABLE = "Booking time not available";
 
     public static final String AuthErrorResponse= "An error occurred while processing your request";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";

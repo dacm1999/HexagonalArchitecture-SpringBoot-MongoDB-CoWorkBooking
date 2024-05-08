@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity;
 
-import com.dacm.hexagonal.domain.enums.Status;
+import com.dacm.hexagonal.domain.enums.BookingStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class BookingEntity {
     private SpaceEntity space;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Status status;
+    private BookingStatus status;
     private boolean active;
 
 }

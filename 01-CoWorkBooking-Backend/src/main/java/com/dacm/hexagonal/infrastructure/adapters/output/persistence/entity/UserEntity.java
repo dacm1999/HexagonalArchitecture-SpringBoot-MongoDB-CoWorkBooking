@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity;
 
-import com.dacm.hexagonal.domain.enums.Role;
+import com.dacm.hexagonal.domain.enums.UserRole;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,7 +25,7 @@ public class UserEntity implements UserDetails {
     private String lastName;
     private String email;
     private String password;
-    private Role role;
+    private UserRole role;
 
 
     public UserEntity(){

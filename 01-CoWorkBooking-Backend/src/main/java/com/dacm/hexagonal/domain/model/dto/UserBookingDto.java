@@ -1,6 +1,5 @@
 package com.dacm.hexagonal.domain.model.dto;
 
-import com.dacm.hexagonal.domain.enums.Status;
 import lombok.*;
 
 import java.time.LocalDateTime;

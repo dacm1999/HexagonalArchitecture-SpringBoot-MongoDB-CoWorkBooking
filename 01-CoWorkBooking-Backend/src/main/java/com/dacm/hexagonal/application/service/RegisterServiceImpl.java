@@ -4,7 +4,7 @@ import com.dacm.hexagonal.application.port.in.RegisterService;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.common.CommonMethods;
-import com.dacm.hexagonal.domain.enums.Role;
+import com.dacm.hexagonal.domain.enums.UserRole;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.dacm.hexagonal.domain.model.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
@@ -53,7 +53,7 @@ public class RegisterServiceImpl implements RegisterService {
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())
                 .email(request.getEmail())
-                .role(Role.ROLE_ADMIN)
+                .role(UserRole.ROLE_ADMIN)
                 .build();
 
         userRepository.save(user);

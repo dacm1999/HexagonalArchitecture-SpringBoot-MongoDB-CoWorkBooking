@@ -5,7 +5,7 @@ import com.dacm.hexagonal.infrastructure.adapters.input.mapper.UserMapper;
 import com.dacm.hexagonal.application.port.in.UserService;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
-import com.dacm.hexagonal.domain.enums.Role;
+import com.dacm.hexagonal.domain.enums.UserRole;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.dacm.hexagonal.domain.model.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
                 .password(passwordEncoder.encode(user.getPassword()))
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .role(Role.ROLE_USER)
+                .role(UserRole.ROLE_USER)
                 .email(user.getEmail())
                 .build();
         userRepository.save(userEntity);
@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
                     .password(passwordEncoder.encode(user.getPassword()))
                     .firstName(user.getFirstName())
                     .lastName(user.getLastName())
-                    .role(Role.ROLE_USER)
+                    .role(UserRole.ROLE_USER)
                     .email(email)
                     .build();
 

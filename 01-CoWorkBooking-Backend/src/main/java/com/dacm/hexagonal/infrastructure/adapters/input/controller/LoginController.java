@@ -14,14 +14,17 @@ public class LoginController {
 
     private final LoginServiceImpl loginService;
 
+    /**
+     * Authenticate a user and return a JWT token.
+     * This endpoint receives a JSON object representing login credentials (username and password),
+     * and if the authentication is successful, it returns a JWT token encapsulated in a JwtLoginResponse object.
+     *
+     * @param request A Login object containing the user's authentication credentials.
+     * @return ResponseEntity containing a JwtLoginResponse object which includes the JWT token on successful authentication.
+     */
     @PostMapping("/auth")
     public ResponseEntity<JwtLoginResponse> login(@RequestBody Login request) {
         return ResponseEntity.ok(loginService.login(request));
-    }
-
-    @GetMapping("/logout")
-    public ResponseEntity<String> logout() {
-        return ResponseEntity.ok("You have been logged out.");
     }
 
 }

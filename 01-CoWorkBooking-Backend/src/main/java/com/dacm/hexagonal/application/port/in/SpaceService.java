@@ -18,7 +18,6 @@ import java.util.List;
  * It provides methods to create, update, delete, and query space records. It also includes
  * functionality to handle bulk operations and availability changes of spaces.
  */
-@Service
 public interface SpaceService {
 
     ApiResponse save(Space space);

@@ -7,7 +7,6 @@ public class CommonMethods {
         return str == null || str.isEmpty();
     }
 
-
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }

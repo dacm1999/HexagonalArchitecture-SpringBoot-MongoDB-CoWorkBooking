@@ -22,10 +22,10 @@ public interface BookingRepository extends MongoRepository<BookingEntity, String
 
     List<BookingEntity> findByStatus(String status);
 
-    Optional<BookingEntity> findByUserIdAndSpaceIdAndStartTimeAndEndTime(String userId, String spaceId, LocalDateTime startTime, LocalDateTime endTime);
-
-    List<BookingEntity> findBySpaceAndStartTimeBetween(SpaceEntity space, LocalDateTime start, LocalDateTime end);
-
     @Query("{'startTime': {$gte: ?0, $lt: ?1}}")
     List<BookingEntity> findByStartTimeBetween(LocalDateTime startOfDay, LocalDateTime endOfDay);
+
+    @Query("{ 'spaceId': ?0, 'startTime': { $lt: ?2 }, 'endTime': { $gt: ?1 }, 'active': true }")
+    List<BookingEntity> findBySpaceAndDate(String spaceId, LocalDateTime startOfDay, LocalDateTime endOfDay);
+
 }

@@ -14,7 +14,6 @@ import java.util.List;
  * User Service
  * This class is responsible for handling the user requests
  */
-@Service
 public interface UserService {
 
     ApiResponse save(User user);

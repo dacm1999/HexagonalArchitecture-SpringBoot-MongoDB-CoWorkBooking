@@ -7,8 +7,8 @@ import com.dacm.hexagonal.domain.model.Booking;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
 import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.BookingMapper;
+import com.dacm.hexagonal.infrastructure.adapters.input.mapper.SpaceMapper;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
-import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingErrorResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingHoursResponse;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.BookingRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
@@ -33,7 +33,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,61 +41,62 @@ public class BookingServiceImpl implements BookingService {
     private final UserRepository userRepository;
     private final SpaceRepository spaceRepository;
     private final BookingRepository bookingRepository;
-    private final SpaceService spaceService;
-    private final BookingMapper bookingMapper;
     private final MongoTemplate mongoTemplate;
     private static final LocalTime OPENING_TIME = LocalTime.of(9, 0); // 9:00 AM
     private static final LocalTime CLOSING_TIME = LocalTime.of(21, 0); // 9:00 PM
 
 
     @Autowired
-    public BookingServiceImpl(UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, SpaceService spaceService, BookingMapper bookingMapper, MongoTemplate mongoTemplate) {
+    public BookingServiceImpl(UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, MongoTemplate mongoTemplate, SpaceMapper spaceMapper) {
         this.userRepository = userRepository;
         this.spaceRepository = spaceRepository;
         this.bookingRepository = bookingRepository;
-        this.spaceService = spaceService;
-        this.bookingMapper = bookingMapper;
         this.mongoTemplate = mongoTemplate;
     }
 
+    /**
+     * Saves a new booking in the database.
+     * Validates booking times, checks for overlapping bookings, and confirms the space availability.
+     *
+     * @param userBookingDto DTO containing all necessary data for creating a new booking.
+     * @return ApiResponse indicating success or failure of the booking creation.
+     */
     @Override
     public ApiResponse saveBooking(UserBookingDto userBookingDto) {
+        LocalDateTime startTime = userBookingDto.getStartTime();
+        LocalDateTime endTime = userBookingDto.getEndTime();
+
+        System.out.println("Start time: " + startTime);
+        System.out.println("End time: " + endTime);
+
         UserEntity user = userRepository.findByUserId(userBookingDto.getUserId());
         if (user == null) {
-            throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + userBookingDto.getUserId());
+            throw new UsernameNotFoundException(Message.USER_NOT_FOUND);
         }
 
         SpaceEntity space = spaceRepository.findBySpaceId(userBookingDto.getSpaceId())
                 .orElseThrow(() -> new RuntimeException(Message.SPACE_NOT_FOUND + " " + userBookingDto.getSpaceId()));
 
-        LocalDateTime startTime = userBookingDto.getStartTime();
-        LocalDateTime endTime = userBookingDto.getEndTime();
-
+        // Check if start time is after end time
         if (startTime.isAfter(endTime)) {
             return new ApiResponse(400, Message.BOOKING_INVALID_START_TIME, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
+
+        // Check if start time is before current time
         if (startTime.isBefore(LocalDateTime.now())) {
             return new ApiResponse(400, Message.BOOKING_INVALID_TIME, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
+
+        // Check if booking is within operating hours
         if (startTime.toLocalTime().isBefore(OPENING_TIME) || endTime.toLocalTime().isAfter(CLOSING_TIME)) {
             return new ApiResponse(400, Message.BOOKING_OUT_OF_OPERATING_HOURS, HttpStatus.BAD_REQUEST, LocalDateTime.now());
         }
 
-        Optional<BookingEntity> existingBooking = bookingRepository.findByUserIdAndSpaceIdAndStartTimeAndEndTime(
-                user.getUserId(), space.getId(), startTime, endTime);
-
-        if (existingBooking.isPresent()) {
-            return new ApiResponse(409, Message.BOOKING_ALREADY_EXISTS, HttpStatus.CONFLICT, LocalDateTime.now());
-        }
-
-        List<BookingEntity> existingBookings = bookingRepository.findBySpaceAndStartTimeBetween(
-                space, LocalDateTime.of(startTime.toLocalDate(), OPENING_TIME), LocalDateTime.of(endTime.toLocalDate(), CLOSING_TIME));
-
-        List<LocalTime> availableTimes = findAvailableTimes(existingBookings, startTime.toLocalDate());
-        boolean isRequestedTimeAvailable = availableTimes.contains(startTime.toLocalTime());
-
-        if (!isRequestedTimeAvailable) {
-            return new ApiResponse(409, Message.BOOKING_TIME_NOT_AVAILABLE, HttpStatus.CONFLICT, LocalDateTime.now(), availableTimes);
+        List<BookingEntity> overlappingBookings = bookingRepository.findBySpaceAndDate(space.getId(), startTime, endTime);
+        if (!overlappingBookings.isEmpty()) {
+            List<LocalTime> availableHours = findAvailableBookingHours(space, startTime.toLocalDate());
+            System.out.println("Available hours: " + availableHours); // Depuración
+            return new ApiResponse(409, Message.BOOKING_TIME_NOT_AVAILABLE, HttpStatus.CONFLICT, LocalDateTime.now(), availableHours);
         }
 
         BookingEntity booking = BookingEntity.builder()
@@ -109,9 +109,17 @@ public class BookingServiceImpl implements BookingService {
                 .build();
 
         bookingRepository.save(booking);
-        return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), booking.getId());
+        return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), BookingMapper.entityToDto(booking));
     }
 
+
+    /**
+     * Saves multiple bookings at once.
+     * Iterates over an array of UserBookingDto to save each booking.
+     *
+     * @param bookingDtos Array of UserBookingDto containing booking details.
+     * @return AddedResponse with details about the added bookings.
+     */
     @Override
     public AddedResponse saveMultipleBookings(UserBookingDto[] bookingDtos) {
 
@@ -121,6 +129,13 @@ public class BookingServiceImpl implements BookingService {
         return null;
     }
 
+    /**
+     * Confirms a booking based on its ID.
+     * Changes the booking status to CONFIRMED.
+     *
+     * @param bookingId ID of the booking to confirm.
+     * @return The updated Booking domain model.
+     */
     @Override
     public Booking confirmBooking(String bookingId) {
         if (bookingRepository.findById(bookingId).isEmpty()) {
@@ -129,9 +144,16 @@ public class BookingServiceImpl implements BookingService {
         BookingEntity booking = bookingRepository.findById(bookingId).get();
         booking.setStatus(BookingStatus.CONFIRMED);
         bookingRepository.save(booking);
-        return bookingMapper.toDomain(booking);
+        return BookingMapper.toDomain(booking);
     }
 
+    /**
+     * Cancels a booking based on its ID.
+     * Changes the booking status to CANCELLED and sets it as inactive.
+     *
+     * @param bookingId ID of the booking to cancel.
+     * @return The updated Booking domain model.
+     */
     @Override
     public Booking cancelBooking(String bookingId) {
         if (bookingRepository.findById(bookingId).isEmpty()) {
@@ -141,9 +163,16 @@ public class BookingServiceImpl implements BookingService {
         booking.setStatus(BookingStatus.CANCELLED);
         booking.setActive(false);
         bookingRepository.save(booking);
-        return bookingMapper.toDomain(booking);
+        return BookingMapper.toDomain(booking);
     }
 
+    /**
+     * Updates a booking details such as start time, end time, status, and active state.
+     *
+     * @param bookingId  ID of the booking to update.
+     * @param bookingDto DTO with the updated booking data.
+     * @return The updated Booking domain model.
+     */
     @Override
     public Booking updateBooking(String bookingId, BookingDto bookingDto) {
         BookingEntity bookingEntity = bookingRepository.findById(bookingId)
@@ -163,9 +192,29 @@ public class BookingServiceImpl implements BookingService {
         }
 
         bookingRepository.save(bookingEntity);
-        return bookingMapper.toDomain(bookingEntity);
+        return BookingMapper.toDomain(bookingEntity);
     }
 
+    /**
+     * Retrieves a booking by its ID.
+     *
+     * @param bookingId ID of the booking to retrieve.
+     * @return Booking domain model of the retrieved booking.
+     */
+    @Override
+    public Booking getBookingById(String bookingId) {
+        BookingEntity booking = bookingRepository.findById(bookingId).
+                orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        return BookingMapper.toDomain(booking);
+    }
+
+    /**
+     * Retrieves all bookings with pagination.
+     *
+     * @param pageable Pageable object to configure pagination.
+     * @return Page of BookingDto containing paginated booking data.
+     */
     @Override
     public Page<BookingDto> getAllBookings(Pageable pageable) {
 
@@ -181,14 +230,12 @@ public class BookingServiceImpl implements BookingService {
         return new PageImpl<>(bookingDtos, pageable, total);
     }
 
-    @Override
-    public Booking getBookingById(String bookingId) {
-        BookingEntity booking = bookingRepository.findById(bookingId).
-                orElseThrow(() -> new RuntimeException("Booking not found"));
-
-        return bookingMapper.toDomain(booking);
-    }
-
+    /**
+     * Retrieves all bookings made by a specific user.
+     *
+     * @param userId ID of the user whose bookings are to be retrieved.
+     * @return List of BookingDto containing bookings of the specified user.
+     */
     @Override
     public List<BookingDto> getBookingByUserId(String userId) {
         if (bookingRepository.findByUserId(userId).isEmpty()) {
@@ -201,6 +248,12 @@ public class BookingServiceImpl implements BookingService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Retrieves all bookings with a specific status.
+     *
+     * @param status Status of the bookings to retrieve.
+     * @return List of BookingDto with bookings having the specified status.
+     */
     @Override
     public List<BookingDto> getBookingsByStatus(String status) {
         if (bookingRepository.findByStatus(status).isEmpty()) {
@@ -213,6 +266,12 @@ public class BookingServiceImpl implements BookingService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Deletes a booking based on its ID.
+     *
+     * @param bookingId ID of the booking to delete.
+     * @return ApiResponse indicating the result of the deletion process.
+     */
     @Override
     public ApiResponse deleteBooking(String bookingId) {
         if (bookingRepository.findById(bookingId).isEmpty()) {
@@ -223,8 +282,14 @@ public class BookingServiceImpl implements BookingService {
         return new ApiResponse(200, Message.BOOKING_DELETE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), BookingMapper.entityToDto(booking));
     }
 
+    /**
+     * Retrieves all bookings on a specific date.
+     *
+     * @param startDate String representation of the start date.
+     * @return List of BookingDto for bookings on the specified date.
+     */
     @Override
-    public List<BookingDto> getBookingsByStartTime(String startDate) {
+    public List<BookingDto> getBookingsByDate(String startDate) {
         LocalDate date = LocalDate.parse(startDate);
         LocalDateTime startOfDay = date.atStartOfDay();
         LocalDateTime endOfDay = date.atTime(21, 00, 00);
@@ -236,25 +301,62 @@ public class BookingServiceImpl implements BookingService {
                 .collect(Collectors.toList());
     }
 
-    private List<LocalTime> findAvailableTimes(List<BookingEntity> bookings, LocalDate date) {
-        List<LocalTime> availableTimes = new ArrayList<>();
-        LocalTime time = OPENING_TIME;
 
-        while (time.isBefore(CLOSING_TIME)) {
-            final LocalTime currentTime = time;
-            boolean isAvailable = bookings.stream().noneMatch(
-                    booking -> !currentTime.plusHours(1).isBefore(booking.getStartTime().toLocalTime()) &&
-                            !currentTime.isAfter(booking.getEndTime().toLocalTime())
-            );
+    /**
+     * Retrieves available booking hours for a given space and date.
+     *
+     * @param spaceId ID of the space.
+     * @param date    String representation of the date.
+     * @return ApiResponse with available booking hours.
+     */
+    @Override
+    public ApiResponse getAvailableHoursByDateAndSpace(String spaceId, String date) {
+        SpaceEntity space = spaceRepository.findBySpaceId(spaceId)
+                .orElseThrow(() -> new RuntimeException(Message.SPACE_NOT_FOUND + " " + spaceId));
+
+        LocalDate date1 = LocalDate.parse(date);
+        List<LocalTime> availableHours = findAvailableBookingHours(space, date1);
+
+        if (availableHours.isEmpty()) {
+            return new ApiResponse(HttpStatus.BAD_REQUEST.value(), Message.NO_AVAILABLE_HOURS, HttpStatus.BAD_REQUEST, LocalDateTime.now());
+        }
+        BookingHoursResponse response = new BookingHoursResponse();
+        response.setAvailableHours(availableHours);
+        return new ApiResponse(200, Message.AVAILABLE_HOURS, HttpStatus.OK, LocalDateTime.now(), response);
+    }
+
+    /**
+     * Finds available booking hours within a day for a given space.
+     * Checks against existing bookings to determine open slots.
+     *
+     * @param space SpaceEntity for which to find available hours.
+     * @param date  LocalDate representing the day to check for availability.
+     * @return List of LocalTime representing available hours.
+     */
+    public List<LocalTime> findAvailableBookingHours(SpaceEntity space, LocalDate date) {
+        LocalDateTime startOfDay = date.atTime(OPENING_TIME);
+        LocalDateTime endOfDay = date.atTime(CLOSING_TIME);
+//        LocalDateTime startOfDay = date.atTime(OPENING_TIME).withSecond(0).withNano(0);
+//        LocalDateTime endOfDay = date.atTime(CLOSING_TIME).withSecond(0).withNano(0);
+
+        List<BookingEntity> bookings = bookingRepository.findBySpaceAndDate(space.getId(), startOfDay, endOfDay);
+        System.out.println("Total de reservas encontradas para el día: " + bookings.size());
+
+        List<LocalTime> availableHours = new ArrayList<>();
+        for (LocalTime time = OPENING_TIME; !time.isAfter(CLOSING_TIME.minusHours(1)); time = time.plusHours(1)) {
+            LocalDateTime slotStart = date.atTime(time);
+            LocalDateTime slotEnd = slotStart.plusHours(1);
+
+            // verify if the slot is available
+            boolean isAvailable = bookings.stream()
+                    .noneMatch(booking -> booking.getStartTime().isBefore(slotEnd) && booking.getEndTime().isAfter(slotStart));
 
             if (isAvailable) {
-                availableTimes.add(time);
+                availableHours.add(time);
             }
-
-            time = time.plusHours(1); // Incrementar en bloques de 1 hora o el intervalo deseado
         }
-
-        return availableTimes;
+        System.out.println("Horas disponibles calculadas: " + availableHours);
+        return availableHours;
     }
 
 }

@@ -43,14 +43,15 @@ public class Message {
     public static final String BOOKING_ERROR = "Could not book";
     public static final String BOOKING_DELETE_SUCCESSFULLY= "booking deleted successfully";
     public static final String BOOKING_NOT_FOUND= "booking not found";
-    public static final String BOOKING_ALREADY_EXISTS= "booking already exists";
     public static final String BOOKING_INVALID_END_TIME= "Booking end time is before start time";
     public static final String BOOKING_INVALID_START_TIME= "Booking start time is after end time";
     public static final String BOOKING_INVALID_TIME= "Booking time is before current time";
     public static final String SPACE_WITHOUT_BOOKING= "Space without booking";
     public static final String USER_WITHOUT_BOOKING= "User without booking";
     public static final String BOOKING_OUT_OF_OPERATING_HOURS= "Booking out of operating hours";
-    public static final String BOOKING_TIME_NOT_AVAILABLE = "Booking time not available";
+    public static final String BOOKING_TIME_NOT_AVAILABLE = "This time slot is already booked. Please choose a different time.";
+    public static final String NO_AVAILABLE_HOURS = "No available hours for this date";
+    public static final String AVAILABLE_HOURS = "Available hours for this date";
 
     public static final String AuthErrorResponse= "An error occurred while processing your request";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";

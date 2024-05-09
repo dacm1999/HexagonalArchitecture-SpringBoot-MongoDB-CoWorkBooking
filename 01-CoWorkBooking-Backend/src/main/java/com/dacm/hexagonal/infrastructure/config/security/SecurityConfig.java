@@ -63,6 +63,7 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/bookings/user/{userId}").hasAnyRole("ADMIN", "USER")
                                 .requestMatchers("api/v1/bookings/all").hasRole("ADMIN")
                                 .requestMatchers("api/v1/bookings/allByStartDate/{startDate}").hasAnyRole("ADMIN", "MANAGER", "USER")
+                                .requestMatchers("api/v1/bookings/availableHours/{spaceId}/{date}").hasAnyRole("ADMIN", "MANAGER")
                                 .requestMatchers("api/v1/bookings/status/{status}").hasAnyRole("ADMIN", "MANAGER")
                                 .requestMatchers("api/v1/bookings/update/{bookingId}").hasAnyRole("ADMIN", "MANAGER", "USER")
                                 .requestMatchers("api/v1/bookings/delete/{bookingId}").hasRole("ADMIN")

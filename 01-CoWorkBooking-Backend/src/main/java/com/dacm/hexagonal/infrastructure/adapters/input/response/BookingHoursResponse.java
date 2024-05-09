@@ -12,5 +12,5 @@ import java.util.List;
 @AllArgsConstructor
 public class BookingHoursResponse {
 
-    List<LocalTime> availableTimes;
+    List<LocalTime> availableHours;
 }

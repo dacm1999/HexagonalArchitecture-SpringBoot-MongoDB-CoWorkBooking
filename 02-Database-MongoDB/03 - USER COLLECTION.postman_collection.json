@@ -1,0 +1,871 @@
+{
+	"info": {
+		"_postman_id": "809e2cba-6746-4713-a3c9-d61e777fd136",
+		"name": "USER COLLECTION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31090133",
+		"_collection_link": "https://dark-desert-345463.postman.co/workspace/HexagonalArchitecture-SpringBoo~d5620a7e-107c-4b92-b9c7-54f9cb723824/collection/31090133-809e2cba-6746-4713-a3c9-d61e777fd136?action=share&source=collection_link&creator=31090133"
+	},
+	"item": [
+		{
+			"name": "CREATE USER",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNDA2NiwiZXhwIjoxNzE0OTM3NjY2fQ.ybn7XWeJIBk4aXIDfkW9Rnew5MGM3f-LHfvLzQrzwy4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"firstName\": \"Jorge\",\r\n  \"lastName\":\"Duron\",\r\n  \"email\": \"jorgeduron@example.com\",\r\n  \"userId\":\"jorgeduronc\",\r\n  \"password\": \"12345\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CREATED USER",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Jorge\",\r\n  \"lastName\":\"Duron\",\r\n  \"email\": \"jorgeduron@example.com\",\r\n  \"userId\":\"jorgeduronc\",\r\n  \"password\": \"12345\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 18:36:43 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 201,\n    \"message\": \"user saved successfully\",\n    \"status\": \"CREATED\",\n    \"timestamp\": \"2024-05-05 20:36:43\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "ADD MULTIPLE USERS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNDA2NiwiZXhwIjoxNzE0OTM3NjY2fQ.ybn7XWeJIBk4aXIDfkW9Rnew5MGM3f-LHfvLzQrzwy4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"userId\": \"juanjose\",\r\n        \"password\": \"12345\",\r\n        \"firstName\": \"Juan\",\r\n        \"lastName\": \"Jose\",\r\n        \"email\": \"juan.jose@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"password\": \"67890\",\r\n        \"firstName\": \"Ana\",\r\n        \"lastName\": \"Maria\",\r\n        \"email\": \"ana.maria@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"password\": \"abc123\",\r\n        \"firstName\": \"Roberto\",\r\n        \"lastName\": \"Flores\",\r\n        \"email\": \"roberto.flores@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"password\": \"pass456\",\r\n        \"firstName\": \"Lucia\",\r\n        \"lastName\": \"Gonzalez\",\r\n        \"email\": \"lucia.gonzalez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"carlosm\",\r\n        \"password\": \"mypass789\",\r\n        \"firstName\": \"Carlos\",\r\n        \"lastName\": \"Martinez\",\r\n        \"email\": \"carlos.martinez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"mariap\",\r\n        \"password\": \"pass1234\",\r\n        \"firstName\": \"Maria\",\r\n        \"lastName\": \"Perez\",\r\n        \"email\": \"maria.perez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"danielq\",\r\n        \"password\": \"dani789\",\r\n        \"firstName\": \"Daniel\",\r\n        \"lastName\": \"Quintana\",\r\n        \"email\": \"daniel.quintana@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"laura123\",\r\n        \"password\": \"laura321\",\r\n        \"firstName\": \"Laura\",\r\n        \"lastName\": \"Lopez\",\r\n        \"email\": \"laura.lopez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"pedroc\",\r\n        \"password\": \"pedro123\",\r\n        \"firstName\": \"Pedro\",\r\n        \"lastName\": \"Campos\",\r\n        \"email\": \"pedro.campos@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"luisg\",\r\n        \"password\": \"123luis\",\r\n        \"firstName\": \"Luis\",\r\n        \"lastName\": \"Gutierrez\",\r\n        \"email\": \"luis.gutierrez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"soniag\",\r\n        \"password\": \"sonia456\",\r\n        \"firstName\": \"Sonia\",\r\n        \"lastName\": \"Garcia\",\r\n        \"email\": \"sonia.garcia@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"ricardov\",\r\n        \"password\": \"rico789\",\r\n        \"firstName\": \"Ricardo\",\r\n        \"lastName\": \"Vargas\",\r\n        \"email\": \"ricardo.vargas@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"elenam\",\r\n        \"password\": \"elena123\",\r\n        \"firstName\": \"Elena\",\r\n        \"lastName\": \"Molina\",\r\n        \"email\": \"elena.molina@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"javiere\",\r\n        \"password\": \"javier456\",\r\n        \"firstName\": \"Javier\",\r\n        \"lastName\": \"Espinoza\",\r\n        \"email\": \"javier.espinoza@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"monicar\",\r\n        \"password\": \"moni789\",\r\n        \"firstName\": \"Monica\",\r\n        \"lastName\": \"Rojas\",\r\n        \"email\": \"monica.rojas@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"gabrielat\",\r\n        \"password\": \"gabi123\",\r\n        \"firstName\": \"Gabriela\",\r\n        \"lastName\": \"Torres\",\r\n        \"email\": \"gabriela.torres@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"felipea\",\r\n        \"password\": \"felipe321\",\r\n        \"firstName\": \"Felipe\",\r\n        \"lastName\": \"Alvarez\",\r\n        \"email\": \"felipe.alvarez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"angelicah\",\r\n        \"password\": \"angie123\",\r\n        \"firstName\": \"Angelica\",\r\n        \"lastName\": \"Herrera\",\r\n        \"email\": \"angelica.herrera@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"franciscoj\",\r\n        \"password\": \"fran789\",\r\n        \"firstName\": \"Francisco\",\r\n        \"lastName\": \"Jimenez\",\r\n        \"email\": \"francisco.jimenez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"veronicas\",\r\n        \"password\": \"vero1234\",\r\n        \"firstName\": \"Veronica\",\r\n        \"lastName\": \"Sanchez\",\r\n        \"email\": \"veronica.sanchez@example.com\"\r\n    },\r\n    {\r\n\t\t\"userId\": \"luisfer\",\r\n\t\t\"password\": \"12345\",\r\n\t\t\"firstName\": \"Luis\",\r\n\t\t\"lastName\": \"Contreras\",\r\n\t\t\"email\": \"luisfer@example.com\"\r\n    },\r\n    {\r\n\t\t\"userId\": \"merys\",\r\n\t\t\"password\": \"12345\",\r\n\t\t\"firstName\": \"Mery\",\r\n\t\t\"lastName\": \"Sandra\",\r\n\t\t\"email\": \"merys@example.com\"\r\n    }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/createMultiple",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"createMultiple"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ADD MULTIPLE USERS",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"userId\": \"juanjose\",\r\n        \"password\": \"12345\",\r\n        \"firstName\": \"Juan\",\r\n        \"lastName\": \"Jose\",\r\n        \"email\": \"juan.jose@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"password\": \"67890\",\r\n        \"firstName\": \"Ana\",\r\n        \"lastName\": \"Maria\",\r\n        \"email\": \"ana.maria@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"password\": \"abc123\",\r\n        \"firstName\": \"Roberto\",\r\n        \"lastName\": \"Flores\",\r\n        \"email\": \"roberto.flores@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"password\": \"pass456\",\r\n        \"firstName\": \"Lucia\",\r\n        \"lastName\": \"Gonzalez\",\r\n        \"email\": \"lucia.gonzalez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"carlosm\",\r\n        \"password\": \"mypass789\",\r\n        \"firstName\": \"Carlos\",\r\n        \"lastName\": \"Martinez\",\r\n        \"email\": \"carlos.martinez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"mariap\",\r\n        \"password\": \"pass1234\",\r\n        \"firstName\": \"Maria\",\r\n        \"lastName\": \"Perez\",\r\n        \"email\": \"maria.perez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"danielq\",\r\n        \"password\": \"dani789\",\r\n        \"firstName\": \"Daniel\",\r\n        \"lastName\": \"Quintana\",\r\n        \"email\": \"daniel.quintana@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"laura123\",\r\n        \"password\": \"laura321\",\r\n        \"firstName\": \"Laura\",\r\n        \"lastName\": \"Lopez\",\r\n        \"email\": \"laura.lopez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"pedroc\",\r\n        \"password\": \"pedro123\",\r\n        \"firstName\": \"Pedro\",\r\n        \"lastName\": \"Campos\",\r\n        \"email\": \"pedro.campos@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"luisg\",\r\n        \"password\": \"123luis\",\r\n        \"firstName\": \"Luis\",\r\n        \"lastName\": \"Gutierrez\",\r\n        \"email\": \"luis.gutierrez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"soniag\",\r\n        \"password\": \"sonia456\",\r\n        \"firstName\": \"Sonia\",\r\n        \"lastName\": \"Garcia\",\r\n        \"email\": \"sonia.garcia@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"ricardov\",\r\n        \"password\": \"rico789\",\r\n        \"firstName\": \"Ricardo\",\r\n        \"lastName\": \"Vargas\",\r\n        \"email\": \"ricardo.vargas@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"elenam\",\r\n        \"password\": \"elena123\",\r\n        \"firstName\": \"Elena\",\r\n        \"lastName\": \"Molina\",\r\n        \"email\": \"elena.molina@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"javiere\",\r\n        \"password\": \"javier456\",\r\n        \"firstName\": \"Javier\",\r\n        \"lastName\": \"Espinoza\",\r\n        \"email\": \"javier.espinoza@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"monicar\",\r\n        \"password\": \"moni789\",\r\n        \"firstName\": \"Monica\",\r\n        \"lastName\": \"Rojas\",\r\n        \"email\": \"monica.rojas@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"gabrielat\",\r\n        \"password\": \"gabi123\",\r\n        \"firstName\": \"Gabriela\",\r\n        \"lastName\": \"Torres\",\r\n        \"email\": \"gabriela.torres@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"felipea\",\r\n        \"password\": \"felipe321\",\r\n        \"firstName\": \"Felipe\",\r\n        \"lastName\": \"Alvarez\",\r\n        \"email\": \"felipe.alvarez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"angelicah\",\r\n        \"password\": \"angie123\",\r\n        \"firstName\": \"Angelica\",\r\n        \"lastName\": \"Herrera\",\r\n        \"email\": \"angelica.herrera@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"franciscoj\",\r\n        \"password\": \"fran789\",\r\n        \"firstName\": \"Francisco\",\r\n        \"lastName\": \"Jimenez\",\r\n        \"email\": \"francisco.jimenez@example.com\"\r\n    },\r\n    {\r\n        \"userId\": \"veronicas\",\r\n        \"password\": \"vero1234\",\r\n        \"firstName\": \"Veronica\",\r\n        \"lastName\": \"Sanchez\",\r\n        \"email\": \"veronica.sanchez@example.com\"\r\n    },\r\n    {\r\n\t\t\"userId\": \"luisfer\",\r\n\t\t\"password\": \"12345\",\r\n\t\t\"firstName\": \"Luis\",\r\n\t\t\"lastName\": \"Contreras\",\r\n\t\t\"email\": \"luisfer@example.com\"\r\n    },\r\n    {\r\n\t\t\"userId\": \"merys\",\r\n\t\t\"password\": \"12345\",\r\n\t\t\"firstName\": \"Mery\",\r\n\t\t\"lastName\": \"Sandra\",\r\n\t\t\"email\": \"merys@example.com\"\r\n    }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/createMultiple",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"createMultiple"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 18:35:32 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"total\": 22,\n    \"num_added\": 2,\n    \"num_failed\": 20,\n    \"added\": [\n        {\n            \"firstName\": \"Veronica\",\n            \"lastName\": \"Sanchez\",\n            \"email\": \"veronica.sanchez@example.com\",\n            \"userId\": \"veronicas\"\n        },\n        {\n            \"firstName\": \"Mery\",\n            \"lastName\": \"Sandra\",\n            \"email\": \"merys@example.com\",\n            \"userId\": \"merys\"\n        }\n    ],\n    \"failed\": [\n        {\n            \"username\": \"juanjose\",\n            \"email\": \"juan.jose@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"anamaria\",\n            \"email\": \"ana.maria@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"roberto89\",\n            \"email\": \"roberto.flores@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"lucia2023\",\n            \"email\": \"lucia.gonzalez@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"carlosm\",\n            \"email\": \"carlos.martinez@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"mariap\",\n            \"email\": \"maria.perez@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"danielq\",\n            \"email\": \"daniel.quintana@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"laura123\",\n            \"email\": \"laura.lopez@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"pedroc\",\n            \"email\": \"pedro.campos@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"luisg\",\n            \"email\": \"luis.gutierrez@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"soniag\",\n            \"email\": \"sonia.garcia@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"ricardov\",\n            \"email\": \"ricardo.vargas@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"elenam\",\n            \"email\": \"elena.molina@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"javiere\",\n            \"email\": \"javier.espinoza@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"monicar\",\n            \"email\": \"monica.rojas@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"gabrielat\",\n            \"email\": \"gabriela.torres@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"felipea\",\n            \"email\": \"felipe.alvarez@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"angelicah\",\n            \"email\": \"angelica.herrera@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"franciscoj\",\n            \"email\": \"francisco.jimenez@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        },\n        {\n            \"username\": \"luisfer\",\n            \"email\": \"luisfer@example.com\",\n            \"errorDescription\": \"Username duplicated\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "GET USER",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTA4ODM3MSwiZXhwIjoxNzE1MDkxOTcxfQ.tSs82rfPpWP1S78pdMpMNBMawjvtp4RiC_PeaiWrJlk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/find/:userId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"find",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "luisfer"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "EXAMPLE GET INFO",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/find/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"find",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "dacm"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 18:35:16 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"firstName\": \"Daniel\",\n    \"lastName\": \"Contreras\",\n    \"email\": \"dacm.dev@example.com\",\n    \"userId\": \"dacm\"\n}"
+				}
+			]
+		},
+		{
+			"name": "GET ALL USERS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTE4MjAyMSwiZXhwIjoxNzE1MTg1NjIxfQ.6rxicGAv7M942zptExdXwXsDhkWTHvHC9R9EpoA-0v4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/allUsers?size=23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"allUsers"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "23"
+						},
+						{
+							"key": "page",
+							"value": "2",
+							"disabled": true
+						},
+						{
+							"key": "username",
+							"value": "miriam",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "dacm@example.com",
+							"disabled": true
+						},
+						{
+							"key": "firstName",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "lastName",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "EXAMPLE",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/allUsers?size=23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"allUsers"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "23"
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "miriam",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "dacm@example.com",
+									"disabled": true
+								},
+								{
+									"key": "firstName",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "lastName",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 15:37:48 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"users\": [\n        {\n            \"firstName\": \"Daniel\",\n            \"lastName\": \"Contreras\",\n            \"email\": \"dacm.dev@example.com\",\n            \"userId\": \"dacm\"\n        },\n        {\n            \"firstName\": \"Juan\",\n            \"lastName\": \"Jose\",\n            \"email\": \"juan.jose@example.com\",\n            \"userId\": \"juanjose\"\n        },\n        {\n            \"firstName\": \"Ana\",\n            \"lastName\": \"Maria\",\n            \"email\": \"ana.maria@example.com\",\n            \"userId\": \"anamaria\"\n        },\n        {\n            \"firstName\": \"Roberto\",\n            \"lastName\": \"Flores\",\n            \"email\": \"roberto.flores@example.com\",\n            \"userId\": \"roberto89\"\n        },\n        {\n            \"firstName\": \"Lucia\",\n            \"lastName\": \"Gonzalez\",\n            \"email\": \"lucia.gonzalez@example.com\",\n            \"userId\": \"lucia2023\"\n        },\n        {\n            \"firstName\": \"Carlos\",\n            \"lastName\": \"Martinez\",\n            \"email\": \"carlos.martinez@example.com\",\n            \"userId\": \"carlosm\"\n        },\n        {\n            \"firstName\": \"Maria\",\n            \"lastName\": \"Perez\",\n            \"email\": \"maria.perez@example.com\",\n            \"userId\": \"mariap\"\n        },\n        {\n            \"firstName\": \"Daniel\",\n            \"lastName\": \"Quintana\",\n            \"email\": \"daniel.quintana@example.com\",\n            \"userId\": \"danielq\"\n        },\n        {\n            \"firstName\": \"Laura\",\n            \"lastName\": \"Lopez\",\n            \"email\": \"laura.lopez@example.com\",\n            \"userId\": \"laura123\"\n        },\n        {\n            \"firstName\": \"Pedro\",\n            \"lastName\": \"Campos\",\n            \"email\": \"pedro.campos@example.com\",\n            \"userId\": \"pedroc\"\n        },\n        {\n            \"firstName\": \"Luis\",\n            \"lastName\": \"Gutierrez\",\n            \"email\": \"luis.gutierrez@example.com\",\n            \"userId\": \"luisg\"\n        },\n        {\n            \"firstName\": \"Sonia\",\n            \"lastName\": \"Garcia\",\n            \"email\": \"sonia.garcia@example.com\",\n            \"userId\": \"soniag\"\n        },\n        {\n            \"firstName\": \"Ricardo\",\n            \"lastName\": \"Vargas\",\n            \"email\": \"ricardo.vargas@example.com\",\n            \"userId\": \"ricardov\"\n        },\n        {\n            \"firstName\": \"Elena\",\n            \"lastName\": \"Molina\",\n            \"email\": \"elena.molina@example.com\",\n            \"userId\": \"elenam\"\n        },\n        {\n            \"firstName\": \"Javier\",\n            \"lastName\": \"Espinoza\",\n            \"email\": \"javier.espinoza@example.com\",\n            \"userId\": \"javiere\"\n        },\n        {\n            \"firstName\": \"Monica\",\n            \"lastName\": \"Rojas\",\n            \"email\": \"monica.rojas@example.com\",\n            \"userId\": \"monicar\"\n        },\n        {\n            \"firstName\": \"Gabriela\",\n            \"lastName\": \"Torres\",\n            \"email\": \"gabriela.torres@example.com\",\n            \"userId\": \"gabrielat\"\n        },\n        {\n            \"firstName\": \"Felipe\",\n            \"lastName\": \"Alvarez\",\n            \"email\": \"felipe.alvarez@example.com\",\n            \"userId\": \"felipea\"\n        },\n        {\n            \"firstName\": \"Angelica\",\n            \"lastName\": \"Herrera\",\n            \"email\": \"angelica.herrera@example.com\",\n            \"userId\": \"angelicah\"\n        },\n        {\n            \"firstName\": \"Francisco\",\n            \"lastName\": \"Jimenez\",\n            \"email\": \"francisco.jimenez@example.com\",\n            \"userId\": \"franciscoj\"\n        },\n        {\n            \"firstName\": \"Veronica\",\n            \"lastName\": \"Sanchez\",\n            \"email\": \"veronica.sanchez@example.com\",\n            \"userId\": \"veronicas\"\n        },\n        {\n            \"firstName\": \"Luis\",\n            \"lastName\": \"Contreras\",\n            \"email\": \"luisfer@example.com\",\n            \"userId\": \"luisfer\"\n        },\n        {\n            \"firstName\": \"Mery\",\n            \"lastName\": \"Sandra\",\n            \"email\": \"merys@example.com\",\n            \"userId\": \"merys\"\n        }\n    ],\n    \"totalElements\": 23,\n    \"totalPages\": 1,\n    \"numberOfElements\": 23,\n    \"size\": 23,\n    \"number\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "UPDATE USER",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkyMzM2NywiZXhwIjoxNzE0OTI2OTY3fQ.bYmq2ND2z1HHKICD8j5_hCaD0IKddLAXzHe3rAG3C1g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"meryscontreras\",\r\n    \"firstName\": \"Mery\",\r\n    \"lastName\": \"Sandra\",\r\n    \"email\": \"merycontreras1@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/update/:username",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"update",
+						":username"
+					],
+					"variable": [
+						{
+							"key": "username",
+							"value": "merys"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "EXAMPLE UPDATED USER",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"meryscontreras\",\r\n    \"firstName\": \"Mery\",\r\n    \"lastName\": \"Sandra\",\r\n    \"email\": \"merycontreras1@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/update/:username",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"update",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "merys"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 15:40:57 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"user updated successfully\",\n    \"status\": \"OK\",\n    \"timestamp\": \"2024-05-05 17:40:57\",\n    \"data\": null\n}"
+				}
+			]
+		},
+		{
+			"name": "DELETE USER",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNDA2NiwiZXhwIjoxNzE0OTM3NjY2fQ.ybn7XWeJIBk4aXIDfkW9Rnew5MGM3f-LHfvLzQrzwy4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/users/delete/:userId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"delete",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "veronicas"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "EXAMPLE DELETED USER",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/users/delete/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"delete",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "veronicas"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 18:34:36 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"user deleted successfully\",\n    \"status\": \"OK\",\n    \"timestamp\": \"2024-05-05 20:34:36\",\n    \"data\": {\n        \"firstName\": \"Veronica\",\n        \"lastName\": \"Sanchez\",\n        \"email\": \"veronica.sanchez@example.com\",\n        \"userId\": \"veronicas\"\n    }\n}"
+				}
+			]
+		}
+	]
+}

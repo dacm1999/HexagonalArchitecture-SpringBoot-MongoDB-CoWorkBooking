@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "2b95ae2d-4eb2-4e4b-ae1d-cc3ad5d3d7c4",
+		"name": "REGISTER",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31090133",
+		"_collection_link": "https://dark-desert-345463.postman.co/workspace/HexagonalArchitecture-SpringBoo~d5620a7e-107c-4b92-b9c7-54f9cb723824/collection/31090133-2b95ae2d-4eb2-4e4b-ae1d-cc3ad5d3d7c4?action=share&source=collection_link&creator=31090133"
+	},
+	"item": [
+		{
+			"name": "SING UP",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"dacm\",\r\n    \"password\": \"12345\",\r\n    \"firstname\": \"Daniel\",\r\n    \"lastname\": \"Contreras\",\r\n    \"email\": \"dacm.dev@example.com\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

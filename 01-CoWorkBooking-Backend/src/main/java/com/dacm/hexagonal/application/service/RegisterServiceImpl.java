@@ -1,6 +1,7 @@
 package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.RegisterService;
+import com.dacm.hexagonal.infrastructure.adapters.output.email.EmailService;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.common.CommonMethods;
@@ -9,25 +10,36 @@ import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.User
 import com.dacm.hexagonal.domain.model.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
 import com.dacm.hexagonal.infrastructure.config.security.jwt.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 
 @Service
-@RequiredArgsConstructor
 public class RegisterServiceImpl implements RegisterService {
 
-    @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
 
+    private final EmailService emailService;
+
+    @Autowired
+    public RegisterServiceImpl(JwtTokenProvider jwtTokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
+    }
 
     @Override
-    public JwtLoginResponse signUp(RegisterDto request) {
+    public JwtLoginResponse signUp(RegisterDto request) throws MessagingException {
+        Model model = new ExtendedModelMap();
+        String fullName = request.getFirstname() + " " + request.getLastname();
 
         if (CommonMethods.isEmpty(request.getUserId())) {
             throw new IllegalArgumentException(Message.USERNAME_MANDATORY);
@@ -57,6 +69,8 @@ public class RegisterServiceImpl implements RegisterService {
                 .build();
 
         userRepository.save(user);
+        model.addAttribute("nombre", fullName);
+        emailService.sendHtmlMessage(user.getEmail(), "Bienvenido a Nuestro Servicio", model, "SuccessfulRegistration");
 
         return JwtLoginResponse.builder()
                 .token(jwtTokenProvider.getToken(user))

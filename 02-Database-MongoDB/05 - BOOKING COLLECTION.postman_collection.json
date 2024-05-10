@@ -1,0 +1,1524 @@
+{
+	"info": {
+		"_postman_id": "3884c9c2-58f9-4f7f-8b47-6dfb1ecfb568",
+		"name": "BOOKING COLLECTION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31090133",
+		"_collection_link": "https://dark-desert-345463.postman.co/workspace/HexagonalArchitecture-SpringBoo~d5620a7e-107c-4b92-b9c7-54f9cb723824/collection/31090133-3884c9c2-58f9-4f7f-8b47-6dfb1ecfb568?action=share&source=collection_link&creator=31090133"
+	},
+	"item": [
+		{
+			"name": "CREATE BOOKING SPACE",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTI3MDE3MywiZXhwIjoxNzE1MjczNzczfQ.7I81qUCBxMJzX6oTOJMX3pGXVettwEePkNUB-r18Pdo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"dacm\",\r\n    \"spaceId\":\"Sala3\",\r\n    \"startTime\":\"2024-10-02T11:00:00\",\r\n    \"endTime\":\"2024-10-02T12:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CREATE BOOKING SPACE",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"luisfer\",\r\n    \"spaceId\": \"CoWorking14\",\r\n    \"startTime\": \"2024-01-2910:30:00\",\r\n    \"endTime\": \"2024-01-2914:30:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 May 2024 19:41:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"booking saved successfully\",\n    \"status\": \"OK\",\n    \"timestamp\": \"2024-05-07 21:41:50\",\n    \"data\": \"663a83fe0d73184bd565a8fb\"\n}"
+				}
+			]
+		},
+		{
+			"name": "CREATE MULTIPLE BOOKINGS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTI3NDA5MSwiZXhwIjoxNzE1Mjc3NjkxfQ.j0SWwDd39nGq4p2vCDA3OuMhbfrXgUTVZJqTI8n0-8g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"userId\": \"dacm\",\r\n        \"spaceId\": \"CoWorking2\",\r\n        \"startTime\": \"2024-12-05T09:00:00\",\r\n        \"endTime\": \"2024-12-05T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"CoWorking2\",\r\n        \"startTime\":\"2024-11-16T09:00:00\",\r\n        \"endTime\":\"2024-11-16T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"CoWorking2\",\r\n        \"startTime\":\"2024-11-16T12:00:00\",\r\n        \"endTime\":\"2024-11-16T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"CoWorking3\",\r\n        \"startTime\":\"2024-11-17T09:00:00\",\r\n        \"endTime\":\"2024-11-17T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"CoWorking3\",\r\n        \"startTime\":\"2024-11-17T12:00:00\",\r\n        \"endTime\":\"2024-11-17T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"CoWorking4\",\r\n        \"startTime\":\"2024-11-18T09:00:00\",\r\n        \"endTime\":\"2024-11-18T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"CoWorking4\",\r\n        \"startTime\":\"2024-11-18T12:00:00\",\r\n        \"endTime\":\"2024-11-18T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"CoWorking5\",\r\n        \"startTime\":\"2024-11-19T09:00:00\",\r\n        \"endTime\":\"2024-11-19T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"CoWorking5\",\r\n        \"startTime\":\"2024-11-19T12:00:00\",\r\n        \"endTime\":\"2024-11-19T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"CoWorking6\",\r\n        \"startTime\":\"2024-11-20T09:00:00\",\r\n        \"endTime\":\"2024-11-20T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"CoWorking6\",\r\n        \"startTime\":\"2024-11-20T12:00:00\",\r\n        \"endTime\":\"2024-11-20T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Sala6\",\r\n        \"startTime\":\"2024-11-21T09:00:00\",\r\n        \"endTime\":\"2024-11-21T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Sala6\",\r\n        \"startTime\":\"2024-11-21T12:00:00\",\r\n        \"endTime\":\"2024-11-21T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Oficina2\",\r\n        \"startTime\":\"2024-11-22T09:00:00\",\r\n        \"endTime\":\"2024-11-22T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Oficina2\",\r\n        \"startTime\":\"2024-11-22T12:00:00\",\r\n        \"endTime\":\"2024-11-22T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Sala10\",\r\n        \"startTime\":\"2024-11-23T09:00:00\",\r\n        \"endTime\":\"2024-11-23T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Sala10\",\r\n        \"startTime\":\"2024-11-23T12:00:00\",\r\n        \"endTime\":\"2024-11-23T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Sala11\",\r\n        \"startTime\":\"2024-11-24T09:00:00\",\r\n        \"endTime\":\"2024-11-24T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Sala11\",\r\n        \"startTime\":\"2024-11-24T12:00:00\",\r\n        \"endTime\":\"2024-11-24T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Sala12\",\r\n        \"startTime\":\"2024-11-25T09:00:00\",\r\n        \"endTime\":\"2024-11-25T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Sala12\",\r\n        \"startTime\":\"2024-11-25T12:00:00\",\r\n        \"endTime\":\"2024-11-25T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Terraza1\",\r\n        \"startTime\":\"2024-11-26T09:00:00\",\r\n        \"endTime\":\"2024-11-26T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Terraza1\",\r\n        \"startTime\":\"2024-11-26T12:00:00\",\r\n        \"endTime\":\"2024-11-26T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Gym1\",\r\n        \"startTime\":\"2024-11-27T09:00:00\",\r\n        \"endTime\":\"2024-11-27T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Gym1\",\r\n        \"startTime\":\"2024-11-27T12:00:00\",\r\n        \"endTime\":\"2024-11-27T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Vip1\",\r\n        \"startTime\":\"2024-11-28T09:00:00\",\r\n        \"endTime\":\"2024-11-28T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Vip1\",\r\n        \"startTime\":\"2024-11-28T12:00:00\",\r\n        \"endTime\":\"2024-11-28T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Cubículo1\",\r\n        \"startTime\":\"2024-11-29T09:00:00\",\r\n        \"endTime\":\"2024-11-29T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Cubículo1\",\r\n        \"startTime\":\"2024-11-29T12:00:00\",\r\n        \"endTime\":\"2024-11-29T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Auditorio1\",\r\n        \"startTime\":\"2024-11-30T09:00:00\",\r\n        \"endTime\":\"2024-11-30T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Auditorio1\",\r\n        \"startTime\":\"2024-11-30T12:00:00\",\r\n        \"endTime\":\"2024-11-30T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"CoWorking2\",\r\n        \"startTime\":\"2024-12-01T09:00:00\",\r\n        \"endTime\":\"2024-12-01T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"CoWorking2\",\r\n        \"startTime\":\"2024-12-01T12:00:00\",\r\n        \"endTime\":\"2024-12-01T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"CoWorking3\",\r\n        \"startTime\":\"2024-12-02T09:00:00\",\r\n        \"endTime\":\"2024-12-02T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"CoWorking3\",\r\n        \"startTime\":\"2024-12-02T12:00:00\",\r\n        \"endTime\":\"2024-12-02T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"CoWorking4\",\r\n        \"startTime\":\"2024-12-03T09:00:00\",\r\n        \"endTime\":\"2024-12-03T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"CoWorking4\",\r\n        \"startTime\":\"2024-12-03T12:00:00\",\r\n        \"endTime\":\"2024-12-03T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"CoWorking5\",\r\n        \"startTime\":\"2024-12-04T09:00:00\",\r\n        \"endTime\":\"2024-12-04T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"CoWorking5\",\r\n        \"startTime\":\"2024-12-04T12:00:00\",\r\n        \"endTime\":\"2024-12-04T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"CoWorking6\",\r\n        \"startTime\":\"2024-12-05T09:00:00\",\r\n        \"endTime\":\"2024-12-05T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"CoWorking6\",\r\n        \"startTime\":\"2024-12-05T12:00:00\",\r\n        \"endTime\":\"2024-12-05T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Sala6\",\r\n        \"startTime\":\"2024-12-06T09:00:00\",\r\n        \"endTime\":\"2024-12-06T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Sala6\",\r\n        \"startTime\":\"2024-12-06T12:00:00\",\r\n        \"endTime\":\"2024-12-06T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Oficina2\",\r\n        \"startTime\":\"2024-12-07T09:00:00\",\r\n        \"endTime\":\"2024-12-07T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Oficina2\",\r\n        \"startTime\":\"2024-12-07T12:00:00\",\r\n        \"endTime\":\"2024-12-07T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Sala10\",\r\n        \"startTime\":\"2024-12-08T09:00:00\",\r\n        \"endTime\":\"2024-12-08T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Sala10\",\r\n        \"startTime\":\"2024-12-08T12:00:00\",\r\n        \"endTime\":\"2024-12-08T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Sala11\",\r\n        \"startTime\":\"2024-12-09T09:00:00\",\r\n        \"endTime\":\"2024-12-09T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Sala11\",\r\n        \"startTime\":\"2024-12-09T12:00:00\",\r\n        \"endTime\":\"2024-12-09T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Sala12\",\r\n        \"startTime\":\"2024-12-10T09:00:00\",\r\n        \"endTime\":\"2024-12-10T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Sala12\",\r\n        \"startTime\":\"2024-12-10T12:00:00\",\r\n        \"endTime\":\"2024-12-10T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Terraza1\",\r\n        \"startTime\":\"2024-12-11T09:00:00\",\r\n        \"endTime\":\"2024-12-11T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Terraza1\",\r\n        \"startTime\":\"2024-12-11T12:00:00\",\r\n        \"endTime\":\"2024-12-11T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Gym1\",\r\n        \"startTime\":\"2024-12-12T09:00:00\",\r\n        \"endTime\":\"2024-12-12T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Gym1\",\r\n        \"startTime\":\"2024-12-12T12:00:00\",\r\n        \"endTime\":\"2024-12-12T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Vip1\",\r\n        \"startTime\":\"2024-12-13T09:00:00\",\r\n        \"endTime\":\"2024-12-13T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Vip1\",\r\n        \"startTime\":\"2024-12-13T12:00:00\",\r\n        \"endTime\":\"2024-12-13T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"veronicas\",\r\n        \"spaceId\":\"Cubículo1\",\r\n        \"startTime\":\"2024-12-14T09:00:00\",\r\n        \"endTime\":\"2024-12-14T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"monicar\",\r\n        \"spaceId\":\"Cubículo1\",\r\n        \"startTime\":\"2024-12-14T12:00:00\",\r\n        \"endTime\":\"2024-12-14T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"jorgeduronc\",\r\n        \"spaceId\":\"Auditorio1\",\r\n        \"startTime\":\"2024-12-15T09:00:00\",\r\n        \"endTime\":\"2024-12-15T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\":\"merys\",\r\n        \"spaceId\":\"Auditorio1\",\r\n        \"startTime\":\"2024-12-15T12:00:00\",\r\n        \"endTime\":\"2024-12-15T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"gabrielat\",\r\n        \"spaceId\": \"CoWorking2\",\r\n        \"startTime\": \"2024-12-05T12:00:00\",\r\n        \"endTime\": \"2024-12-05T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"spaceId\": \"CoWorking3\",\r\n        \"startTime\": \"2024-12-05T09:00:00\",\r\n        \"endTime\": \"2024-12-05T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"CoWorking3\",\r\n        \"startTime\": \"2024-12-05T12:00:00\",\r\n        \"endTime\": \"2024-12-05T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"CoWorking4\",\r\n        \"startTime\": \"2024-12-05T09:00:00\",\r\n        \"endTime\": \"2024-12-05T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"CoWorking4\",\r\n        \"startTime\": \"2024-12-05T12:00:00\",\r\n        \"endTime\": \"2024-12-05T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"CoWorking5\",\r\n        \"startTime\": \"2024-12-05T09:00:00\",\r\n        \"endTime\": \"2024-12-05T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"dacm\",\r\n        \"spaceId\": \"CoWorking5\",\r\n        \"startTime\": \"2024-12-05T12:00:00\",\r\n        \"endTime\": \"2024-12-05T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"gabrielat\",\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"startTime\": \"2024-12-05T09:00:00\",\r\n        \"endTime\": \"2024-12-05T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"startTime\": \"2024-12-05T12:00:00\",\r\n        \"endTime\": \"2024-12-05T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"Sala6\",\r\n        \"startTime\": \"2024-12-05T09:00:00\",\r\n        \"endTime\": \"2024-12-05T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"Sala6\",\r\n        \"startTime\": \"2024-12-05T12:00:00\",\r\n        \"endTime\": \"2024-12-05T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"Oficina2\",\r\n        \"startTime\": \"2024-12-05T09:00:00\",\r\n        \"endTime\": \"2024-12-05T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"Oficina2\",\r\n        \"startTime\": \"2024-12-05T12:00:00\",\r\n        \"endTime\": \"2024-12-05T21:00:00\"\r\n    },\r\n\t {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"Sala10\",\r\n        \"startTime\": \"2024-12-06T09:00:00\",\r\n        \"endTime\": \"2024-12-06T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"Sala10\",\r\n        \"startTime\": \"2024-12-06T12:00:00\",\r\n        \"endTime\": \"2024-12-06T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"Sala11\",\r\n        \"startTime\": \"2024-12-06T09:00:00\",\r\n        \"endTime\": \"2024-12-06T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"dacm\",\r\n        \"spaceId\": \"Sala11\",\r\n        \"startTime\": \"2024-12-06T12:00:00\",\r\n        \"endTime\": \"2024-12-06T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"gabrielat\",\r\n        \"spaceId\": \"Sala12\",\r\n        \"startTime\": \"2024-12-06T09:00:00\",\r\n        \"endTime\": \"2024-12-06T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"spaceId\": \"Sala12\",\r\n        \"startTime\": \"2024-12-06T12:00:00\",\r\n        \"endTime\": \"2024-12-06T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"CoWorking2\",\r\n        \"startTime\": \"2024-12-07T09:00:00\",\r\n        \"endTime\": \"2024-12-07T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"CoWorking2\",\r\n        \"startTime\": \"2024-12-07T12:00:00\",\r\n        \"endTime\": \"2024-12-07T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"CoWorking3\",\r\n        \"startTime\": \"2024-12-07T09:00:00\",\r\n        \"endTime\": \"2024-12-07T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"CoWorking3\",\r\n        \"startTime\": \"2024-12-07T12:00:00\",\r\n        \"endTime\": \"2024-12-07T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"dacm\",\r\n        \"spaceId\": \"CoWorking4\",\r\n        \"startTime\": \"2024-12-08T09:00:00\",\r\n        \"endTime\": \"2024-12-08T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"gabrielat\",\r\n        \"spaceId\": \"CoWorking4\",\r\n        \"startTime\": \"2024-12-08T12:00:00\",\r\n        \"endTime\": \"2024-12-08T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"spaceId\": \"CoWorking5\",\r\n        \"startTime\": \"2024-12-08T09:00:00\",\r\n        \"endTime\": \"2024-12-08T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"CoWorking5\",\r\n        \"startTime\": \"2024-12-08T12:00:00\",\r\n        \"endTime\": \"2024-12-08T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"startTime\": \"2024-12-09T09:00:00\",\r\n        \"endTime\": \"2024-12-09T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"startTime\": \"2024-12-09T12:00:00\",\r\n        \"endTime\": \"2024-12-09T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"Sala6\",\r\n        \"startTime\": \"2024-12-09T09:00:00\",\r\n        \"endTime\": \"2024-12-09T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"dacm\",\r\n        \"spaceId\": \"Sala6\",\r\n        \"startTime\": \"2024-12-09T12:00:00\",\r\n        \"endTime\": \"2024-12-09T21:00:00\"\r\n    },\r\n     {\r\n        \"userId\": \"jorgeduronc\",\r\n        \"spaceId\": \"CoWorking2\",\r\n        \"startTime\": \"2024-12-10T09:00:00\",\r\n        \"endTime\": \"2024-12-10T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"merys\",\r\n        \"spaceId\": \"CoWorking2\",\r\n        \"startTime\": \"2024-12-10T12:00:00\",\r\n        \"endTime\": \"2024-12-10T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"veronicas\",\r\n        \"spaceId\": \"CoWorking3\",\r\n        \"startTime\": \"2024-12-11T09:00:00\",\r\n        \"endTime\": \"2024-12-11T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"monicar\",\r\n        \"spaceId\": \"CoWorking3\",\r\n        \"startTime\": \"2024-12-11T12:00:00\",\r\n        \"endTime\": \"2024-12-11T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"jorgeduronc\",\r\n        \"spaceId\": \"CoWorking4\",\r\n        \"startTime\": \"2024-12-12T09:00:00\",\r\n        \"endTime\": \"2024-12-12T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"merys\",\r\n        \"spaceId\": \"CoWorking4\",\r\n        \"startTime\": \"2024-12-12T12:00:00\",\r\n        \"endTime\": \"2024-12-12T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"veronicas\",\r\n        \"spaceId\": \"CoWorking5\",\r\n        \"startTime\": \"2024-12-13T09:00:00\",\r\n        \"endTime\": \"2024-12-13T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"monicar\",\r\n        \"spaceId\": \"CoWorking5\",\r\n        \"startTime\": \"2024-12-13T12:00:00\",\r\n        \"endTime\": \"2024-12-13T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"jorgeduronc\",\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"startTime\": \"2024-12-14T09:00:00\",\r\n        \"endTime\": \"2024-12-14T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"merys\",\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"startTime\": \"2024-12-14T12:00:00\",\r\n        \"endTime\": \"2024-12-14T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"veronicas\",\r\n        \"spaceId\": \"Sala6\",\r\n        \"startTime\": \"2024-12-15T09:00:00\",\r\n        \"endTime\": \"2024-12-15T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"monicar\",\r\n        \"spaceId\": \"Sala6\",\r\n        \"startTime\": \"2024-12-15T12:00:00\",\r\n        \"endTime\": \"2024-12-15T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"jorgeduronc\",\r\n        \"spaceId\": \"Sala10\",\r\n        \"startTime\": \"2024-12-16T09:00:00\",\r\n        \"endTime\": \"2024-12-16T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"merys\",\r\n        \"spaceId\": \"Sala10\",\r\n        \"startTime\": \"2024-12-16T12:00:00\",\r\n        \"endTime\": \"2024-12-16T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"veronicas\",\r\n        \"spaceId\": \"Sala11\",\r\n        \"startTime\": \"2024-12-17T09:00:00\",\r\n        \"endTime\": \"2024-12-17T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"monicar\",\r\n        \"spaceId\": \"Sala11\",\r\n        \"startTime\": \"2024-12-17T12:00:00\",\r\n        \"endTime\": \"2024-12-17T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"jorgeduronc\",\r\n        \"spaceId\": \"Sala12\",\r\n        \"startTime\": \"2024-12-18T09:00:00\",\r\n        \"endTime\": \"2024-12-18T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"merys\",\r\n        \"spaceId\": \"Sala12\",\r\n        \"startTime\": \"2024-12-18T12:00:00\",\r\n        \"endTime\": \"2024-12-18T21:00:00\"\r\n    },\r\n        {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"Sala7\",\r\n        \"startTime\": \"2024-12-19T09:00:00\",\r\n        \"endTime\": \"2024-12-19T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"Sala7\",\r\n        \"startTime\": \"2024-12-19T12:00:00\",\r\n        \"endTime\": \"2024-12-19T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"mariap\",\r\n        \"spaceId\": \"Sala1\",\r\n        \"startTime\": \"2024-12-20T09:00:00\",\r\n        \"endTime\": \"2024-12-20T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"dacm\",\r\n        \"spaceId\": \"Sala1\",\r\n        \"startTime\": \"2024-12-20T12:00:00\",\r\n        \"endTime\": \"2024-12-20T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"juanjose\",\r\n        \"spaceId\": \"Oficina2\",\r\n        \"startTime\": \"2024-12-21T09:00:00\",\r\n        \"endTime\": \"2024-12-21T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"spaceId\": \"Oficina2\",\r\n        \"startTime\": \"2024-12-21T12:00:00\",\r\n        \"endTime\": \"2024-12-21T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"startTime\": \"2024-12-22T09:00:00\",\r\n        \"endTime\": \"2024-12-22T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"startTime\": \"2024-12-22T12:00:00\",\r\n        \"endTime\": \"2024-12-22T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"Sala6\",\r\n        \"startTime\": \"2024-12-23T09:00:00\",\r\n        \"endTime\": \"2024-12-23T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"mariap\",\r\n        \"spaceId\": \"Sala6\",\r\n        \"startTime\": \"2024-12-23T12:00:00\",\r\n        \"endTime\": \"2024-12-23T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"dacm\",\r\n        \"spaceId\": \"Sala10\",\r\n        \"startTime\": \"2024-12-24T09:00:00\",\r\n        \"endTime\": \"2024-12-24T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"juanjose\",\r\n        \"spaceId\": \"Sala10\",\r\n        \"startTime\": \"2024-12-24T12:00:00\",\r\n        \"endTime\": \"2024-12-24T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"spaceId\": \"Sala11\",\r\n        \"startTime\": \"2024-12-25T09:00:00\",\r\n        \"endTime\": \"2024-12-25T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"Sala11\",\r\n        \"startTime\": \"2024-12-25T12:00:00\",\r\n        \"endTime\": \"2024-12-25T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"Sala12\",\r\n        \"startTime\": \"2024-12-26T09:00:00\",\r\n        \"endTime\": \"2024-12-26T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"Sala12\",\r\n        \"startTime\": \"2024-12-26T12:00:00\",\r\n        \"endTime\": \"2024-12-26T21:00:00\"\r\n    },\r\n        {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"Terraza1\",\r\n        \"startTime\": \"2024-12-27T09:00:00\",\r\n        \"endTime\": \"2024-12-27T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"Terraza1\",\r\n        \"startTime\": \"2024-12-27T12:00:00\",\r\n        \"endTime\": \"2024-12-27T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"mariap\",\r\n        \"spaceId\": \"Gym1\",\r\n        \"startTime\": \"2024-12-28T09:00:00\",\r\n        \"endTime\": \"2024-12-28T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"dacm\",\r\n        \"spaceId\": \"Gym1\",\r\n        \"startTime\": \"2024-12-28T12:00:00\",\r\n        \"endTime\": \"2024-12-28T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"juanjose\",\r\n        \"spaceId\": \"Vip1\",\r\n        \"startTime\": \"2024-12-29T09:00:00\",\r\n        \"endTime\": \"2024-12-29T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"anamaria\",\r\n        \"spaceId\": \"Vip1\",\r\n        \"startTime\": \"2024-12-29T12:00:00\",\r\n        \"endTime\": \"2024-12-29T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"luisfer\",\r\n        \"spaceId\": \"Cubículo1\",\r\n        \"startTime\": \"2024-12-30T09:00:00\",\r\n        \"endTime\": \"2024-12-30T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"roberto89\",\r\n        \"spaceId\": \"Cubículo1\",\r\n        \"startTime\": \"2024-12-30T12:00:00\",\r\n        \"endTime\": \"2024-12-30T21:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"lucia2023\",\r\n        \"spaceId\": \"Auditorio1\",\r\n        \"startTime\": \"2024-12-31T09:00:00\",\r\n        \"endTime\": \"2024-12-31T12:00:00\"\r\n    },\r\n    {\r\n        \"userId\": \"mariap\",\r\n        \"spaceId\": \"Auditorio1\",\r\n        \"startTime\": \"2024-12-31T12:00:00\",\r\n        \"endTime\": \"2024-12-31T21:00:00\"\r\n    },\r\n     {\r\n      \"userId\":\"jorgeduronc\",\r\n      \"spaceId\":\"CoWorking2\",\r\n      \"startTime\":\"2024-12-01T09:00:00\",\r\n      \"endTime\":\"2024-12-01T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"merys\",\r\n      \"spaceId\":\"CoWorking2\",\r\n      \"startTime\":\"2024-12-01T12:00:00\",\r\n      \"endTime\":\"2024-12-01T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"veronicas\",\r\n      \"spaceId\":\"CoWorking3\",\r\n      \"startTime\":\"2024-12-02T09:00:00\",\r\n      \"endTime\":\"2024-12-02T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"monicar\",\r\n      \"spaceId\":\"CoWorking3\",\r\n      \"startTime\":\"2024-12-02T12:00:00\",\r\n      \"endTime\":\"2024-12-02T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"jorgeduronc\",\r\n      \"spaceId\":\"CoWorking4\",\r\n      \"startTime\":\"2024-12-03T09:00:00\",\r\n      \"endTime\":\"2024-12-03T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"merys\",\r\n      \"spaceId\":\"CoWorking4\",\r\n      \"startTime\":\"2024-12-03T12:00:00\",\r\n      \"endTime\":\"2024-12-03T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"veronicas\",\r\n      \"spaceId\":\"CoWorking5\",\r\n      \"startTime\":\"2024-12-04T09:00:00\",\r\n      \"endTime\":\"2024-12-04T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"monicar\",\r\n      \"spaceId\":\"CoWorking5\",\r\n      \"startTime\":\"2024-12-04T12:00:00\",\r\n      \"endTime\":\"2024-12-04T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"jorgeduronc\",\r\n      \"spaceId\":\"CoWorking6\",\r\n      \"startTime\":\"2024-12-05T09:00:00\",\r\n      \"endTime\":\"2024-12-05T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"merys\",\r\n      \"spaceId\":\"CoWorking6\",\r\n      \"startTime\":\"2024-12-05T12:00:00\",\r\n      \"endTime\":\"2024-12-05T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"veronicas\",\r\n      \"spaceId\":\"Sala6\",\r\n      \"startTime\":\"2024-12-06T09:00:00\",\r\n      \"endTime\":\"2024-12-06T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"monicar\",\r\n      \"spaceId\":\"Sala6\",\r\n      \"startTime\":\"2024-12-06T12:00:00\",\r\n      \"endTime\":\"2024-12-06T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"jorgeduronc\",\r\n      \"spaceId\":\"Oficina2\",\r\n      \"startTime\":\"2024-12-07T09:00:00\",\r\n      \"endTime\":\"2024-12-07T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"merys\",\r\n      \"spaceId\":\"Oficina2\",\r\n      \"startTime\":\"2024-12-07T12:00:00\",\r\n      \"endTime\":\"2024-12-07T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"veronicas\",\r\n      \"spaceId\":\"Sala10\",\r\n      \"startTime\":\"2024-12-08T09:00:00\",\r\n      \"endTime\":\"2024-12-08T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"monicar\",\r\n      \"spaceId\":\"Sala10\",\r\n      \"startTime\":\"2024-12-08T12:00:00\",\r\n      \"endTime\":\"2024-12-08T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"jorgeduronc\",\r\n      \"spaceId\":\"Sala11\",\r\n      \"startTime\":\"2024-12-09T09:00:00\",\r\n      \"endTime\":\"2024-12-09T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"merys\",\r\n      \"spaceId\":\"Sala11\",\r\n      \"startTime\":\"2024-12-09T12:00:00\",\r\n      \"endTime\":\"2024-12-09T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"veronicas\",\r\n      \"spaceId\":\"Sala12\",\r\n      \"startTime\":\"2024-12-10T09:00:00\",\r\n      \"endTime\":\"2024-12-10T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"monicar\",\r\n      \"spaceId\":\"Sala12\",\r\n      \"startTime\":\"2024-12-10T12:00:00\",\r\n      \"endTime\":\"2024-12-10T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"jorgeduronc\",\r\n      \"spaceId\":\"Terraza1\",\r\n      \"startTime\":\"2024-12-11T09:00:00\",\r\n      \"endTime\":\"2024-12-11T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"merys\",\r\n      \"spaceId\":\"Terraza1\",\r\n      \"startTime\":\"2024-12-11T12:00:00\",\r\n      \"endTime\":\"2024-12-11T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"veronicas\",\r\n      \"spaceId\":\"Gym1\",\r\n      \"startTime\":\"2024-12-12T09:00:00\",\r\n      \"endTime\":\"2024-12-12T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"monicar\",\r\n      \"spaceId\":\"Gym1\",\r\n      \"startTime\":\"2024-12-12T12:00:00\",\r\n      \"endTime\":\"2024-12-12T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"jorgeduronc\",\r\n      \"spaceId\":\"Vip1\",\r\n      \"startTime\":\"2024-12-13T09:00:00\",\r\n      \"endTime\":\"2024-12-13T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"merys\",\r\n      \"spaceId\":\"Vip1\",\r\n      \"startTime\":\"2024-12-13T12:00:00\",\r\n      \"endTime\":\"2024-12-13T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"veronicas\",\r\n      \"spaceId\":\"Cubículo1\",\r\n      \"startTime\":\"2024-12-14T09:00:00\",\r\n      \"endTime\":\"2024-12-14T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"monicar\",\r\n      \"spaceId\":\"Cubículo1\",\r\n      \"startTime\":\"2024-12-14T12:00:00\",\r\n      \"endTime\":\"2024-12-14T21:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"jorgeduronc\",\r\n      \"spaceId\":\"Auditorio1\",\r\n      \"startTime\":\"2024-12-15T09:00:00\",\r\n      \"endTime\":\"2024-12-15T12:00:00\"\r\n   },\r\n   {\r\n      \"userId\":\"merys\",\r\n      \"spaceId\":\"Auditorio1\",\r\n      \"startTime\":\"2024-12-15T12:00:00\",\r\n      \"endTime\":\"2024-12-15T21:00:00\"\r\n   }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/createMultiple",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"createMultiple"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CANCEL BOOKING",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTE4NDEyMiwiZXhwIjoxNzE1MTg3NzIyfQ.DTqvgH2F6HjCVD5fWk4LdilRztbxAfw-YXykZnq1ipo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/cancel/:bookingId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"cancel",
+						":bookingId"
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "663ba3fca9c8555ab94f6241"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CANCEL BOOKING",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/cancel/:bookingId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"cancel",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "bookingId",
+									"value": "663ba3fca9c8555ab94f6241"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 May 2024 16:14:17 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"663ba3fca9c8555ab94f6241\",\n    \"userId\": \"merys\",\n    \"spaceId\": \"Sala11\",\n    \"startTime\": \"2024-12-09T12:00:00\",\n    \"endTime\": \"2024-12-09T21:00:00\",\n    \"status\": \"CANCELLED\",\n    \"active\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "CONFIRM BOOKING",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTIwNTgwNCwiZXhwIjoxNzE1MjA5NDA0fQ.kYVr87pd7Qa5LFNdrtgYZ9ENUjZeJhKSBugFpv47Buw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/confirm/:bookingId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"confirm",
+						":bookingId"
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "663bf5f001a7f2657c6c631b"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CONFIRM BOOKING",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/confirm/:bookingId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"confirm",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "bookingId",
+									"value": "663ba3fca9c8555ab94f6249"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 May 2024 16:13:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"663ba3fca9c8555ab94f6249\",\n    \"userId\": \"merys\",\n    \"spaceId\": \"Vip1\",\n    \"startTime\": \"2024-12-13T12:00:00\",\n    \"endTime\": \"2024-12-13T21:00:00\",\n    \"status\": \"CONFIRMED\",\n    \"active\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "GET ALL BOOKINGS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTE4NDEyMiwiZXhwIjoxNzE1MTg3NzIyfQ.DTqvgH2F6HjCVD5fWk4LdilRztbxAfw-YXykZnq1ipo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/all?size=20&page=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"all"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "20"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET ALL BOOKINGS",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/all?size=20&page=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"all"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "20"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 May 2024 16:04:12 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"bookings\": [\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60b6\",\n            \"spaceId\": \"CoWorking2\",\n            \"startTime\": \"2024-12-05T09:00:00\",\n            \"endTime\": \"2024-12-05T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60b7\",\n            \"spaceId\": \"CoWorking2\",\n            \"startTime\": \"2024-12-05T12:00:00\",\n            \"endTime\": \"2024-12-05T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60b8\",\n            \"spaceId\": \"CoWorking3\",\n            \"startTime\": \"2024-12-05T09:00:00\",\n            \"endTime\": \"2024-12-05T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60b9\",\n            \"spaceId\": \"CoWorking3\",\n            \"startTime\": \"2024-12-05T12:00:00\",\n            \"endTime\": \"2024-12-05T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60ba\",\n            \"spaceId\": \"CoWorking4\",\n            \"startTime\": \"2024-12-05T09:00:00\",\n            \"endTime\": \"2024-12-05T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60bb\",\n            \"spaceId\": \"CoWorking4\",\n            \"startTime\": \"2024-12-05T12:00:00\",\n            \"endTime\": \"2024-12-05T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60bc\",\n            \"spaceId\": \"CoWorking5\",\n            \"startTime\": \"2024-12-05T09:00:00\",\n            \"endTime\": \"2024-12-05T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60bd\",\n            \"spaceId\": \"CoWorking5\",\n            \"startTime\": \"2024-12-05T12:00:00\",\n            \"endTime\": \"2024-12-05T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60be\",\n            \"spaceId\": \"CoWorking6\",\n            \"startTime\": \"2024-12-05T09:00:00\",\n            \"endTime\": \"2024-12-05T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60bf\",\n            \"spaceId\": \"CoWorking6\",\n            \"startTime\": \"2024-12-05T12:00:00\",\n            \"endTime\": \"2024-12-05T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c0\",\n            \"spaceId\": \"Sala6\",\n            \"startTime\": \"2024-12-05T09:00:00\",\n            \"endTime\": \"2024-12-05T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c1\",\n            \"spaceId\": \"Sala6\",\n            \"startTime\": \"2024-12-05T12:00:00\",\n            \"endTime\": \"2024-12-05T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c2\",\n            \"spaceId\": \"Oficina2\",\n            \"startTime\": \"2024-12-05T09:00:00\",\n            \"endTime\": \"2024-12-05T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c3\",\n            \"spaceId\": \"Oficina2\",\n            \"startTime\": \"2024-12-05T12:00:00\",\n            \"endTime\": \"2024-12-05T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c4\",\n            \"spaceId\": \"Sala10\",\n            \"startTime\": \"2024-12-06T09:00:00\",\n            \"endTime\": \"2024-12-06T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c5\",\n            \"spaceId\": \"Sala10\",\n            \"startTime\": \"2024-12-06T12:00:00\",\n            \"endTime\": \"2024-12-06T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c6\",\n            \"spaceId\": \"Sala11\",\n            \"startTime\": \"2024-12-06T09:00:00\",\n            \"endTime\": \"2024-12-06T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c7\",\n            \"spaceId\": \"Sala11\",\n            \"startTime\": \"2024-12-06T12:00:00\",\n            \"endTime\": \"2024-12-06T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c8\",\n            \"spaceId\": \"Sala12\",\n            \"startTime\": \"2024-12-06T09:00:00\",\n            \"endTime\": \"2024-12-06T12:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        },\n        {\n            \"bookingId\": \"663ba158a9c8555ab94f60c9\",\n            \"spaceId\": \"Sala12\",\n            \"startTime\": \"2024-12-06T12:00:00\",\n            \"endTime\": \"2024-12-06T21:00:00\",\n            \"status\": \"PENDING\",\n            \"active\": true\n        }\n    ],\n    \"totalElements\": 106,\n    \"totalPages\": 6,\n    \"numberOfElements\": 20,\n    \"size\": 20,\n    \"number\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "DELETE BOOKING",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTExMDg5NywiZXhwIjoxNzE1MTE0NDk3fQ.6dqn_oiV6jeJUTaO4IgZZjyEcPjtEhRFWAlGVi78Yag",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/delete/:bookingId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"delete",
+						":bookingId"
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "663a83fe0d73184bd565a8fb"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DELETE BOOKING",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/delete/:bookingId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"delete",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "bookingId",
+									"value": "663a83fe0d73184bd565a8fb"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 May 2024 19:42:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"booking deleted successfully\",\n    \"status\": \"OK\",\n    \"timestamp\": \"2024-05-07 21:42:27\",\n    \"data\": {\n        \"bookingId\": \"663a83fe0d73184bd565a8fb\",\n        \"spaceId\": \"CoWorking14\",\n        \"startTime\": \"2024-01-2910:30:00\",\n        \"endTime\": \"2024-01-2914:30:00\",\n        \"status\": \"PENDING\",\n        \"active\": true\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "UPDATE BOOKING",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTEyMDIzMiwiZXhwIjoxNzE1MTIzODMyfQ.7E0U_7t-9Cqvjlr8UOMhpOm4GMtVfd7obuda04G_jZA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"bookingId\": \"663a8757b34ce26a2ed764ed\",\r\n    \"spaceId\": \"Sala7\",\r\n    \"startTime\": \"2024-06-2910:00:00\",\r\n    \"endTime\": \"2024-06-2912:00:00\",\r\n    \"status\": \"CONFIRMED\",\r\n    \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/update/:bookingId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"update",
+						":bookingId"
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "663a8757b34ce26a2ed764ed"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DELETE BOOKING",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/delete/:bookingId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"delete",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "bookingId",
+									"value": "663a83fe0d73184bd565a8fb"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 May 2024 19:42:27 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"booking deleted successfully\",\n    \"status\": \"OK\",\n    \"timestamp\": \"2024-05-07 21:42:27\",\n    \"data\": {\n        \"bookingId\": \"663a83fe0d73184bd565a8fb\",\n        \"spaceId\": \"CoWorking14\",\n        \"startTime\": \"2024-01-2910:30:00\",\n        \"endTime\": \"2024-01-2914:30:00\",\n        \"status\": \"PENDING\",\n        \"active\": true\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "GET BOOKING BY ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTI2NzEwOSwiZXhwIjoxNzE1MjcwNzA5fQ.4RDuiHBqAIJXElRqDJxIfKPdwYZGx5ktjXO3rHDsgV0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/find/:bookingId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"find",
+						":bookingId"
+					],
+					"variable": [
+						{
+							"key": "bookingId",
+							"value": "663ce53fbff13d0cb736cd79"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET BOOKING BY ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/find/:bookingId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"find",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "bookingId",
+									"value": "663a2cad37e4696137a43e08"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 May 2024 19:17:26 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"663a2cad37e4696137a43e08\",\n    \"userId\": \"luisfer\",\n    \"spaceId\": \"CoWorking16\",\n    \"startTime\": \"2024-08-2910:30:00\",\n    \"endTime\": \"2024-08-2914:30:00\",\n    \"active\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "GET AVAILABLE HOURS BY DATE AND SPACE ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTI3NDA5MSwiZXhwIjoxNzE1Mjc3NjkxfQ.j0SWwDd39nGq4p2vCDA3OuMhbfrXgUTVZJqTI8n0-8g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/availableHours/:spaceId/:date",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"availableHours",
+						":spaceId",
+						":date"
+					],
+					"variable": [
+						{
+							"key": "spaceId",
+							"value": "CoWorking3"
+						},
+						{
+							"key": "date",
+							"value": "2024-11-18"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET AVAILABLE HOURS BY DATE AND SPACE ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/availableHours/:spaceId/:date",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"availableHours",
+								":spaceId",
+								":date"
+							],
+							"variable": [
+								{
+									"key": "spaceId",
+									"value": "Sala3"
+								},
+								{
+									"key": "date",
+									"value": "2024-10-01"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 09 May 2024 17:02:02 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"availableHours\": [\n        \"09:00:00\",\n        \"10:00:00\",\n        \"11:00:00\",\n        \"12:00:00\",\n        \"13:00:00\",\n        \"14:00:00\",\n        \"15:00:00\",\n        \"16:00:00\",\n        \"17:00:00\",\n        \"18:00:00\",\n        \"19:00:00\",\n        \"20:00:00\"\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "GET BOOKING BY STATUS",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTIwNTgwNCwiZXhwIjoxNzE1MjA5NDA0fQ.kYVr87pd7Qa5LFNdrtgYZ9ENUjZeJhKSBugFpv47Buw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/status/:status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"status",
+						":status"
+					],
+					"variable": [
+						{
+							"key": "status",
+							"value": "CONFIRMED",
+							"description": "CONFIRMED , PENDING OR CANCELED"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET BOOKING BY STATUS",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/status/:status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"status",
+								":status"
+							],
+							"variable": [
+								{
+									"key": "status",
+									"value": "CONFIRMED",
+									"description": "CONFIRMED , PENDING OR CANCELED"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 08 May 2024 22:04:35 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"bookingId\": \"663bf5f001a7f2657c6c631b\",\n        \"spaceId\": \"Sala2\",\n        \"startTime\": \"2024-10-01T09:00:00\",\n        \"endTime\": \"2024-10-01T11:00:00\",\n        \"status\": \"CONFIRMED\",\n        \"active\": true\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GET BOOKING BY DATE",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTIwNTIzOSwiZXhwIjoxNzE1MjA4ODM5fQ.UIOYzZaSQG8RbzSWEAgqIXvmXG2ajPEagq0S_NLFiII",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/allByStartDate/:startedDate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"allByStartDate",
+						":startedDate"
+					],
+					"variable": [
+						{
+							"key": "startedDate",
+							"value": "2024-10-01"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET BOOKING BY ID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/find/:bookingId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"find",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "bookingId",
+									"value": "663a2cad37e4696137a43e08"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 May 2024 19:17:26 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"663a2cad37e4696137a43e08\",\n    \"userId\": \"luisfer\",\n    \"spaceId\": \"CoWorking16\",\n    \"startTime\": \"2024-08-2910:30:00\",\n    \"endTime\": \"2024-08-2914:30:00\",\n    \"active\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "GET BOOKINGS BY USERID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTIwNTIzOSwiZXhwIjoxNzE1MjA4ODM5fQ.UIOYzZaSQG8RbzSWEAgqIXvmXG2ajPEagq0S_NLFiII",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/bookings/user/:userId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"bookings",
+						"user",
+						":userId"
+					],
+					"variable": [
+						{
+							"key": "userId",
+							"value": "dacm"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET BOOKINGS BY USERID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/bookings/user/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"bookings",
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "luisfer"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 07 May 2024 18:55:07 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"bookingId\": \"663a2cad37e4696137a43e08\",\n        \"spaceId\": \"CoWorking16\",\n        \"startTime\": \"2024-08-2910:30:00\",\n        \"endTime\": \"2024-08-2914:30:00\",\n        \"active\": true\n    },\n    {\n        \"bookingId\": \"663a2cb037e4696137a43e09\",\n        \"spaceId\": \"CoWorking15\",\n        \"startTime\": \"2024-08-2910:30:00\",\n        \"endTime\": \"2024-08-2914:30:00\",\n        \"active\": true\n    },\n    {\n        \"bookingId\": \"663a2cb837e4696137a43e0a\",\n        \"spaceId\": \"CoWorking14\",\n        \"startTime\": \"2024-01-2910:30:00\",\n        \"endTime\": \"2024-01-2914:30:00\",\n        \"active\": false\n    }\n]"
+				}
+			]
+		}
+	]
+}

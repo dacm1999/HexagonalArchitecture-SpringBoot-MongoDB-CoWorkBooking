@@ -4,6 +4,7 @@ import com.dacm.hexagonal.domain.model.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.application.service.RegisterServiceImpl;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,7 +31,7 @@ public class RegisterController {
      * @return ResponseEntity containing a JwtLoginResponse object with the JWT token on successful registration.
      */
     @PostMapping
-    public ResponseEntity<JwtLoginResponse> register(@RequestBody RegisterDto request) {
+    public ResponseEntity<JwtLoginResponse> register(@RequestBody RegisterDto request) throws MessagingException {
         return ResponseEntity.ok(registerService.signUp(request));
     }
 }

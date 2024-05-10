@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 10px 20px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        a {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">
+        <!--        <img src="/images/logo-no-background.svg" alt="Logo" style="max-width: 100%; height: auto;">-->
+    </div>
+    <div class="header">
+        <h1>¡Bienvenido a nuestro espacio de reservas!</h1>
+    </div>
+    <div class="content">
+        <p th:text="'Hola, ' + ${nombre} + ','">Hola,</p>
+        <p>¡Tu registro se ha completado exitosamente! Estamos emocionados de tenerte a bordo.</p>
+        <p>Ahora puedes disfrutar de todas nuestras funcionalidades y comenzar a hacer reservas en tus espacios
+            favoritos.</p>
+        <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos. ¡Estamos aquí para ayudarte!</p>
+        <p>Gracias por unirte y ¡esperamos verte pronto!</p>
+    </div>
+    <div class="footer">
+        Este mensaje se ha enviado automáticamente, por favor no respondas directamente a este correo.
+        <br>Visita nuestro <a href="dacm.dev@icloud.com">sitio web</a> para más información.
+    </div>
+</div>
+</body>
+</html>

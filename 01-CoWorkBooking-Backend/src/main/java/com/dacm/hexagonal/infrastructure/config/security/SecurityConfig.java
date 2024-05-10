@@ -68,6 +68,7 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/bookings/update/{bookingId}").hasAnyRole("ADMIN", "MANAGER", "USER")
                                 .requestMatchers("api/v1/bookings/delete/{bookingId}").hasRole("ADMIN")
                                 .requestMatchers("api/v1/bookings/find/{bookingId}").hasAnyRole("ADMIN")
+
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager

@@ -1,0 +1,1164 @@
+{
+	"info": {
+		"_postman_id": "b956432c-7a8c-41d9-935b-a0726e73d61e",
+		"name": "SPACE COLLECTION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31090133",
+		"_collection_link": "https://dark-desert-345463.postman.co/workspace/HexagonalArchitecture-SpringBoo~d5620a7e-107c-4b92-b9c7-54f9cb723824/collection/31090133-b956432c-7a8c-41d9-935b-a0726e73d61e?action=share&source=collection_link&creator=31090133"
+	},
+	"item": [
+		{
+			"name": "CREATE SPACE",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNjI4OSwiZXhwIjoxNzE0OTM5ODg5fQ.vaVKLNn_Up75vDrTeZzwWhsDrpAhze7qnGKG3uPF-hY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"spaceId\": \"Sala16\",\r\n    \"spaceName\": \"Sala Conferencias 016\",\r\n    \"description\": \"Sala grande con proyector y aire acondicionado.\",\r\n    \"capacity\": 50,\r\n    \"amenities\": [\"Proyector\", \"WiFi\", \"Aire acondicionado\"],\r\n    \"available\": true,\r\n    \"location\": \"Edificio Principal, Planta 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/spaces/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"spaces",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CREATED SPACE",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"spaceId\": \"Sala16\",\r\n    \"spaceName\": \"Sala Conferencias 016\",\r\n    \"description\": \"Sala grande con proyector y aire acondicionado.\",\r\n    \"capacity\": 50,\r\n    \"amenities\": [\"Proyector\", \"WiFi\", \"Aire acondicionado\"],\r\n    \"available\": true,\r\n    \"location\": \"Edificio Principal, Planta 3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/spaces/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 19:26:49 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"space saved successfully\",\n    \"status\": \"OK\",\n    \"timestamp\": \"2024-05-05 21:26:49\",\n    \"data\": {\n        \"spaceId\": \"Sala16\",\n        \"spaceName\": \"Sala Conferencias 016\",\n        \"description\": \"Sala grande con proyector y aire acondicionado.\",\n        \"capacity\": 50,\n        \"amenities\": [\n            \"Proyector\",\n            \"WiFi\",\n            \"Aire acondicionado\"\n        ],\n        \"available\": true,\n        \"location\": \"Edificio Principal, Planta 3\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "CREATE SPACES",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNTE4MTMxMSwiZXhwIjoxNzE1MTg0OTExfQ.bRQ-lyDhJN8i_DmFkpXfo8uDncuw5e8IcnSREcPy0VQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"spaceId\": \"Sala1\",\r\n        \"spaceName\": \"Sala Conferencias A\",\r\n        \"description\": \"Sala grande con proyector y aire acondicionado.\",\r\n        \"capacity\": 50,\r\n        \"amenities\": [\"Proyector\", \"WiFi\", \"Aire acondicionado\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Principal, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Oficina1\",\r\n        \"spaceName\": \"Oficina 201\",\r\n        \"description\": \"Oficina pequeña para reuniones privadas.\",\r\n        \"capacity\": 4,\r\n        \"amenities\": [\"Pizarra\", \"Teléfono\"],\r\n        \"available\": false,\r\n        \"location\": \"Edificio Secundario, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Auditorio1\",\r\n        \"spaceName\": \"Auditorio\",\r\n        \"description\": \"Espacio amplio para eventos y presentaciones grandes.\",\r\n        \"capacity\": 200,\r\n        \"amenities\": [\"Escenario\", \"Sistema de sonido\", \"Iluminación\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Cultural, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Vip1\",\r\n        \"spaceName\": \"Sala VIP\",\r\n        \"description\": \"Sala exclusiva con servicios premium.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Servicio de catering\", \"TV\", \"Sofás cómodos\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Principal, Planta 5\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Cubículo1\",\r\n        \"spaceName\": \"Cubículo de estudio\",\r\n        \"description\": \"Espacio pequeño y tranquilo para estudio.\",\r\n        \"capacity\": 1,\r\n        \"amenities\": [\"Escritorio\", \"Luz de lectura\"],\r\n        \"available\": false,\r\n        \"location\": \"Biblioteca, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala2\",\r\n        \"spaceName\": \"Sala de Juntas B\",\r\n        \"description\": \"Ideal para reuniones de equipos medianos.\",\r\n        \"capacity\": 12,\r\n        \"amenities\": [\"TV\", \"Pizarra digital\", \"Conexión para laptops\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Administrativo, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking1\",\r\n        \"spaceName\": \"Espacio de co-working\",\r\n        \"description\": \"Ambiente relajado para trabajo colaborativo.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Impresoras\", \"Mesas ajustables\", \"Cafetería\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Innovación, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Terraza1\",\r\n        \"spaceName\": \"Terraza\",\r\n        \"description\": \"Espacio al aire libre para eventos y relax.\",\r\n        \"capacity\": 70,\r\n        \"amenities\": [\"Barbacoa\", \"Vistas panorámicas\", \"Sistema de sonido\"],\r\n        \"available\": false,\r\n        \"location\": \"Edificio Principal, Azotea\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala3\",\r\n        \"spaceName\": \"Sala Multimedia\",\r\n        \"description\": \"Equipada para proyecciones y videoconferencias.\",\r\n        \"capacity\": 15,\r\n        \"amenities\": [\"Proyector HD\", \"Video conferencia\", \"Sonido surround\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Tecnológico, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Gym1\",\r\n        \"spaceName\": \"Gimnasio\",\r\n        \"description\": \"Completo con equipos modernos para ejercitarse.\",\r\n        \"capacity\": 60,\r\n        \"amenities\": [\"Máquinas de cardio\", \"Pesas\", \"Salón de clases\"],\r\n        \"available\": false,\r\n        \"location\": \"Edificio Salud, Planta 1\"\r\n    },\r\n        {\r\n        \"spaceId\": \"CoWorking2\",\r\n        \"spaceName\": \"Estudio Creativo\",\r\n        \"description\": \"Espacio diseñado para la creatividad y el brainstorming con un ambiente inspirador.\",\r\n        \"capacity\": 25,\r\n        \"amenities\": [\"Pizarras de vidrio\", \"Materiales de arte\", \"Música ambiental\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Innovación, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking3\",\r\n        \"spaceName\": \"Hub Tecnológico\",\r\n        \"description\": \"Centro de tecnología avanzada para startups y desarrolladores.\",\r\n        \"capacity\": 40,\r\n        \"amenities\": [\"Acceso a hardware de alta tecnología\", \"Internet de alta velocidad\", \"Asistencia técnica\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Tecnológico, Planta 5\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking4\",\r\n        \"spaceName\": \"Espacio Zen\",\r\n        \"description\": \"Un espacio tranquilo que promueve la concentración y la eficiencia sin distracciones.\",\r\n        \"capacity\": 15,\r\n        \"amenities\": [\"Zonas de descanso\", \"Plantas y elementos naturales\", \"Iluminación suave\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Calma, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking5\",\r\n        \"spaceName\": \"Laboratorio de Diseño\",\r\n        \"description\": \"Equipado con todas las herramientas necesarias para diseñadores gráficos y de producto.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Impresoras 3D\", \"Tabletas gráficas\", \"Software de diseño\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Creativo, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"spaceName\": \"Conector Empresarial\",\r\n        \"description\": \"Fomenta la interacción y colaboración entre diferentes profesionales y empresarios.\",\r\n        \"capacity\": 50,\r\n        \"amenities\": [\"Mesas de trabajo modulares\", \"Sala de pitch\", \"Pantallas para presentaciones\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Empresarial, Planta 2\"\r\n    },\r\n     {\r\n        \"spaceId\": \"CoWorking7\",\r\n        \"spaceName\": \"Sala de Innovación\",\r\n        \"description\": \"Espacio dedicado a proyectos innovadores, ideal para brainstorming y desarrollo de ideas.\",\r\n        \"capacity\": 35,\r\n        \"amenities\": [\"Pizarras interactivas\", \"Sistema de videoconferencia avanzado\", \"Espacio de prototipado\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de la Innovación, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking8\",\r\n        \"spaceName\": \"Sala de Networking\",\r\n        \"description\": \"Diseñada para facilitar el networking profesional con un ambiente informal y relajado.\",\r\n        \"capacity\": 45,\r\n        \"amenities\": [\"Barra de café\", \"Espacios de networking\", \"Sofás y áreas de descanso\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Social, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking9\",\r\n        \"spaceName\": \"Centro de Emprendimiento\",\r\n        \"description\": \"Ideal para emprendedores que buscan desarrollar y acelerar sus startups con recursos y asesoría.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Mentorías\", \"Acceso a inversores\", \"Espacio de incubación\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Negocios, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking10\",\r\n        \"spaceName\": \"Sala Verde\",\r\n        \"description\": \"Un espacio eco-amigable que promueve la sostenibilidad y bienestar con elementos naturales.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Material reciclable\", \"Sistema de purificación de aire\", \"Iluminación natural\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Eco, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking11\",\r\n        \"spaceName\": \"Zona de Codificación\",\r\n        \"description\": \"Espacio técnico para programadores y desarrolladores, equipado con las últimas tecnologías.\",\r\n        \"capacity\": 40,\r\n        \"amenities\": [\"Estaciones de trabajo de alto rendimiento\", \"Acceso a servidores\", \"Soporte técnico\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Tecnológico, Planta 5\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking12\",\r\n        \"spaceName\": \"Sala Multifuncional\",\r\n        \"description\": \"Un espacio flexible para todo tipo de actividades, desde talleres hasta seminarios y eventos.\",\r\n        \"capacity\": 50,\r\n        \"amenities\": [\"Mobiliario adaptable\", \"Equipamiento multimedia\", \"Cocina pequeña\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Versátil, Planta 1\"\r\n    },\r\n        {\r\n        \"spaceId\": \"Laboratorio1\",\r\n        \"spaceName\": \"Laboratorio de Innovación\",\r\n        \"description\": \"Laboratorio equipado con tecnología de punta para investigación y desarrollo.\",\r\n        \"capacity\": 40,\r\n        \"amenities\": [\"Equipos de alta tecnología\", \"Laboratorio de computación\", \"Acceso controlado\"],\r\n        \"available\": true,\r\n        \"location\": \"Centro de Ciencias, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Aula1\",\r\n        \"spaceName\": \"Aula Magna\",\r\n        \"description\": \"Aula grande para conferencias y eventos académicos.\",\r\n        \"capacity\": 120,\r\n        \"amenities\": [\"Proyector multimedia\", \"Sistema de audio\", \"Aire acondicionado\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Académico, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala4\",\r\n        \"spaceName\": \"Sala Creativa\",\r\n        \"description\": \"Espacio diseñado para fomentar la creatividad y colaboración.\",\r\n        \"capacity\": 25,\r\n        \"amenities\": [\"Materiales de arte\", \"Pizarras\", \"Espacio modular\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Creativo, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala5\",\r\n        \"spaceName\": \"Sala de Estrategia\",\r\n        \"description\": \"Sala equipada para sesiones de estrategia y planificación.\",\r\n        \"capacity\": 15,\r\n        \"amenities\": [\"Pantallas táctiles\", \"Software de gestión\", \"Conexión segura\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Negocios, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Oficina2\",\r\n        \"spaceName\": \"Oficina Ejecutiva\",\r\n        \"description\": \"Oficina de lujo para ejecutivos y reuniones importantes.\",\r\n        \"capacity\": 10,\r\n        \"amenities\": [\"Muebles de lujo\", \"Servicio de cafetería\", \"Privacidad total\"],\r\n        \"available\": true,\r\n        \"location\": \"Torre Corporativa, Planta 5\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Espacio1\",\r\n        \"spaceName\": \"Espacio Abierto\",\r\n        \"description\": \"Gran espacio abierto para eventos y actividades de grupo.\",\r\n        \"capacity\": 100,\r\n        \"amenities\": [\"Sistema de sonido\", \"Iluminación ajustable\", \"Escenario móvil\"],\r\n        \"available\": true,\r\n        \"location\": \"Pabellón de Eventos, Planta baja\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Taller1\",\r\n        \"spaceName\": \"Taller de Arte\",\r\n        \"description\": \"Espacio diseñado para talleres de arte y manualidades.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Materiales de arte\", \"Caballetes\", \"Buena iluminación natural\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Artes, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala6\",\r\n        \"spaceName\": \"Sala de Medios\",\r\n        \"description\": \"Sala equipada con la última tecnología para producciones de medios.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Equipos de grabación\", \"Estudio de sonido\", \"Edición de video\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Medios, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Salón1\",\r\n        \"spaceName\": \"Salón de Clases\",\r\n        \"description\": \"Salón para clases y capacitaciones con tecnología integrada.\",\r\n        \"capacity\": 40,\r\n        \"amenities\": [\"Pizarras interactivas\", \"Conexión a Internet\", \"Mesas modulares\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Educativo, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking13\",\r\n        \"spaceName\": \"Espacio Colaborativo\",\r\n        \"description\": \"Espacio abierto para colaboración y trabajo en equipo.\",\r\n        \"capacity\": 35,\r\n        \"amenities\": [\"Mesas de trabajo compartidas\", \"Pizarras grandes\", \"Zona de descanso\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Colaborativo, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala7\",\r\n        \"spaceName\": \"Sala de Capacitación\",\r\n        \"description\": \"Sala especializada para capacitaciones y talleres educativos.\",\r\n        \"capacity\": 50,\r\n        \"amenities\": [\"Equipamiento audiovisual\", \"Material didáctico\", \"Computadoras\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Capacitación, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Espacio2\",\r\n        \"spaceName\": \"Espacio Flexible\",\r\n        \"description\": \"Espacio adaptable para diferentes tipos de eventos y actividades.\",\r\n        \"capacity\": 70,\r\n        \"amenities\": [\"Divisores móviles\", \"Equipamiento multimedia\", \"Climatización\"],\r\n        \"available\": true,\r\n        \"location\": \"Centro de Conferencias, Planta baja\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala8\",\r\n        \"spaceName\": \"Sala de Planificación\",\r\n        \"description\": \"Sala equipada para sesiones de planificación y proyectos a largo plazo.\",\r\n        \"capacity\": 15,\r\n        \"amenities\": [\"Mapas\", \"Pantallas para proyección\", \"Herramientas de planificación\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Administrativo, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala9\",\r\n        \"spaceName\": \"Sala de Innovación\",\r\n        \"description\": \"Sala para brainstorming y desarrollo de nuevas ideas.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Pizarras de vidrio\", \"Conexión rápida a Internet\", \"Mobiliario ergonómico\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Innovación, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Oficina3\",\r\n        \"spaceName\": \"Oficina Compartida\",\r\n        \"description\": \"Oficina para uso compartido, ideal para freelancers y emprendedores.\",\r\n        \"capacity\": 8,\r\n        \"amenities\": [\"Escritorios individuales\", \"Café\", \"Impresora\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Comercial, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala10\",\r\n        \"spaceName\": \"Sala de Reuniones Ejecutiva\",\r\n        \"description\": \"Sala de reuniones de alto nivel con comodidades premium.\",\r\n        \"capacity\": 12,\r\n        \"amenities\": [\"Sistema de videoconferencia\", \"Servicio de catering\", \"Muebles de cuero\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Corporativo, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala11\",\r\n        \"spaceName\": \"Sala de Crisis\",\r\n        \"description\": \"Equipada para manejar situaciones de emergencia y crisis.\",\r\n        \"capacity\": 10,\r\n        \"amenities\": [\"Comunicación segura\", \"Monitores de situación\", \"Acceso restringido\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Seguridad, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala12\",\r\n        \"spaceName\": \"Sala de Diseño\",\r\n        \"description\": \"Espacio para diseñadores gráficos y creativos visuales.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Equipos de diseño gráfico\", \"Zona de impresión\", \"Iluminación ajustable\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Diseño, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking14\",\r\n        \"spaceName\": \"Área de Proyectos\",\r\n        \"description\": \"Espacio dedicado a proyectos de grupo y trabajo colaborativo.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Mesas de proyecto\", \"Herramientas de colaboración\", \"Espacio amplio\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Proyectos, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking15\",\r\n        \"spaceName\": \"Estudio de Arquitectura\",\r\n        \"description\": \"Espacio para arquitectos y diseñadores urbanos con herramientas especializadas.\",\r\n        \"capacity\": 25,\r\n        \"amenities\": [\"Software de arquitectura\", \"Maquetas\", \"Espacio para dibujo\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Arquitectura, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking16\",\r\n        \"spaceName\": \"Estudio de Peras\",\r\n        \"description\": \"Espacio para diseñadores urbanos con herramientas especializadas.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Software de arquitectura\", \"Maquetas\", \"Espacio para dibujo\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Arquitectura, Planta 4\"\r\n    },\r\n        {\r\n        \"spaceId\": \"CoWorking17\",\r\n        \"spaceName\": \"Sala de Networking 2\",\r\n        \"description\": \"Diseñada para facilitar el networking profesional\",\r\n        \"capacity\": 37,\r\n        \"amenities\": [\"Acceso controlado\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Arquitectura, Planta 4\"\r\n    }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/spaces/createMultiple",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"spaces",
+						"createMultiple"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "CREATED SPACES",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"spaceId\": \"Sala1\",\r\n        \"spaceName\": \"Sala Conferencias A\",\r\n        \"description\": \"Sala grande con proyector y aire acondicionado.\",\r\n        \"capacity\": 50,\r\n        \"amenities\": [\"Proyector\", \"WiFi\", \"Aire acondicionado\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Principal, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Oficina1\",\r\n        \"spaceName\": \"Oficina 201\",\r\n        \"description\": \"Oficina pequeña para reuniones privadas.\",\r\n        \"capacity\": 4,\r\n        \"amenities\": [\"Pizarra\", \"Teléfono\"],\r\n        \"available\": false,\r\n        \"location\": \"Edificio Secundario, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Auditorio1\",\r\n        \"spaceName\": \"Auditorio\",\r\n        \"description\": \"Espacio amplio para eventos y presentaciones grandes.\",\r\n        \"capacity\": 200,\r\n        \"amenities\": [\"Escenario\", \"Sistema de sonido\", \"Iluminación\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Cultural, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Vip1\",\r\n        \"spaceName\": \"Sala VIP\",\r\n        \"description\": \"Sala exclusiva con servicios premium.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Servicio de catering\", \"TV\", \"Sofás cómodos\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Principal, Planta 5\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Cubículo1\",\r\n        \"spaceName\": \"Cubículo de estudio\",\r\n        \"description\": \"Espacio pequeño y tranquilo para estudio.\",\r\n        \"capacity\": 1,\r\n        \"amenities\": [\"Escritorio\", \"Luz de lectura\"],\r\n        \"available\": false,\r\n        \"location\": \"Biblioteca, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala2\",\r\n        \"spaceName\": \"Sala de Juntas B\",\r\n        \"description\": \"Ideal para reuniones de equipos medianos.\",\r\n        \"capacity\": 12,\r\n        \"amenities\": [\"TV\", \"Pizarra digital\", \"Conexión para laptops\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Administrativo, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking1\",\r\n        \"spaceName\": \"Espacio de co-working\",\r\n        \"description\": \"Ambiente relajado para trabajo colaborativo.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Impresoras\", \"Mesas ajustables\", \"Cafetería\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Innovación, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Terraza1\",\r\n        \"spaceName\": \"Terraza\",\r\n        \"description\": \"Espacio al aire libre para eventos y relax.\",\r\n        \"capacity\": 70,\r\n        \"amenities\": [\"Barbacoa\", \"Vistas panorámicas\", \"Sistema de sonido\"],\r\n        \"available\": false,\r\n        \"location\": \"Edificio Principal, Azotea\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala3\",\r\n        \"spaceName\": \"Sala Multimedia\",\r\n        \"description\": \"Equipada para proyecciones y videoconferencias.\",\r\n        \"capacity\": 15,\r\n        \"amenities\": [\"Proyector HD\", \"Video conferencia\", \"Sonido surround\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Tecnológico, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Gym1\",\r\n        \"spaceName\": \"Gimnasio\",\r\n        \"description\": \"Completo con equipos modernos para ejercitarse.\",\r\n        \"capacity\": 60,\r\n        \"amenities\": [\"Máquinas de cardio\", \"Pesas\", \"Salón de clases\"],\r\n        \"available\": false,\r\n        \"location\": \"Edificio Salud, Planta 1\"\r\n    },\r\n        {\r\n        \"spaceId\": \"CoWorking2\",\r\n        \"spaceName\": \"Estudio Creativo\",\r\n        \"description\": \"Espacio diseñado para la creatividad y el brainstorming con un ambiente inspirador.\",\r\n        \"capacity\": 25,\r\n        \"amenities\": [\"Pizarras de vidrio\", \"Materiales de arte\", \"Música ambiental\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Innovación, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking3\",\r\n        \"spaceName\": \"Hub Tecnológico\",\r\n        \"description\": \"Centro de tecnología avanzada para startups y desarrolladores.\",\r\n        \"capacity\": 40,\r\n        \"amenities\": [\"Acceso a hardware de alta tecnología\", \"Internet de alta velocidad\", \"Asistencia técnica\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Tecnológico, Planta 5\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking4\",\r\n        \"spaceName\": \"Espacio Zen\",\r\n        \"description\": \"Un espacio tranquilo que promueve la concentración y la eficiencia sin distracciones.\",\r\n        \"capacity\": 15,\r\n        \"amenities\": [\"Zonas de descanso\", \"Plantas y elementos naturales\", \"Iluminación suave\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Calma, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking5\",\r\n        \"spaceName\": \"Laboratorio de Diseño\",\r\n        \"description\": \"Equipado con todas las herramientas necesarias para diseñadores gráficos y de producto.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Impresoras 3D\", \"Tabletas gráficas\", \"Software de diseño\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Creativo, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking6\",\r\n        \"spaceName\": \"Conector Empresarial\",\r\n        \"description\": \"Fomenta la interacción y colaboración entre diferentes profesionales y empresarios.\",\r\n        \"capacity\": 50,\r\n        \"amenities\": [\"Mesas de trabajo modulares\", \"Sala de pitch\", \"Pantallas para presentaciones\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Empresarial, Planta 2\"\r\n    },\r\n     {\r\n        \"spaceId\": \"CoWorking7\",\r\n        \"spaceName\": \"Sala de Innovación\",\r\n        \"description\": \"Espacio dedicado a proyectos innovadores, ideal para brainstorming y desarrollo de ideas.\",\r\n        \"capacity\": 35,\r\n        \"amenities\": [\"Pizarras interactivas\", \"Sistema de videoconferencia avanzado\", \"Espacio de prototipado\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de la Innovación, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking8\",\r\n        \"spaceName\": \"Sala de Networking\",\r\n        \"description\": \"Diseñada para facilitar el networking profesional con un ambiente informal y relajado.\",\r\n        \"capacity\": 45,\r\n        \"amenities\": [\"Barra de café\", \"Espacios de networking\", \"Sofás y áreas de descanso\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Social, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking9\",\r\n        \"spaceName\": \"Centro de Emprendimiento\",\r\n        \"description\": \"Ideal para emprendedores que buscan desarrollar y acelerar sus startups con recursos y asesoría.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Mentorías\", \"Acceso a inversores\", \"Espacio de incubación\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Negocios, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking10\",\r\n        \"spaceName\": \"Sala Verde\",\r\n        \"description\": \"Un espacio eco-amigable que promueve la sostenibilidad y bienestar con elementos naturales.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Material reciclable\", \"Sistema de purificación de aire\", \"Iluminación natural\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Eco, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking11\",\r\n        \"spaceName\": \"Zona de Codificación\",\r\n        \"description\": \"Espacio técnico para programadores y desarrolladores, equipado con las últimas tecnologías.\",\r\n        \"capacity\": 40,\r\n        \"amenities\": [\"Estaciones de trabajo de alto rendimiento\", \"Acceso a servidores\", \"Soporte técnico\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Tecnológico, Planta 5\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking12\",\r\n        \"spaceName\": \"Sala Multifuncional\",\r\n        \"description\": \"Un espacio flexible para todo tipo de actividades, desde talleres hasta seminarios y eventos.\",\r\n        \"capacity\": 50,\r\n        \"amenities\": [\"Mobiliario adaptable\", \"Equipamiento multimedia\", \"Cocina pequeña\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Versátil, Planta 1\"\r\n    },\r\n        {\r\n        \"spaceId\": \"Laboratorio1\",\r\n        \"spaceName\": \"Laboratorio de Innovación\",\r\n        \"description\": \"Laboratorio equipado con tecnología de punta para investigación y desarrollo.\",\r\n        \"capacity\": 40,\r\n        \"amenities\": [\"Equipos de alta tecnología\", \"Laboratorio de computación\", \"Acceso controlado\"],\r\n        \"available\": true,\r\n        \"location\": \"Centro de Ciencias, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Aula1\",\r\n        \"spaceName\": \"Aula Magna\",\r\n        \"description\": \"Aula grande para conferencias y eventos académicos.\",\r\n        \"capacity\": 120,\r\n        \"amenities\": [\"Proyector multimedia\", \"Sistema de audio\", \"Aire acondicionado\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Académico, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala4\",\r\n        \"spaceName\": \"Sala Creativa\",\r\n        \"description\": \"Espacio diseñado para fomentar la creatividad y colaboración.\",\r\n        \"capacity\": 25,\r\n        \"amenities\": [\"Materiales de arte\", \"Pizarras\", \"Espacio modular\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Creativo, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala5\",\r\n        \"spaceName\": \"Sala de Estrategia\",\r\n        \"description\": \"Sala equipada para sesiones de estrategia y planificación.\",\r\n        \"capacity\": 15,\r\n        \"amenities\": [\"Pantallas táctiles\", \"Software de gestión\", \"Conexión segura\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Negocios, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Oficina2\",\r\n        \"spaceName\": \"Oficina Ejecutiva\",\r\n        \"description\": \"Oficina de lujo para ejecutivos y reuniones importantes.\",\r\n        \"capacity\": 10,\r\n        \"amenities\": [\"Muebles de lujo\", \"Servicio de cafetería\", \"Privacidad total\"],\r\n        \"available\": true,\r\n        \"location\": \"Torre Corporativa, Planta 5\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Espacio1\",\r\n        \"spaceName\": \"Espacio Abierto\",\r\n        \"description\": \"Gran espacio abierto para eventos y actividades de grupo.\",\r\n        \"capacity\": 100,\r\n        \"amenities\": [\"Sistema de sonido\", \"Iluminación ajustable\", \"Escenario móvil\"],\r\n        \"available\": true,\r\n        \"location\": \"Pabellón de Eventos, Planta baja\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Taller1\",\r\n        \"spaceName\": \"Taller de Arte\",\r\n        \"description\": \"Espacio diseñado para talleres de arte y manualidades.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Materiales de arte\", \"Caballetes\", \"Buena iluminación natural\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Artes, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala6\",\r\n        \"spaceName\": \"Sala de Medios\",\r\n        \"description\": \"Sala equipada con la última tecnología para producciones de medios.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Equipos de grabación\", \"Estudio de sonido\", \"Edición de video\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Medios, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Salón1\",\r\n        \"spaceName\": \"Salón de Clases\",\r\n        \"description\": \"Salón para clases y capacitaciones con tecnología integrada.\",\r\n        \"capacity\": 40,\r\n        \"amenities\": [\"Pizarras interactivas\", \"Conexión a Internet\", \"Mesas modulares\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Educativo, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking13\",\r\n        \"spaceName\": \"Espacio Colaborativo\",\r\n        \"description\": \"Espacio abierto para colaboración y trabajo en equipo.\",\r\n        \"capacity\": 35,\r\n        \"amenities\": [\"Mesas de trabajo compartidas\", \"Pizarras grandes\", \"Zona de descanso\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Colaborativo, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala7\",\r\n        \"spaceName\": \"Sala de Capacitación\",\r\n        \"description\": \"Sala especializada para capacitaciones y talleres educativos.\",\r\n        \"capacity\": 50,\r\n        \"amenities\": [\"Equipamiento audiovisual\", \"Material didáctico\", \"Computadoras\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Capacitación, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Espacio2\",\r\n        \"spaceName\": \"Espacio Flexible\",\r\n        \"description\": \"Espacio adaptable para diferentes tipos de eventos y actividades.\",\r\n        \"capacity\": 70,\r\n        \"amenities\": [\"Divisores móviles\", \"Equipamiento multimedia\", \"Climatización\"],\r\n        \"available\": true,\r\n        \"location\": \"Centro de Conferencias, Planta baja\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala8\",\r\n        \"spaceName\": \"Sala de Planificación\",\r\n        \"description\": \"Sala equipada para sesiones de planificación y proyectos a largo plazo.\",\r\n        \"capacity\": 15,\r\n        \"amenities\": [\"Mapas\", \"Pantallas para proyección\", \"Herramientas de planificación\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Administrativo, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala9\",\r\n        \"spaceName\": \"Sala de Innovación\",\r\n        \"description\": \"Sala para brainstorming y desarrollo de nuevas ideas.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Pizarras de vidrio\", \"Conexión rápida a Internet\", \"Mobiliario ergonómico\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Innovación, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Oficina3\",\r\n        \"spaceName\": \"Oficina Compartida\",\r\n        \"description\": \"Oficina para uso compartido, ideal para freelancers y emprendedores.\",\r\n        \"capacity\": 8,\r\n        \"amenities\": [\"Escritorios individuales\", \"Café\", \"Impresora\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Comercial, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala10\",\r\n        \"spaceName\": \"Sala de Reuniones Ejecutiva\",\r\n        \"description\": \"Sala de reuniones de alto nivel con comodidades premium.\",\r\n        \"capacity\": 12,\r\n        \"amenities\": [\"Sistema de videoconferencia\", \"Servicio de catering\", \"Muebles de cuero\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio Corporativo, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala11\",\r\n        \"spaceName\": \"Sala de Crisis\",\r\n        \"description\": \"Equipada para manejar situaciones de emergencia y crisis.\",\r\n        \"capacity\": 10,\r\n        \"amenities\": [\"Comunicación segura\", \"Monitores de situación\", \"Acceso restringido\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Seguridad, Planta 1\"\r\n    },\r\n    {\r\n        \"spaceId\": \"Sala12\",\r\n        \"spaceName\": \"Sala de Diseño\",\r\n        \"description\": \"Espacio para diseñadores gráficos y creativos visuales.\",\r\n        \"capacity\": 20,\r\n        \"amenities\": [\"Equipos de diseño gráfico\", \"Zona de impresión\", \"Iluminación ajustable\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Diseño, Planta 2\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking14\",\r\n        \"spaceName\": \"Área de Proyectos\",\r\n        \"description\": \"Espacio dedicado a proyectos de grupo y trabajo colaborativo.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Mesas de proyecto\", \"Herramientas de colaboración\", \"Espacio amplio\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Proyectos, Planta 3\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking15\",\r\n        \"spaceName\": \"Estudio de Arquitectura\",\r\n        \"description\": \"Espacio para arquitectos y diseñadores urbanos con herramientas especializadas.\",\r\n        \"capacity\": 25,\r\n        \"amenities\": [\"Software de arquitectura\", \"Maquetas\", \"Espacio para dibujo\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Arquitectura, Planta 4\"\r\n    },\r\n    {\r\n        \"spaceId\": \"CoWorking16\",\r\n        \"spaceName\": \"Estudio de Peras\",\r\n        \"description\": \"Espacio para diseñadores urbanos con herramientas especializadas.\",\r\n        \"capacity\": 30,\r\n        \"amenities\": [\"Software de arquitectura\", \"Maquetas\", \"Espacio para dibujo\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Arquitectura, Planta 4\"\r\n    },\r\n        {\r\n        \"spaceId\": \"CoWorking17\",\r\n        \"spaceName\": \"Sala de Networking 2\",\r\n        \"description\": \"Diseñada para facilitar el networking profesional\",\r\n        \"capacity\": 37,\r\n        \"amenities\": [\"Acceso controlado\"],\r\n        \"available\": true,\r\n        \"location\": \"Edificio de Arquitectura, Planta 4\"\r\n    }\r\n]\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/spaces/createMultiple",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"createMultiple"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 19:29:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"total\": 43,\n    \"num_added\": 2,\n    \"num_failed\": 41,\n    \"added\": [\n        {\n            \"spaceId\": \"CoWorking11\",\n            \"spaceName\": \"Zona de Codificación\",\n            \"description\": \"Espacio técnico para programadores y desarrolladores, equipado con las últimas tecnologías.\",\n            \"capacity\": 40,\n            \"amenities\": [\n                \"Estaciones de trabajo de alto rendimiento\",\n                \"Acceso a servidores\",\n                \"Soporte técnico\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Tecnológico, Planta 5\"\n        },\n        {\n            \"spaceId\": \"CoWorking17\",\n            \"spaceName\": \"Sala de Networking 2\",\n            \"description\": \"Diseñada para facilitar el networking profesional\",\n            \"capacity\": 37,\n            \"amenities\": [\n                \"Acceso controlado\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio de Arquitectura, Planta 4\"\n        }\n    ],\n    \"failed\": [\n        {\n            \"spaceName\": \"Sala1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Oficina1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Auditorio1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Vip1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Cubículo1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala2\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Terraza1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala3\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Gym1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking2\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking3\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking4\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking5\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking6\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking7\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking8\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking9\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking10\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking12\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Laboratorio1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Aula1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala4\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala5\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Oficina2\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Espacio1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Taller1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala6\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Salón1\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking13\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala7\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Espacio2\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala8\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala9\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Oficina3\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala10\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala11\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"Sala12\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking14\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking15\",\n            \"errorDescription\": \"Space ID already exists\"\n        },\n        {\n            \"spaceName\": \"CoWorking16\",\n            \"errorDescription\": \"Space ID already exists\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "GET ALL SPACES",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNjI4OSwiZXhwIjoxNzE0OTM5ODg5fQ.vaVKLNn_Up75vDrTeZzwWhsDrpAhze7qnGKG3uPF-hY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/spaces/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"spaces",
+						"all"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "spaceName",
+							"value": "Sala Conferencias A",
+							"disabled": true
+						},
+						{
+							"key": "spaceId",
+							"value": "Sala2",
+							"disabled": true
+						},
+						{
+							"key": "capacity",
+							"value": "50",
+							"disabled": true
+						},
+						{
+							"key": "available",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": "Cubículo",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "ALL SPACES",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/spaces/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"all"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "spaceName",
+									"value": "Sala Conferencias A",
+									"disabled": true
+								},
+								{
+									"key": "spaceId",
+									"value": "Sala2",
+									"disabled": true
+								},
+								{
+									"key": "capacity",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "available",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "Cubículo",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 19:30:17 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"spaces\": [\n        {\n            \"spaceId\": \"Sala1\",\n            \"spaceName\": \"Sala Conferencias A\",\n            \"description\": \"Sala grande con proyector y aire acondicionado.\",\n            \"capacity\": 50,\n            \"amenities\": [\n                \"Proyector\",\n                \"WiFi\",\n                \"Aire acondicionado\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Principal, Planta 3\"\n        },\n        {\n            \"spaceId\": \"Oficina1\",\n            \"spaceName\": \"Oficina 201\",\n            \"description\": \"Oficina pequeña para reuniones privadas.\",\n            \"capacity\": 4,\n            \"amenities\": [\n                \"Pizarra\",\n                \"Teléfono\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Secundario, Planta 2\"\n        },\n        {\n            \"spaceId\": \"Auditorio1\",\n            \"spaceName\": \"Auditorio\",\n            \"description\": \"Espacio amplio para eventos y presentaciones grandes.\",\n            \"capacity\": 200,\n            \"amenities\": [\n                \"Escenario\",\n                \"Sistema de sonido\",\n                \"Iluminación\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Cultural, Planta 1\"\n        },\n        {\n            \"spaceId\": \"Vip1\",\n            \"spaceName\": \"Sala VIP\",\n            \"description\": \"Sala exclusiva con servicios premium.\",\n            \"capacity\": 20,\n            \"amenities\": [\n                \"Servicio de catering\",\n                \"TV\",\n                \"Sofás cómodos\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Principal, Planta 5\"\n        },\n        {\n            \"spaceId\": \"Cubículo1\",\n            \"spaceName\": \"Cubículo de estudio\",\n            \"description\": \"Espacio pequeño y tranquilo para estudio.\",\n            \"capacity\": 1,\n            \"amenities\": [\n                \"Escritorio\",\n                \"Luz de lectura\"\n            ],\n            \"available\": false,\n            \"location\": \"Biblioteca, Planta 2\"\n        },\n        {\n            \"spaceId\": \"Sala2\",\n            \"spaceName\": \"Sala de Juntas B\",\n            \"description\": \"Ideal para reuniones de equipos medianos.\",\n            \"capacity\": 12,\n            \"amenities\": [\n                \"TV\",\n                \"Pizarra digital\",\n                \"Conexión para laptops\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Administrativo, Planta 1\"\n        },\n        {\n            \"spaceId\": \"CoWorking1\",\n            \"spaceName\": \"Espacio de co-working\",\n            \"description\": \"Ambiente relajado para trabajo colaborativo.\",\n            \"capacity\": 30,\n            \"amenities\": [\n                \"Impresoras\",\n                \"Mesas ajustables\",\n                \"Cafetería\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Innovación, Planta 3\"\n        },\n        {\n            \"spaceId\": \"Terraza1\",\n            \"spaceName\": \"Terraza\",\n            \"description\": \"Espacio al aire libre para eventos y relax.\",\n            \"capacity\": 70,\n            \"amenities\": [\n                \"Barbacoa\",\n                \"Vistas panorámicas\",\n                \"Sistema de sonido\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Principal, Azotea\"\n        },\n        {\n            \"spaceId\": \"Sala3\",\n            \"spaceName\": \"Sala Multimedia\",\n            \"description\": \"Equipada para proyecciones y videoconferencias.\",\n            \"capacity\": 15,\n            \"amenities\": [\n                \"Proyector HD\",\n                \"Video conferencia\",\n                \"Sonido surround\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Tecnológico, Planta 4\"\n        },\n        {\n            \"spaceId\": \"Gym1\",\n            \"spaceName\": \"Gimnasio\",\n            \"description\": \"Completo con equipos modernos para ejercitarse.\",\n            \"capacity\": 60,\n            \"amenities\": [\n                \"Máquinas de cardio\",\n                \"Pesas\",\n                \"Salón de clases\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Salud, Planta 1\"\n        }\n    ],\n    \"totalElements\": 44,\n    \"totalPages\": 5,\n    \"numberOfElements\": 0,\n    \"size\": 10,\n    \"number\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "GET ALL AVAILABLE SPACES",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNjI4OSwiZXhwIjoxNzE0OTM5ODg5fQ.vaVKLNn_Up75vDrTeZzwWhsDrpAhze7qnGKG3uPF-hY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/spaces/allAvailable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"spaces",
+						"allAvailable"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "spaceName",
+							"value": "Sala Conferencias A",
+							"disabled": true
+						},
+						{
+							"key": "spaceId",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "capacity",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "available",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET ALL AVAILABLE SPACES",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/spaces/allAvailable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"allAvailable"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "spaceName",
+									"value": "Sala Conferencias A",
+									"disabled": true
+								},
+								{
+									"key": "spaceId",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "capacity",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "available",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 19:30:50 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"spaces\": [\n        {\n            \"spaceId\": \"Vip1\",\n            \"spaceName\": \"Sala VIP\",\n            \"description\": \"Sala exclusiva con servicios premium.\",\n            \"capacity\": 20,\n            \"amenities\": [\n                \"Servicio de catering\",\n                \"TV\",\n                \"Sofás cómodos\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Principal, Planta 5\"\n        },\n        {\n            \"spaceId\": \"Sala2\",\n            \"spaceName\": \"Sala de Juntas B\",\n            \"description\": \"Ideal para reuniones de equipos medianos.\",\n            \"capacity\": 12,\n            \"amenities\": [\n                \"TV\",\n                \"Pizarra digital\",\n                \"Conexión para laptops\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Administrativo, Planta 1\"\n        },\n        {\n            \"spaceId\": \"CoWorking1\",\n            \"spaceName\": \"Espacio de co-working\",\n            \"description\": \"Ambiente relajado para trabajo colaborativo.\",\n            \"capacity\": 30,\n            \"amenities\": [\n                \"Impresoras\",\n                \"Mesas ajustables\",\n                \"Cafetería\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Innovación, Planta 3\"\n        },\n        {\n            \"spaceId\": \"CoWorking2\",\n            \"spaceName\": \"Estudio Creativo\",\n            \"description\": \"Espacio diseñado para la creatividad y el brainstorming con un ambiente inspirador.\",\n            \"capacity\": 25,\n            \"amenities\": [\n                \"Pizarras de vidrio\",\n                \"Materiales de arte\",\n                \"Música ambiental\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Innovación, Planta 2\"\n        },\n        {\n            \"spaceId\": \"CoWorking3\",\n            \"spaceName\": \"Hub Tecnológico\",\n            \"description\": \"Centro de tecnología avanzada para startups y desarrolladores.\",\n            \"capacity\": 40,\n            \"amenities\": [\n                \"Acceso a hardware de alta tecnología\",\n                \"Internet de alta velocidad\",\n                \"Asistencia técnica\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Tecnológico, Planta 5\"\n        },\n        {\n            \"spaceId\": \"CoWorking4\",\n            \"spaceName\": \"Espacio Zen\",\n            \"description\": \"Un espacio tranquilo que promueve la concentración y la eficiencia sin distracciones.\",\n            \"capacity\": 15,\n            \"amenities\": [\n                \"Zonas de descanso\",\n                \"Plantas y elementos naturales\",\n                \"Iluminación suave\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Calma, Planta 1\"\n        },\n        {\n            \"spaceId\": \"CoWorking5\",\n            \"spaceName\": \"Laboratorio de Diseño\",\n            \"description\": \"Equipado con todas las herramientas necesarias para diseñadores gráficos y de producto.\",\n            \"capacity\": 20,\n            \"amenities\": [\n                \"Impresoras 3D\",\n                \"Tabletas gráficas\",\n                \"Software de diseño\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Creativo, Planta 3\"\n        },\n        {\n            \"spaceId\": \"CoWorking6\",\n            \"spaceName\": \"Conector Empresarial\",\n            \"description\": \"Fomenta la interacción y colaboración entre diferentes profesionales y empresarios.\",\n            \"capacity\": 50,\n            \"amenities\": [\n                \"Mesas de trabajo modulares\",\n                \"Sala de pitch\",\n                \"Pantallas para presentaciones\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Empresarial, Planta 2\"\n        },\n        {\n            \"spaceId\": \"CoWorking7\",\n            \"spaceName\": \"Sala de Innovación\",\n            \"description\": \"Espacio dedicado a proyectos innovadores, ideal para brainstorming y desarrollo de ideas.\",\n            \"capacity\": 35,\n            \"amenities\": [\n                \"Pizarras interactivas\",\n                \"Sistema de videoconferencia avanzado\",\n                \"Espacio de prototipado\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio de la Innovación, Planta 1\"\n        },\n        {\n            \"spaceId\": \"CoWorking8\",\n            \"spaceName\": \"Sala de Networking\",\n            \"description\": \"Diseñada para facilitar el networking profesional con un ambiente informal y relajado.\",\n            \"capacity\": 45,\n            \"amenities\": [\n                \"Barra de café\",\n                \"Espacios de networking\",\n                \"Sofás y áreas de descanso\"\n            ],\n            \"available\": true,\n            \"location\": \"Edificio Social, Planta 2\"\n        }\n    ],\n    \"totalElements\": 31,\n    \"totalPages\": 4,\n    \"numberOfElements\": 0,\n    \"size\": 10,\n    \"number\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "GET ALL UNAVAILABLE SPACES",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNjI4OSwiZXhwIjoxNzE0OTM5ODg5fQ.vaVKLNn_Up75vDrTeZzwWhsDrpAhze7qnGKG3uPF-hY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/spaces/allUnAvailable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"spaces",
+						"allUnAvailable"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "spaceName",
+							"value": "Terraza",
+							"disabled": true
+						},
+						{
+							"key": "spaceId",
+							"value": "Oficina1",
+							"disabled": true
+						},
+						{
+							"key": "capacity",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "available",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET ALL UNAVAILABLE SPACES",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/spaces/allUnAvailable",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"allUnAvailable"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "spaceName",
+									"value": "Terraza",
+									"disabled": true
+								},
+								{
+									"key": "spaceId",
+									"value": "Oficina1",
+									"disabled": true
+								},
+								{
+									"key": "capacity",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "available",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 19:31:21 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"spaces\": [\n        {\n            \"spaceId\": \"Sala1\",\n            \"spaceName\": \"Sala Conferencias A\",\n            \"description\": \"Sala grande con proyector y aire acondicionado.\",\n            \"capacity\": 50,\n            \"amenities\": [\n                \"Proyector\",\n                \"WiFi\",\n                \"Aire acondicionado\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Principal, Planta 3\"\n        },\n        {\n            \"spaceId\": \"Oficina1\",\n            \"spaceName\": \"Oficina 201\",\n            \"description\": \"Oficina pequeña para reuniones privadas.\",\n            \"capacity\": 4,\n            \"amenities\": [\n                \"Pizarra\",\n                \"Teléfono\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Secundario, Planta 2\"\n        },\n        {\n            \"spaceId\": \"Auditorio1\",\n            \"spaceName\": \"Auditorio\",\n            \"description\": \"Espacio amplio para eventos y presentaciones grandes.\",\n            \"capacity\": 200,\n            \"amenities\": [\n                \"Escenario\",\n                \"Sistema de sonido\",\n                \"Iluminación\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Cultural, Planta 1\"\n        },\n        {\n            \"spaceId\": \"Cubículo1\",\n            \"spaceName\": \"Cubículo de estudio\",\n            \"description\": \"Espacio pequeño y tranquilo para estudio.\",\n            \"capacity\": 1,\n            \"amenities\": [\n                \"Escritorio\",\n                \"Luz de lectura\"\n            ],\n            \"available\": false,\n            \"location\": \"Biblioteca, Planta 2\"\n        },\n        {\n            \"spaceId\": \"Terraza1\",\n            \"spaceName\": \"Terraza\",\n            \"description\": \"Espacio al aire libre para eventos y relax.\",\n            \"capacity\": 70,\n            \"amenities\": [\n                \"Barbacoa\",\n                \"Vistas panorámicas\",\n                \"Sistema de sonido\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Principal, Azotea\"\n        },\n        {\n            \"spaceId\": \"Sala3\",\n            \"spaceName\": \"Sala Multimedia\",\n            \"description\": \"Equipada para proyecciones y videoconferencias.\",\n            \"capacity\": 15,\n            \"amenities\": [\n                \"Proyector HD\",\n                \"Video conferencia\",\n                \"Sonido surround\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Tecnológico, Planta 4\"\n        },\n        {\n            \"spaceId\": \"Gym1\",\n            \"spaceName\": \"Gimnasio\",\n            \"description\": \"Completo con equipos modernos para ejercitarse.\",\n            \"capacity\": 60,\n            \"amenities\": [\n                \"Máquinas de cardio\",\n                \"Pesas\",\n                \"Salón de clases\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Salud, Planta 1\"\n        },\n        {\n            \"spaceId\": \"CoWorking12\",\n            \"spaceName\": \"Sala Multifuncional\",\n            \"description\": \"Un espacio flexible para todo tipo de actividades, desde talleres hasta seminarios y eventos.\",\n            \"capacity\": 50,\n            \"amenities\": [\n                \"Mobiliario adaptable\",\n                \"Equipamiento multimedia\",\n                \"Cocina pequeña\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Versátil, Planta 1\"\n        },\n        {\n            \"spaceId\": \"Sala4\",\n            \"spaceName\": \"Sala Creativa\",\n            \"description\": \"Espacio diseñado para fomentar la creatividad y colaboración.\",\n            \"capacity\": 25,\n            \"amenities\": [\n                \"Materiales de arte\",\n                \"Pizarras\",\n                \"Espacio modular\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio Creativo, Planta 3\"\n        },\n        {\n            \"spaceId\": \"Sala5\",\n            \"spaceName\": \"Sala de Estrategia\",\n            \"description\": \"Sala equipada para sesiones de estrategia y planificación.\",\n            \"capacity\": 15,\n            \"amenities\": [\n                \"Pantallas táctiles\",\n                \"Software de gestión\",\n                \"Conexión segura\"\n            ],\n            \"available\": false,\n            \"location\": \"Edificio de Negocios, Planta 2\"\n        }\n    ],\n    \"totalElements\": 13,\n    \"totalPages\": 2,\n    \"numberOfElements\": 0,\n    \"size\": 10,\n    \"number\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "GET SPACE INFO BY SPACEID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNjI4OSwiZXhwIjoxNzE0OTM5ODg5fQ.vaVKLNn_Up75vDrTeZzwWhsDrpAhze7qnGKG3uPF-hY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/spaces/find/:spaceId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"spaces",
+						"find",
+						":spaceId"
+					],
+					"variable": [
+						{
+							"key": "spaceId",
+							"value": "CoWorking6"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "GET SPACE INFO BY SPACEID",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/spaces/find/:spaceId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"find",
+								":spaceId"
+							],
+							"variable": [
+								{
+									"key": "spaceId",
+									"value": "CoWorking6"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 19:31:41 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"spaceId\": \"CoWorking6\",\n    \"spaceName\": \"Conector Empresarial\",\n    \"description\": \"Fomenta la interacción y colaboración entre diferentes profesionales y empresarios.\",\n    \"capacity\": 50,\n    \"amenities\": [\n        \"Mesas de trabajo modulares\",\n        \"Sala de pitch\",\n        \"Pantallas para presentaciones\"\n    ],\n    \"available\": true,\n    \"location\": \"Edificio Empresarial, Planta 2\"\n}"
+				}
+			]
+		},
+		{
+			"name": "DELETE SPACE",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDkzNjI4OSwiZXhwIjoxNzE0OTM5ODg5fQ.vaVKLNn_Up75vDrTeZzwWhsDrpAhze7qnGKG3uPF-hY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/spaces/delete/:spaceName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"spaces",
+						"delete",
+						":spaceName"
+					],
+					"variable": [
+						{
+							"key": "spaceName",
+							"value": "CoWorking17"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "DELETE SPACE",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/spaces/delete/:spaceName",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"spaces",
+								"delete",
+								":spaceName"
+							],
+							"variable": [
+								{
+									"key": "spaceName",
+									"value": "CoWorking17"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 05 May 2024 19:32:09 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"code\": 200,\n    \"message\": \"space deleted successfully\",\n    \"status\": \"OK\",\n    \"timestamp\": \"2024-05-05 21:32:09\",\n    \"data\": {\n        \"spaceId\": \"CoWorking17\",\n        \"spaceName\": \"Sala de Networking 2\",\n        \"description\": \"Diseñada para facilitar el networking profesional\",\n        \"capacity\": 37,\n        \"amenities\": [\n            \"Acceso controlado\"\n        ],\n        \"available\": true,\n        \"location\": \"Edificio de Arquitectura, Planta 4\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "UPDATE SPACE INFO",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJmaXJzdE5hbWUiOiJEYW5pZWwiLCJsYXN0TmFtZSI6IkNvbnRyZXJhcyIsInJvbGUiOiJST0xFX0FETUlOIiwic3ViIjoiZGFjbSIsImlhdCI6MTcxNDQ3OTE2NSwiZXhwIjoxNzE0NDgyNzY1fQ.kYD-cnd1qk0Qri2fOgtPO6dd9BmsJkg_yRhu_MHpO2U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"spaceName\": \"Sala Conferencias A\",\r\n    \"description\": \"Sala grande con proyector y aire acondicionado.\",\r\n    \"capacity\": 60,\r\n    \"amenities\": [\r\n        \"Proyector\",\r\n        \"WiFi\",\r\n        \"Aire acondicionado\",\r\n        \"TV\"\r\n    ],\r\n    \"available\": true,\r\n    \"location\": \"Edificio Principal, Planta 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/spaces/update/:spaceId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"spaces",
+						"update",
+						":spaceId"
+					],
+					"variable": [
+						{
+							"key": "spaceId",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

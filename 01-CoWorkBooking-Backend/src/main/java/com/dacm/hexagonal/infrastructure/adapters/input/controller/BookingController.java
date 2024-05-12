@@ -4,6 +4,7 @@ import com.dacm.hexagonal.application.port.in.BookingService;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
 import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingPaginationResponse;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,7 @@ public class BookingController {
      * @return a ResponseEntity with the created booking
      */
     @PostMapping("/create")
-    public ResponseEntity<?> createBooking(@RequestBody UserBookingDto bookingDto) {
+    public ResponseEntity<?> createBooking(@RequestBody UserBookingDto bookingDto) throws MessagingException {
         return ResponseEntity.ok(bookingService.saveBooking(bookingDto));
     }
 
@@ -36,7 +37,7 @@ public class BookingController {
      * @return a ResponseEntity with the created bookings
      */
     @PostMapping("/createMultiple")
-    public ResponseEntity<?> createMultipleBookings(@RequestBody UserBookingDto[] bookingDtos) {
+    public ResponseEntity<?> createMultipleBookings(@RequestBody UserBookingDto[] bookingDtos) throws MessagingException {
         return ResponseEntity.ok(bookingService.saveMultipleBookings(bookingDtos));
     }
 
@@ -47,7 +48,7 @@ public class BookingController {
      * @return a ResponseEntity with the confirmation status
      */
     @PutMapping("/confirm/{bookingId}")
-    public ResponseEntity<?> confirmBooking(@PathVariable String bookingId) {
+    public ResponseEntity<?> confirmBooking(@PathVariable String bookingId) throws MessagingException {
         return ResponseEntity.ok(bookingService.confirmBooking(bookingId));
     }
 
@@ -58,7 +59,7 @@ public class BookingController {
      * @return a ResponseEntity with the cancellation status
      */
     @PutMapping("/cancel/{bookingId}")
-    public ResponseEntity<?> cancelBooking(@PathVariable String bookingId) {
+    public ResponseEntity<?> cancelBooking(@PathVariable String bookingId) throws MessagingException {
         return ResponseEntity.ok(bookingService.cancelBooking(bookingId));
     }
 

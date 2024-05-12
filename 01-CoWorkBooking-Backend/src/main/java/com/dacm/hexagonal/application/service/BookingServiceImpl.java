@@ -2,6 +2,7 @@ package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
 import com.dacm.hexagonal.application.port.in.SpaceService;
+import com.dacm.hexagonal.application.port.in.UserService;
 import com.dacm.hexagonal.domain.enums.BookingStatus;
 import com.dacm.hexagonal.domain.model.Booking;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
@@ -10,6 +11,7 @@ import com.dacm.hexagonal.infrastructure.adapters.input.mapper.BookingMapper;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.SpaceMapper;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingHoursResponse;
+import com.dacm.hexagonal.infrastructure.adapters.output.email.EmailService;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.BookingRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
@@ -18,6 +20,7 @@ import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.Book
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -27,10 +30,14 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ExtendedModelMap;
+import org.springframework.ui.Model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -38,6 +45,7 @@ import java.util.stream.Collectors;
 @Service
 public class BookingServiceImpl implements BookingService {
 
+    private final EmailService emailService;
     private final UserRepository userRepository;
     private final SpaceRepository spaceRepository;
     private final BookingRepository bookingRepository;
@@ -47,11 +55,12 @@ public class BookingServiceImpl implements BookingService {
 
 
     @Autowired
-    public BookingServiceImpl(UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, MongoTemplate mongoTemplate, SpaceMapper spaceMapper) {
+    public BookingServiceImpl(UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, MongoTemplate mongoTemplate, SpaceMapper spaceMapper, EmailService emailService) {
         this.userRepository = userRepository;
         this.spaceRepository = spaceRepository;
         this.bookingRepository = bookingRepository;
         this.mongoTemplate = mongoTemplate;
+        this.emailService = emailService;
     }
 
 
@@ -63,12 +72,13 @@ public class BookingServiceImpl implements BookingService {
      * @return ApiResponse indicating success or failure of the booking creation.
      */
     @Override
-    public ApiResponse saveBooking(UserBookingDto userBookingDto) {
+    public ApiResponse saveBooking(UserBookingDto userBookingDto) throws MessagingException {
         LocalDateTime startTime = userBookingDto.getStartTime();
         LocalDateTime endTime = userBookingDto.getEndTime();
 
-        System.out.println("Start time: " + startTime);
-        System.out.println("End time: " + endTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT);
+        String formattedStartTime = startTime.format(formatter);
+        String formattedEndTime = endTime.format(formatter);
 
         UserEntity user = userRepository.findByUserId(userBookingDto.getUserId());
         if (user == null) {
@@ -100,6 +110,14 @@ public class BookingServiceImpl implements BookingService {
             return new ApiResponse(409, Message.BOOKING_TIME_NOT_AVAILABLE, HttpStatus.CONFLICT, LocalDateTime.now(), availableHours);
         }
 
+        Model model = new ExtendedModelMap();
+        String fullName = user.getFirstName() + " " + user.getLastName();
+        model.addAttribute("fullName", fullName);
+        model.addAttribute("spaceId", space.getSpaceId());
+        model.addAttribute("userBookingDto", userBookingDto);
+        model.addAttribute("startTime", formattedStartTime);
+        model.addAttribute("endTime", formattedEndTime);
+
         BookingEntity booking = BookingEntity.builder()
                 .userId(user.getUserId())
                 .space(space)
@@ -110,6 +128,7 @@ public class BookingServiceImpl implements BookingService {
                 .build();
 
         bookingRepository.save(booking);
+        emailService.sendHtmlMessage(user.getEmail(), "Booking Confirmation", model, "booking-created.html");
         return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), BookingMapper.entityToDto(booking));
     }
 
@@ -122,7 +141,7 @@ public class BookingServiceImpl implements BookingService {
      * @return AddedResponse with details about the added bookings.
      */
     @Override
-    public AddedResponse saveMultipleBookings(UserBookingDto[] bookingDtos) {
+    public AddedResponse saveMultipleBookings(UserBookingDto[] bookingDtos) throws MessagingException {
 
         for (UserBookingDto bookingDto : bookingDtos) {
             saveBooking(bookingDto);
@@ -138,13 +157,18 @@ public class BookingServiceImpl implements BookingService {
      * @return The updated Booking domain model.
      */
     @Override
-    public Booking confirmBooking(String bookingId) {
+    public Booking confirmBooking(String bookingId) throws MessagingException {
         if (bookingRepository.findById(bookingId).isEmpty()) {
             throw new RuntimeException(Message.BOOKING_NOT_FOUND);
         }
         BookingEntity booking = bookingRepository.findById(bookingId).get();
+        UserEntity user = userRepository.findByUserId(booking.getUserId());
         booking.setStatus(BookingStatus.CONFIRMED);
+        Model model = new ExtendedModelMap();
+        model.addAttribute("bookingId", booking.getId());
+        emailService.sendHtmlMessage(user.getEmail(), "Booking Confirmation", model, "booking-confirmation.html");
         bookingRepository.save(booking);
+
         return BookingMapper.toDomain(booking);
     }
 
@@ -156,13 +180,16 @@ public class BookingServiceImpl implements BookingService {
      * @return The updated Booking domain model.
      */
     @Override
-    public Booking cancelBooking(String bookingId) {
+    public Booking cancelBooking(String bookingId) throws MessagingException {
         if (bookingRepository.findById(bookingId).isEmpty()) {
             throw new RuntimeException(Message.BOOKING_NOT_FOUND);
         }
         BookingEntity booking = bookingRepository.findById(bookingId).get();
+        UserEntity user = userRepository.findByUserId(booking.getUserId());
         booking.setStatus(BookingStatus.CANCELLED);
         booking.setActive(false);
+        Model model = new ExtendedModelMap();
+        emailService.sendHtmlMessage(user.getEmail(), "Booking Cancelled", model, "booking-cancelled.html");
         bookingRepository.save(booking);
         return BookingMapper.toDomain(booking);
     }

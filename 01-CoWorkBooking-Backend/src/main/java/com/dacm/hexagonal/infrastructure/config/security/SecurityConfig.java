@@ -34,7 +34,6 @@ public class SecurityConfig {
 
                                 //Login endpoint
                                 .requestMatchers("api/v1/login/auth").permitAll()
-                                .requestMatchers("api/v1/login/logout").hasRole("ADMIN")
 
                                 //User endpoint
                                 .requestMatchers("api/v1/users/create").hasAnyRole("ADMIN")
@@ -69,6 +68,9 @@ public class SecurityConfig {
                                 .requestMatchers("api/v1/bookings/delete/{bookingId}").hasRole("ADMIN")
                                 .requestMatchers("api/v1/bookings/find/{bookingId}").hasAnyRole("ADMIN")
 
+                                //Password endpoint
+                                .requestMatchers("api/v1/password/reset").permitAll()
+                                .requestMatchers("api/v1/password/update/{userId}").hasAnyRole("ADMIN", "MANAGER", "USER")
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager

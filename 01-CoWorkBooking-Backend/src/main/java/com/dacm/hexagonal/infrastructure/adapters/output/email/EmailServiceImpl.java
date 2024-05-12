@@ -20,17 +20,6 @@ public class EmailServiceImpl implements EmailService {
     private final SpringTemplateEngine templateEngine;
 
     @Override
-    public void sendPasswordResetEmail(String toEmail, String newPassword) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(toEmail);
-        message.setFrom("@example.com");
-        message.setSubject("Password reset");
-        message.setText("Your new password is: " + newPassword + "\nDon't reply this message");
-
-        mailSender.send(message);
-    }
-
-    @Override
     public void sendHtmlMessage(String to, String subject, Model model, String templateName) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -51,4 +40,5 @@ public class EmailServiceImpl implements EmailService {
             throw new MessagingException("Failed to send email", e);
         }
     }
+
 }

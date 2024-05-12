@@ -1,7 +1,5 @@
 package com.dacm.hexagonal.common;
 
-import javax.swing.plaf.PanelUI;
-
 public class Message {
 
     // Messages for user registration
@@ -37,7 +35,7 @@ public class Message {
     public static final String SPACE_NOT_AVAILABLE = "space not available";
     public static final String SPACE_ID_ALREADY_EXISTS = "space id already exists";
 
-
+    // Messages for booking
     public static final String BOOKING_CREATED_SUCCESSFULLY= "booking saved successfully";
     public static final String BOOKING_UPDATE_SUCCESSFULLY= "booking updated successfully";
     public static final String BOOKING_ERROR = "Could not book";
@@ -52,6 +50,13 @@ public class Message {
     public static final String BOOKING_TIME_NOT_AVAILABLE = "This time slot is already booked. Please choose a different time.";
     public static final String NO_AVAILABLE_HOURS = "No available hours for this date";
     public static final String AVAILABLE_HOURS = "Available hours for this date";
+
+    // Messages for password reset
+    public static final String PASSWORD_RESET_EMAIL_SENT = "A password reset email has been sent.";
+    public static final String INVALID_PASSWORD = "Your current password is incorrect";
+    public static final String PASSWORD_UPDATED = "Password updated successfully";
+    public static final String EMAIL_NOT_FOUND = "Email not found";
+
 
     public static final String AuthErrorResponse= "An error occurred while processing your request";
     public static final String INTERNAL_SERVER_ERROR = "Internal server error";

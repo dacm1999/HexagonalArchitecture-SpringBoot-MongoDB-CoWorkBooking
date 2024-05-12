@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 
 public interface EmailService {
 
-    void sendPasswordResetEmail(String toEmail, String newPassword);
-
     void sendHtmlMessage(String to, String subject, Model model, String templateName) throws MessagingException;
+
 }

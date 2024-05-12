@@ -54,6 +54,7 @@ public class BookingServiceImpl implements BookingService {
         this.mongoTemplate = mongoTemplate;
     }
 
+
     /**
      * Saves a new booking in the database.
      * Validates booking times, checks for overlapping bookings, and confirms the space availability.

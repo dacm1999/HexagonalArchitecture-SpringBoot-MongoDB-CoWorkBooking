@@ -53,9 +53,8 @@ public class BookingServiceImpl implements BookingService {
     private static final LocalTime OPENING_TIME = LocalTime.of(9, 0); // 9:00 AM
     private static final LocalTime CLOSING_TIME = LocalTime.of(21, 0); // 9:00 PM
 
-
     @Autowired
-    public BookingServiceImpl(UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, MongoTemplate mongoTemplate, SpaceMapper spaceMapper, EmailService emailService) {
+    public BookingServiceImpl(EmailService emailService, UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, MongoTemplate mongoTemplate) {
         this.userRepository = userRepository;
         this.spaceRepository = spaceRepository;
         this.bookingRepository = bookingRepository;

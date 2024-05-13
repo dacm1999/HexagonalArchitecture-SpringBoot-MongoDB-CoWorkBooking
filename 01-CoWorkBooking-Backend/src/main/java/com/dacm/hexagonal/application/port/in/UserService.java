@@ -30,7 +30,8 @@ public interface UserService {
 
     Page<UserDto> findAllUsersDto(String userId, String lastName, String firstName, String email, Pageable pageable);
 
-    List<String> getAllUsernames();
+    List<String> getAllUserId();
 
     List<String> getAllEmails();
+
 }

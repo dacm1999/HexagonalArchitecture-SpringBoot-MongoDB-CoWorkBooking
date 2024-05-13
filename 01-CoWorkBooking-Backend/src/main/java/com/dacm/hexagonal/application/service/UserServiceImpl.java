@@ -52,7 +52,6 @@ public class UserServiceImpl implements UserService {
      * Constructor for injecting necessary dependencies for repository operations and MongoDB.
      *
      * @param userRepository  Repository for standard CRUD operations with user entities.
-     * @param mongoTemplate   MongoDB template to execute queries that need advanced customization.
      * @param passwordEncoder Component used for encoding passwords securely.
      */
     public UserServiceImpl(UserRepository userRepository, MongoTemplate mongoTemplate, PasswordEncoder passwordEncoder) {
@@ -69,6 +68,9 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public ApiResponse save(User user) {
+        if (userRepository.existsByUserId(user.getUserId())) {
+            throw new IllegalArgumentException(Message.USERNAME_TAKEN);
+        }
         UserEntity userEntity = UserEntity.builder()
                 .userId(user.getUserId())
                 .password(passwordEncoder.encode(user.getPassword()))
@@ -78,7 +80,7 @@ public class UserServiceImpl implements UserService {
                 .email(user.getEmail())
                 .build();
         userRepository.save(userEntity);
-        return new ApiResponse(201, Message.USER_SAVE_SUCCESSFULLY, HttpStatus.CREATED, LocalDateTime.now());
+        return new ApiResponse(200, Message.USER_SAVE_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now());
     }
 
     /**
@@ -98,7 +100,7 @@ public class UserServiceImpl implements UserService {
         List<UserErrorResponse> usersFailed = new ArrayList<>();
         String errorDescription = "";
 
-        List<String> usernames = getAllUsernames();
+        List<String> usernames = getAllUserId();
         List<String> emails = getAllEmails();
 
         Set<String> existingUsernames = new HashSet<>(usernames);
@@ -245,24 +247,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<String> getAllUsernames() {
-        List<UserEntity> users = userRepository.findAll();
-        List<String> usernames = users.stream()
-                .map(UserEntity::getUserId)
-                .collect(Collectors.toList());
-        return usernames;
-    }
-
-    @Override
-    public List<String> getAllEmails() {
-        List<UserEntity> users = userRepository.findAll();
-        List<String> emails = users.stream()
-                .map(UserEntity::getEmail)
-                .collect(Collectors.toList());
-        return emails;
-    }
-
-    @Override
     public Page<UserDto> findAllUsersDto(String userId, String lastName, String firstName, String email, Pageable pageable) {
         Criteria criteria = new Criteria();
 
@@ -289,6 +273,24 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
+    }
+
+    @Override
+    public List<String> getAllUserId() {
+        List<UserEntity> users = userRepository.findAll();
+        List<String> usernames = users.stream()
+                .map(UserEntity::getUserId)
+                .collect(Collectors.toList());
+        return usernames;
+    }
+
+    @Override
+    public List<String> getAllEmails() {
+        List<UserEntity> users = userRepository.findAll();
+        List<String> emails = users.stream()
+                .map(UserEntity::getEmail)
+                .collect(Collectors.toList());
+        return emails;
     }
 
 }

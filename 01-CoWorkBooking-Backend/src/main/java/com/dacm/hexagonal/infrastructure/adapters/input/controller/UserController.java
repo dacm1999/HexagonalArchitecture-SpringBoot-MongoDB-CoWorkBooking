@@ -66,16 +66,7 @@ public class UserController {
      */
     @GetMapping("/find/{userId}")
     public ResponseEntity<?> findByUserID(@PathVariable String userId) {
-        UserDto userDto = userService.findByUserId(userId);
-
-        if(userDto == null) {
-            return ResponseEntity.badRequest().body(new ApiResponse(
-                    HttpStatus.NOT_FOUND.value(),
-                    Message.USER_NOT_FOUND,
-                    HttpStatus.NOT_FOUND,
-                    LocalDateTime.now()));
-        }
-        return ResponseEntity.ok(userDto);
+        return ResponseEntity.ok(userService.findByUserId(userId));
     }
 
     /**
@@ -89,7 +80,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/allUsers")
-    public ResponseEntity<UserPaginationResponse> showAllUsers(
+    public ResponseEntity<?> showAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String username,
@@ -97,18 +88,9 @@ public class UserController {
             @RequestParam(required = false) String lastName,
             @RequestParam(required = false) String email
     ) {
-
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        Page<UserDto> userPage = userService.findAllUsers(username, firstName, lastName, email, pageable);
-
-        UserPaginationResponse response = new UserPaginationResponse();
-        response.setUsers(userPage.getContent());
-        response.setTotalPages(userPage.getTotalPages());
-        response.setTotalElements(userPage.getTotalElements());
-        response.setNumber(userPage.getNumber());
-        response.setNumberOfElements(userPage.getNumberOfElements());
-        response.setSize(userPage.getSize());
-
+        Page<UserPaginationResponse> userPage = userService.findAllUsers(username, firstName, lastName, email, pageable);
+        UserPaginationResponse response = userPage.getContent().get(0);
         return ResponseEntity.ok(response);
     }
 

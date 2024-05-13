@@ -3,6 +3,7 @@ package com.dacm.hexagonal.application.service;
 import com.dacm.hexagonal.domain.model.User;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.UserMapper;
 import com.dacm.hexagonal.application.port.in.UserService;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.UserPaginationResponse;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.enums.UserRole;
@@ -25,10 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -151,7 +149,7 @@ public class UserServiceImpl implements UserService {
      * Updates a user by userId and returns the result as an API response.
      *
      * @param userId The userId of the user to update.
-     * @param user  New user data for the update.
+     * @param user   New user data for the update.
      * @return ApiResponse indicating success or failure of the update.
      */
     @Override
@@ -190,12 +188,13 @@ public class UserServiceImpl implements UserService {
      * @return UserDto containing the user's data.
      */
     @Override
-    public UserDto findByUserId(String userId) {
+    public ApiResponse findByUserId(String userId) {
         UserEntity userEntity = userRepository.findByUserId(userId);
         if (userEntity == null) {
-            return null;
+            return new ApiResponse(HttpStatus.NOT_FOUND.value(), Message.USER_NOT_FOUND, HttpStatus.NOT_FOUND, LocalDateTime.now());
         }
-        return UserMapper.entityToDto(userEntity);
+
+        return new ApiResponse(HttpStatus.OK.value(), Message.USER_FOUND, HttpStatus.OK, LocalDateTime.now(), UserMapper.entityToDto(userEntity));
     }
 
     /**
@@ -207,7 +206,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResponse deleteByUserId(String userId) {
         UserEntity user = userRepository.findByUserId(userId);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException(Message.USER_NOT_FOUND + " " + userId);
         }
         userRepository.deleteByUserId(userId);
@@ -218,7 +217,7 @@ public class UserServiceImpl implements UserService {
     /**
      * Finds all users based on filters and pagination parameters and returns the results paginated.
      *
-     * @param userId  Optional filter by userId.
+     * @param userId    Optional filter by userId.
      * @param lastName  Optional filter by last name.
      * @param firstName Optional filter by first name.
      * @param email     Optional filter by email.
@@ -226,7 +225,45 @@ public class UserServiceImpl implements UserService {
      * @return A page of UserDto objects corresponding to the filtered and paginated results.
      */
     @Override
-    public Page<UserDto> findAllUsers(String userId, String lastName, String firstName, String email, Pageable pageable) {
+    public Page<UserPaginationResponse> findAllUsers(String userId, String lastName, String firstName, String email, Pageable pageable) {
+        Page<UserDto> userPage = findAllUsersDto(userId, lastName, firstName, email, pageable);
+        List<UserDto> users = userPage.getContent();
+
+        UserPaginationResponse response = new UserPaginationResponse();
+        response.setUsers(users);
+        response.setTotalElements(userPage.getTotalElements());
+        response.setTotalPages(userPage.getTotalPages());
+        response.setNumberOfElements(users.size());
+        response.setSize(users.size());
+        response.setNumber(pageable.getPageNumber());
+
+        // Crear una lista de un solo elemento con la respuesta
+        List<UserPaginationResponse> responseList = Collections.singletonList(response);
+
+        // Devolver un Page con la lista de un solo elemento y los metadatos adecuados
+        return new PageImpl<>(responseList, pageable, 1);
+    }
+
+    @Override
+    public List<String> getAllUsernames() {
+        List<UserEntity> users = userRepository.findAll();
+        List<String> usernames = users.stream()
+                .map(UserEntity::getUserId)
+                .collect(Collectors.toList());
+        return usernames;
+    }
+
+    @Override
+    public List<String> getAllEmails() {
+        List<UserEntity> users = userRepository.findAll();
+        List<String> emails = users.stream()
+                .map(UserEntity::getEmail)
+                .collect(Collectors.toList());
+        return emails;
+    }
+
+    @Override
+    public Page<UserDto> findAllUsersDto(String userId, String lastName, String firstName, String email, Pageable pageable) {
         Criteria criteria = new Criteria();
 
         // Agregar filtros solo si no son nulos o vacíos
@@ -252,24 +289,6 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
 
         return new PageImpl<>(records, pageable, total);
-    }
-
-    @Override
-    public List<String> getAllUsernames() {
-        List<UserEntity> users = userRepository.findAll();
-        List<String> usernames = users.stream()
-                .map(UserEntity::getUserId)
-                .collect(Collectors.toList());
-        return usernames;
-    }
-
-    @Override
-    public List<String> getAllEmails() {
-        List<UserEntity> users = userRepository.findAll();
-        List<String> emails = users.stream()
-                .map(UserEntity::getEmail)
-                .collect(Collectors.toList());
-        return emails;
     }
 
 }

@@ -3,6 +3,7 @@ package com.dacm.hexagonal.common;
 public class Message {
 
     // Messages for user registration
+    public static final String USER_FOUND = "User found";
     public static final String USERNAME_TAKEN= "Username is already taken";
     public static final String EMAIL_TAKEN = "Email is already taken";
     public static final String PASSWORD_LENGTH= "Password must be more than 5 characters";

@@ -4,9 +4,9 @@ import com.dacm.hexagonal.domain.model.User;
 import com.dacm.hexagonal.domain.model.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.UserPaginationResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -24,9 +24,11 @@ public interface UserService {
 
     ApiResponse deleteByUserId(String userId);
 
-    UserDto findByUserId(String userId);
+    ApiResponse findByUserId(String userId);
 
-    Page<UserDto> findAllUsers(String userId, String lastname, String firstname, String email, Pageable pageable);
+    Page<UserPaginationResponse> findAllUsers(String userId, String lastname, String firstname, String email, Pageable pageable);
+
+    Page<UserDto> findAllUsersDto(String userId, String lastName, String firstName, String email, Pageable pageable);
 
     List<String> getAllUsernames();
 

@@ -1,5 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.controller;
 
+import com.dacm.hexagonal.application.port.in.RegisterService;
 import com.dacm.hexagonal.domain.model.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.application.service.RegisterServiceImpl;
@@ -17,8 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class RegisterController {
 
-    private final RegisterServiceImpl registerService;
-    private final UserRepository userRepository;
+    private final RegisterService registerService;
 
     /**
      * Registers a new user in the system.

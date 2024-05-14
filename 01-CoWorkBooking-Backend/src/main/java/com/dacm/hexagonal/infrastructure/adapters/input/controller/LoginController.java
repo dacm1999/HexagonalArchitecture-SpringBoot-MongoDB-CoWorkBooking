@@ -1,5 +1,6 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.controller;
 
+import com.dacm.hexagonal.application.port.in.LoginService;
 import com.dacm.hexagonal.application.service.LoginServiceImpl;
 import com.dacm.hexagonal.domain.model.Login;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class LoginController {
 
-    private final LoginServiceImpl loginService;
+    private final LoginService loginService;
 
     /**
      * Authenticate a user and return a JWT token.

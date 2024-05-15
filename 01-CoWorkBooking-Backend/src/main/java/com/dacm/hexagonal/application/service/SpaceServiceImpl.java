@@ -3,6 +3,7 @@ package com.dacm.hexagonal.application.service;
 import com.dacm.hexagonal.domain.model.Space;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.SpaceMapper;
 import com.dacm.hexagonal.application.port.in.SpaceService;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.SpacePaginationResponse;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.SpaceEntity;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,7 +55,6 @@ public class SpaceServiceImpl implements SpaceService {
 
     /**
      * Saves a new space record to the database.
-     * <p>
      * This method converts a {@link SpaceDto} DTO to a {@link SpaceEntity} which is then saved
      * into the database using the {@link SpaceRepository}. After the save operation, it returns
      * an {@ApiResponse} indicating the success of the operation.
@@ -76,7 +77,6 @@ public class SpaceServiceImpl implements SpaceService {
 
     /**
      * Saves multiple space entities to the database.
-     * <p>
      * Processes an array of {@link SpaceEntity}, attempting to save each to the database. It checks
      * if the space ID already exists to prevent duplicates. The method accumulates successful saves
      * and errors, returning detailed information about the results of these operations.
@@ -187,9 +187,35 @@ public class SpaceServiceImpl implements SpaceService {
         return SpaceMapper.entityToDto(spaceEntity);
     }
 
+
+    /**
+     * Retrieves a page of spaces based on the provided search criteria.
+     *
+     * @param spaceName   The name of the space to search for.
+     * @param description The description of the space to search for.
+     * @param location    The location of the space to search for.
+     * @param capacity    The capacity of the space to search for.
+     * @param pageable    Pagination information.
+     * @return A page of {@link SpacePaginationResponse} objects containing spaces matching the search criteria.
+     */
+    @Override
+    public Page<SpacePaginationResponse> findAllSpaces(String spaceName, String description, String location, String capacity, Pageable pageable) {
+        Page<SpaceDto> spaces = findAllSpacesDto(spaceName, description, location, capacity, pageable);
+        List<SpaceDto> records = spaces.getContent();
+
+        SpacePaginationResponse response = new SpacePaginationResponse();
+        response.setSpaces(records);
+        response.setTotalPages(spaces.getTotalPages());
+        response.setTotalElements(spaces.getTotalElements());
+        response.setNumber(spaces.getNumber());
+        response.setSize(spaces.getSize());
+        List<SpacePaginationResponse> responseList = Collections.singletonList(response);
+
+        return new PageImpl<>(responseList, pageable, spaces.getTotalElements());
+    }
+
     /**
      * Retrieves a paginated list of all spaces matching the given filters.
-     * <p>
      * Applies filters for space name, description, location, and capacity if provided.
      * The results are returned in a paginated format.
      *
@@ -201,7 +227,7 @@ public class SpaceServiceImpl implements SpaceService {
      * @return a paginated {@link Page} of {@link SpaceDto} matching the criteria
      */
     @Override
-    public Page<SpaceDto> findAllSpaces(String spaceName, String description, String location, String capacity, Pageable pageable) {
+    public Page<SpaceDto> findAllSpacesDto(String spaceName, String description, String location, String capacity, Pageable pageable) {
         Criteria criteria = new Criteria();
 
         if (spaceName != null && !spaceName.isEmpty()) {
@@ -230,9 +256,9 @@ public class SpaceServiceImpl implements SpaceService {
         return new PageImpl<>(records, pageable, total);
     }
 
+
     /**
      * Retrieves a paginated list of available spaces matching the given filters.
-     * <p>
      * Filters for available spaces based on space name, description, location, and capacity.
      * Only includes spaces that are currently marked as available.
      *
@@ -276,7 +302,6 @@ public class SpaceServiceImpl implements SpaceService {
 
     /**
      * Retrieves a paginated list of unavailable spaces matching the given filters.
-     * <p>
      * Filters for unavailable spaces based on space ID, name, description, location, and capacity.
      * Only includes spaces that are currently marked as unavailable.
      *
@@ -322,7 +347,6 @@ public class SpaceServiceImpl implements SpaceService {
 
     /**
      * Retrieves a list of all unique space IDs from the database.
-     * <p>
      * This method fetches all space entities, extracts their IDs, and returns a list of unique IDs.
      * It uses a HashSet to ensure that all IDs in the returned list are distinct.
      *
@@ -340,7 +364,6 @@ public class SpaceServiceImpl implements SpaceService {
 
     /**
      * Changes the availability status of a given space entity and saves the update to the database.
-     * <p>
      * This method sets the availability of the specified space to the provided boolean value, then
      * persists the updated space entity to the repository.
      *

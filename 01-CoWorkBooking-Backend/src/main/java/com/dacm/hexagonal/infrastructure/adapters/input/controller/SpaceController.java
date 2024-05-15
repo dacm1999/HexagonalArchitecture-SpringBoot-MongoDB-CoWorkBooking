@@ -92,21 +92,13 @@ public class SpaceController {
             @RequestParam(required = false) String spaceName,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) String location,
-//            @RequestParam(required = false) boolean available,
             @RequestParam(required = false) String capacity
 
     ) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<SpaceDto> spaces = spaceService.findAllSpaces(spaceName, description, location, capacity, pageable);
-
-        SpacePaginationResponse response = new SpacePaginationResponse();
-        response.setSpaces(spaces.getContent());
-        response.setTotalPages(spaces.getTotalPages());
-        response.setTotalElements(spaces.getTotalElements());
-        response.setNumber(spaces.getNumber());
-        response.setSize(spaces.getSize());
-
+        Page<SpacePaginationResponse> spaces = spaceService.findAllSpaces(spaceName, description, location, capacity, pageable);
+        SpacePaginationResponse response = spaces.getContent().get(0);
         return ResponseEntity.ok(response);
     }
 
@@ -163,7 +155,7 @@ public class SpaceController {
      * @return Paginated response of available spaces.
      */
     @GetMapping("/allUnAvailable")
-    public ResponseEntity<SpacePaginationResponse> getUnAvailableSpaces(
+    public ResponseEntity<SpacePaginationResponse> findUnAvailableSpaces(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(required = false) String spaceId,
@@ -187,7 +179,6 @@ public class SpaceController {
 
         return ResponseEntity.ok(response);
     }
-
 
     /**
      * Deletes a space by its ID.

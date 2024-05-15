@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -47,7 +48,7 @@ class LoginControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private LoginService loginService;
 
     @Autowired
@@ -80,7 +81,7 @@ class LoginControllerTest {
         when(loginService.login(ArgumentMatchers.any(Login.class))).thenReturn(jwtLoginResponse);
 
         //Setting yp the controller for testing
-        mockMvc = MockMvcBuilders.standaloneSetup(loginController).build();
+//        mockMvc = MockMvcBuilders.standaloneSetup(loginController).build();
 
         // When/Then
         mockMvc.perform(MockMvcRequestBuilders.post(BASE_URL + "/auth")

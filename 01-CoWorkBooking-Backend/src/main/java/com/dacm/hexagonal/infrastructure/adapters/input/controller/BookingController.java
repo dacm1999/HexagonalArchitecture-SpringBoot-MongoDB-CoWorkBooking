@@ -6,7 +6,6 @@ import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingPaginationResponse;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class BookingController {
 
 
+    private final BookingService bookingService;
+
     @Autowired
-    private BookingService bookingService;
+    public BookingController(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
 
     /**
      * Create a new booking.
@@ -71,22 +74,13 @@ public class BookingController {
      * @return a ResponseEntity containing a BookingPaginationResponse
      */
     @GetMapping("/all")
-    public ResponseEntity<BookingPaginationResponse> getAllBookings(
+    public ResponseEntity<?> getAllBookings(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
-        Page<BookingDto> bookings = bookingService.getAllBookings(pageable);
-
-        BookingPaginationResponse response = new BookingPaginationResponse();
-        response.setBookings(bookings.getContent());
-        response.setTotalPages(bookings.getTotalPages());
-        response.setTotalElements(bookings.getTotalElements());
-        response.setNumber(bookings.getNumber());
-        response.setNumberOfElements(bookings.getNumberOfElements());
-        response.setSize(bookings.getSize());
+        BookingPaginationResponse response = bookingService.getAllBookings(pageable);
         return ResponseEntity.ok(response);
     }
-
 
     /**
      * Retrieve all bookings by start date.
@@ -132,7 +126,7 @@ public class BookingController {
      * @return a ResponseEntity with the booking of the specified user
      */
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getBookingByUserId2(@PathVariable String userId) {
+    public ResponseEntity<?> getBookingByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(bookingService.getBookingByUserId(userId));
     }
 

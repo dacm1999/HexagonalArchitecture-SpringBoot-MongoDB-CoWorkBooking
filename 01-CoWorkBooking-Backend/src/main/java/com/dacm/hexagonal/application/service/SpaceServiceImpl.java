@@ -375,4 +375,15 @@ public class SpaceServiceImpl implements SpaceService {
         space.setAvailable(available);
         spaceRepository.save(space);
     }
+
+    @Override
+    public SpacePaginationResponse buildSpacePaginationResponse(Page<SpaceDto> spaces) {
+        SpacePaginationResponse response = new SpacePaginationResponse();
+        response.setSpaces(spaces.getContent());
+        response.setTotalPages(spaces.getTotalPages());
+        response.setTotalElements(spaces.getTotalElements());
+        response.setNumber(spaces.getNumber());
+        response.setSize(spaces.getSize());
+        return response;
+    }
 }

@@ -130,14 +130,7 @@ public class SpaceController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<SpaceDto> spaces = spaceService.findAvailableSpaces(spaceId, spaceName, description, available, location, capacity, pageable);
-
-        SpacePaginationResponse response = new SpacePaginationResponse();
-        response.setSpaces(spaces.getContent());
-        response.setTotalPages(spaces.getTotalPages());
-        response.setTotalElements(spaces.getTotalElements());
-        response.setNumber(spaces.getNumber());
-        response.setSize(spaces.getSize());
-
+        SpacePaginationResponse response = spaceService.buildSpacePaginationResponse(spaces);
         return ResponseEntity.ok(response);
     }
 
@@ -169,15 +162,9 @@ public class SpaceController {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<SpaceDto> spaces = spaceService.getUnAvailableSpaces(spaceId, spaceName, description, available, location, capacity, pageable);
-
-        SpacePaginationResponse response = new SpacePaginationResponse();
-        response.setSpaces(spaces.getContent());
-        response.setTotalPages(spaces.getTotalPages());
-        response.setTotalElements(spaces.getTotalElements());
-        response.setNumber(spaces.getNumber());
-        response.setSize(spaces.getSize());
-
+        SpacePaginationResponse response = spaceService.buildSpacePaginationResponse(spaces);
         return ResponseEntity.ok(response);
+
     }
 
     /**

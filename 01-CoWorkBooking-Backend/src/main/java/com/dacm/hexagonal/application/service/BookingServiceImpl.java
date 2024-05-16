@@ -11,6 +11,7 @@ import com.dacm.hexagonal.infrastructure.adapters.input.mapper.BookingMapper;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.SpaceMapper;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingHoursResponse;
+import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingPaginationResponse;
 import com.dacm.hexagonal.infrastructure.adapters.output.email.EmailService;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.BookingRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.SpaceRepository;
@@ -243,7 +244,7 @@ public class BookingServiceImpl implements BookingService {
      * @return Page of BookingDto containing paginated booking data.
      */
     @Override
-    public Page<BookingDto> getAllBookings(Pageable pageable) {
+    public Page<BookingDto> getAllBookingsDto(Pageable pageable) {
 
         Query query = new Query().with(pageable);
         List<BookingEntity> bookings = mongoTemplate.find(query, BookingEntity.class);
@@ -255,6 +256,21 @@ public class BookingServiceImpl implements BookingService {
 
 
         return new PageImpl<>(bookingDtos, pageable, total);
+    }
+
+    @Override
+    public BookingPaginationResponse getAllBookings(Pageable pageable) {
+        Page<BookingDto> bookings = getAllBookingsDto(pageable);
+
+        BookingPaginationResponse response = new BookingPaginationResponse();
+        response.setBookings(bookings.getContent());
+        response.setTotalPages(bookings.getTotalPages());
+        response.setTotalElements(bookings.getTotalElements());
+        response.setNumber(bookings.getNumber());
+        response.setNumberOfElements(bookings.getNumberOfElements());
+        response.setSize(bookings.getSize());
+
+        return response;
     }
 
     /**

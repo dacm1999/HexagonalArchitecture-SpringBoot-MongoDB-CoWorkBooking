@@ -40,5 +40,7 @@ public interface SpaceService {
 
     List<String> getAllSpaceNames();
 
+    SpacePaginationResponse buildSpacePaginationResponse(Page<SpaceDto> spaces);
+
     void changeSpaceAvailability(SpaceEntity space, boolean b);
 }

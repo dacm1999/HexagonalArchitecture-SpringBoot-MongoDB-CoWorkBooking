@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -58,14 +59,11 @@ class SpaceControllerTest {
     @Autowired
     WebApplicationContext webApplicationContext;
 
-    private SpaceController spaceController;
-
-    private static String BASE_URL = "/api/v1/spaces";
+    private final static String BASE_URL = "/api/v1/spaces";
 
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        spaceController = new SpaceController(spaceService);
         spaceService = mock(SpaceService.class);
     }
 
@@ -162,6 +160,50 @@ class SpaceControllerTest {
     }
 
     @Test
+    @DisplayName("Test findAvailableSpaces method")
+    void testFindAvailableSpaces() throws Exception {
+        List<SpaceDto> spaceList = new ArrayList<>();
+        SpaceDto space1 = new SpaceDto("1", "Sala de reuniones", "Sala de reuniones para equipos pequeños", 50,new ArrayList<>(), true, "10");
+        SpaceDto space2 = new SpaceDto("2", "Sala de conferencias", "Sala de conferencias para eventos grandes",100, new ArrayList<>(), true, "50");
+        spaceList.add(space1);
+        spaceList.add(space2);
+
+        // Crear una página de espacios ficticia
+        Page<SpaceDto> spacesPage = new PageImpl<>(spaceList);
+
+        // Configurar el comportamiento del espacioService mock
+        when(spaceService.findAvailableSpaces(anyString(), anyString(), anyString(), anyBoolean(), anyString(), anyString(), (org.springframework.data.domain.Pageable) any(Pageable.class)))
+                .thenReturn(spacesPage);
+
+        // Realizar la solicitud HTTP y verificar la respuesta
+        mockMvc.perform(get(BASE_URL+"/allAvailable"))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
+    @DisplayName("Test findUnAvailableSpaces method")
+    void testFindUnAvailableSpaces() throws Exception {
+        List<SpaceDto> spaceList = new ArrayList<>();
+        SpaceDto space1 = new SpaceDto("1", "Sala de reuniones", "Sala de reuniones para equipos pequeños", 50,new ArrayList<>(), true, "10");
+        SpaceDto space2 = new SpaceDto("2", "Sala de conferencias", "Sala de conferencias para eventos grandes",100, new ArrayList<>(), true, "50");
+        spaceList.add(space1);
+        spaceList.add(space2);
+
+        // Crear una página de espacios ficticia
+        Page<SpaceDto> spacesPage = new PageImpl<>(spaceList);
+
+        // Configurar el comportamiento del espacioService mock
+        when(spaceService.getUnAvailableSpaces(anyString(), anyString(), anyString(), anyBoolean(), anyString(), anyString(), (org.springframework.data.domain.Pageable) any(Pageable.class)))
+                .thenReturn(spacesPage);
+
+        // Realizar la solicitud HTTP y verificar la respuesta
+        mockMvc.perform(get(BASE_URL+"/allUnAvailable"))
+                .andExpect(status().isOk());
+
+    }
+
+    @Test
     @DisplayName("Test delete method")
     void deleteSpace() throws Exception {
 
@@ -170,7 +212,7 @@ class SpaceControllerTest {
 
         when(spaceService.deleteBySpaceId(spaceId)).thenReturn(apiResponse);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/delete/" + spaceId))
+        mockMvc.perform(MockMvcRequestBuilders.delete(BASE_URL + "/delete/{spaceId}" , spaceId))
                 .andExpect(status().isOk())
                 .andReturn();
     }
@@ -190,7 +232,7 @@ class SpaceControllerTest {
 
         when(spaceService.updateSpace(spaceId, SpaceMapper.modelToDto(space))).thenReturn(apiResponse);
 
-        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/update/" + spaceId)
+        mockMvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/update/{spaceId}", spaceId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(space)))
                 .andExpect(status().isOk())

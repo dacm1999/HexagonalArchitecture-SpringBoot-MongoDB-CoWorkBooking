@@ -3,7 +3,7 @@
     {
       "name": "jwt.secret",
       "type": "java.lang.String",
-      "description": "Description for jwt.secret."
+      "description": "JWT Secret Password."
     },
     {
       "name": "v.email.port",
@@ -29,6 +29,26 @@
       "name": "v.email.from",
       "type": "java.lang.String",
       "description": "Email from."
+    },
+    {
+      "name": "v.mongodb.host",
+      "type": "java.lang.String",
+      "description": "MongoDb Host."
+    },
+    {
+      "name": "v.mongodb.port",
+      "type": "java.lang.String",
+      "description": "MongoDB port."
+    },
+    {
+      "name": "v.mongodb.database",
+      "type": "java.lang.String",
+      "description": "Database name."
+    },
+    {
+      "name": "v.mongodb.uri",
+      "type": "java.lang.String",
+      "description": "Database production."
     }
   ]
 }

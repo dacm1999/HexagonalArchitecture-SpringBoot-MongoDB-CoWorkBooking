@@ -71,6 +71,8 @@ public class SecurityConfig {
                                 //Password endpoint
                                 .requestMatchers("api/v1/password/reset").permitAll()
                                 .requestMatchers("api/v1/password/update/{userId}").hasAnyRole("ADMIN", "MANAGER", "USER")
+
+                                .requestMatchers("api/v1/login/auth","/v3/api-docs/**","/swagger-ui/**","/swagger-ui.html").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager -> sessionManager

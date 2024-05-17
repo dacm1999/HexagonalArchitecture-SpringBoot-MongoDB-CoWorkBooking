@@ -3,6 +3,7 @@ package com.dacm.hexagonal.infrastructure.adapters.output.email;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -15,6 +16,8 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
+    @Value("${v.email.from}")
+    private String emailFrom;
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
@@ -28,7 +31,7 @@ public class EmailServiceImpl implements EmailService {
         String html = templateEngine.process(templateName, context);
 
         helper.setTo(to);
-        helper.setFrom("tasksync@hotmail.com");  // Asegúrate de que esta dirección está autorizada
+        helper.setFrom(emailFrom);  // Asegúrate de que esta dirección está autorizada
         helper.setText(html, true);
         helper.setSubject(subject);
 

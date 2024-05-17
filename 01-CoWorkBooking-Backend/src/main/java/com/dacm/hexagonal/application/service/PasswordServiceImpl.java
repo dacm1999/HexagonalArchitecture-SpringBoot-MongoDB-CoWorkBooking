@@ -49,7 +49,7 @@ public class PasswordServiceImpl implements PasswordService {
         model.addAttribute("fullName", fullName);
         model.addAttribute("newPassword", newPassword);
 
-        emailService.sendHtmlMessage(request.getEmail(), "Password Reset", model, "PasswordReset");
+        emailService.sendHtmlMessage(request.getEmail(), "Password Reset", model, "password-reset");
 
         return new ApiResponse(
                 HttpStatus.OK.value(),
@@ -81,7 +81,7 @@ public class PasswordServiceImpl implements PasswordService {
         Model model = new ExtendedModelMap();
         model.addAttribute("fullName", fullName);
 
-        emailService.sendHtmlMessage(user.getEmail(), "Password Update", model, "PasswordUpdated");
+        emailService.sendHtmlMessage(user.getEmail(), "Password Update", model, "password-updated");
         return new ApiResponse(200, Message.PASSWORD_UPDATED, HttpStatus.OK, LocalDateTime.now(), "");
     }
 

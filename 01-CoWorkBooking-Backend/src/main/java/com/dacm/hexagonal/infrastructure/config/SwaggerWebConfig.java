@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //@EnableWebMvc
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class SwaggerWebConfig implements WebMvcConfigurer {
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;

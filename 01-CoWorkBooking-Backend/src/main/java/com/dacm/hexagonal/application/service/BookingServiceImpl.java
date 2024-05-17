@@ -1,14 +1,11 @@
 package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
-import com.dacm.hexagonal.application.port.in.SpaceService;
-import com.dacm.hexagonal.application.port.in.UserService;
 import com.dacm.hexagonal.domain.enums.BookingStatus;
 import com.dacm.hexagonal.domain.model.Booking;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
 import com.dacm.hexagonal.domain.model.dto.UserBookingDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.mapper.BookingMapper;
-import com.dacm.hexagonal.infrastructure.adapters.input.mapper.SpaceMapper;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingHoursResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.BookingPaginationResponse;

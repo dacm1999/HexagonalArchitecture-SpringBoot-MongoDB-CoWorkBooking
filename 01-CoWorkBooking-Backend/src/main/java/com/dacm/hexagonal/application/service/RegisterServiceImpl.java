@@ -70,7 +70,7 @@ public class RegisterServiceImpl implements RegisterService {
 
         userRepository.save(user);
         model.addAttribute("nombre", fullName);
-        emailService.sendHtmlMessage(user.getEmail(), "Bienvenido a Nuestro Servicio", model, "SuccessfulRegistration");
+        emailService.sendHtmlMessage(user.getEmail(), "Bienvenido a Nuestro Servicio", model, "successful-registration.html");
 
         return JwtLoginResponse.builder()
                 .token(jwtTokenProvider.getToken(user))

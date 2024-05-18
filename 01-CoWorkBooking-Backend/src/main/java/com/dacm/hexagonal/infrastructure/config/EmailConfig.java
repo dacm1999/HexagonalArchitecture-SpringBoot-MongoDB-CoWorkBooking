@@ -1,8 +1,11 @@
 package com.dacm.hexagonal.infrastructure.config;
 
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -11,33 +14,26 @@ import java.util.Properties;
 @Configuration
 public class EmailConfig {
 
-    @Value("${v.email.host}")
-    private String host;
 
-    @Value("${v.email.port}")
-    private int port;
+    @Autowired
+    private Environment env;
 
-    @Value("${v.email.username}")
-    private String username;
-
-    @Value("${v.email.password}")
-    private String password;
+    private Integer port = 587;
 
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(host);
+        mailSender.setHost(env.getProperty("v.email.host"));
         mailSender.setPort(port);
-
-        mailSender.setUsername(username);
-        mailSender.setPassword(password);
+        mailSender.setUsername(env.getProperty("v.email.username"));
+        mailSender.setPassword(env.getProperty("v.email.password"));
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-//        props.put("mail.debug", "true");
 
         return mailSender;
     }
 }
+

@@ -50,14 +50,8 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--Mockito       -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.mockito</groupId>-->
-        <!--            <artifactId>mockito-all</artifactId>-->
-        <!--            <version>2.0.2-beta</version>-->
-        <!--            <scope>test</scope>-->
-        <!--        </dependency>-->
-
+        
+        <!--TEST        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -119,13 +113,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
-        </dependency>
-
-        <!--TEST        -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <!-- SPRING SECURITY        -->

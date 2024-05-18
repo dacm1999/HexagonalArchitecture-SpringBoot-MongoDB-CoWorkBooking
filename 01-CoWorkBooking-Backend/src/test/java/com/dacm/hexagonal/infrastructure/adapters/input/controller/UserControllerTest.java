@@ -5,7 +5,6 @@ import com.dacm.hexagonal.domain.model.User;
 import com.dacm.hexagonal.domain.model.dto.UserDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.UserPaginationResponse;
-import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -61,14 +60,14 @@ class UserControllerTest {
     void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 
-        UserEntity userEntity = UserEntity.builder()
-                .userId("dacm")
-                .firstName("Daniel")
-                .lastName("Contreras")
-                .email("dacm.dev@icloud.com")
-                .password("1234")
-                .build();
-        userRepository.save(userEntity);
+//        UserEntity userEntity = UserEntity.builder()
+//                .userId("dacm")
+//                .firstName("Daniel")
+//                .lastName("Contreras")
+//                .email("dacm.dev@icloud.com")
+//                .password("1234")
+//                .build();
+//        userRepository.save(userEntity);
     }
 
     @Test

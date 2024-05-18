@@ -6,11 +6,6 @@
       "description": "JWT Secret Password."
     },
     {
-      "name": "v.email.port",
-      "type": "java.lang.String",
-      "description": "Email port."
-    },
-    {
       "name": "v.email.host",
       "type": "java.lang.String",
       "description": "Email host server."
@@ -37,7 +32,7 @@
     },
     {
       "name": "v.mongodb.port",
-      "type": "java.lang.String",
+      "type": "java.lang.Integer",
       "description": "MongoDB port."
     },
     {
@@ -49,6 +44,11 @@
       "name": "v.mongodb.uri",
       "type": "java.lang.String",
       "description": "Database production."
+    },
+    {
+      "name": "ev.email.port",
+      "type": "java.lang.String",
+      "description": "Description for ev.email.port."
     }
   ]
 }

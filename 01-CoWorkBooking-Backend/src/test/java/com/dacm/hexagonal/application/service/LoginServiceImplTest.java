@@ -5,7 +5,7 @@ import com.dacm.hexagonal.domain.model.Login;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
-import com.dacm.hexagonal.infrastructure.config.security.jwt.JwtTokenProvider;
+import com.dacm.hexagonal.infrastructure.security.jwt.JwtTokenProvider;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;

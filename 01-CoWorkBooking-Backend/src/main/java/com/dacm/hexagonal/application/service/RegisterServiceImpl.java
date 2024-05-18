@@ -9,7 +9,7 @@ import com.dacm.hexagonal.domain.enums.UserRole;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.dacm.hexagonal.domain.model.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
-import com.dacm.hexagonal.infrastructure.config.security.jwt.JwtTokenProvider;
+import com.dacm.hexagonal.infrastructure.security.jwt.JwtTokenProvider;
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

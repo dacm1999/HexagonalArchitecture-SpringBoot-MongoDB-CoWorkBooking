@@ -1,4 +1,4 @@
-package com.dacm.hexagonal.infrastructure.config.security.jwt;
+package com.dacm.hexagonal.infrastructure.security.jwt;
 
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import io.jsonwebtoken.Claims;

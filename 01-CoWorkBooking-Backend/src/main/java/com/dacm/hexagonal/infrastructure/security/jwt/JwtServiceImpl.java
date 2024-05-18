@@ -1,4 +1,4 @@
-package com.dacm.hexagonal.infrastructure.config.security.jwt;
+package com.dacm.hexagonal.infrastructure.security.jwt;
 
 import com.dacm.hexagonal.application.port.in.JwtService;
 import io.jsonwebtoken.Claims;

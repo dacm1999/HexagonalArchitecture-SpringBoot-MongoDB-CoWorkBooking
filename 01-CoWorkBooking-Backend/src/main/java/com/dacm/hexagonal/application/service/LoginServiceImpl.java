@@ -6,7 +6,7 @@ import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.model.Login;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
-import com.dacm.hexagonal.infrastructure.config.security.jwt.JwtTokenProvider;
+import com.dacm.hexagonal.infrastructure.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;

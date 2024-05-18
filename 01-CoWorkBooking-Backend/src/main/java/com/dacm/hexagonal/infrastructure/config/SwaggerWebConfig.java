@@ -1,6 +1,6 @@
 package com.dacm.hexagonal.infrastructure.config;
 
-import com.dacm.hexagonal.infrastructure.config.security.jwt.JwtTokenProvider;
+import com.dacm.hexagonal.infrastructure.security.jwt.JwtTokenProvider;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

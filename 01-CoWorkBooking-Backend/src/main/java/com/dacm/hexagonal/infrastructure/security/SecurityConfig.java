@@ -1,7 +1,6 @@
-package com.dacm.hexagonal.infrastructure.config.security;
+package com.dacm.hexagonal.infrastructure.security;
 
-import com.dacm.hexagonal.domain.exception.JwtExceptionHandler;
-import com.dacm.hexagonal.infrastructure.config.security.jwt.JwtAuthenticationFilter;
+import com.dacm.hexagonal.infrastructure.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

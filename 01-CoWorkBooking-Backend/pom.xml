@@ -18,6 +18,14 @@
     </properties>
     <dependencies>
 
+        <!--Docker-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-docker-compose</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Spring Doc       -->
         <dependency>
             <groupId>org.springdoc</groupId>
@@ -50,7 +58,7 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <!--TEST        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -69,7 +77,8 @@
             <version>5.11.0</version>
             <scope>test</scope>
         </dependency>
-        <!--        -->
+
+        <!--  Jackson      -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>

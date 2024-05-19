@@ -16,27 +16,21 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = "com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository")
 public class MongoDBConfig extends AbstractMongoClientConfiguration {
 
-    @Value("${v.mongodb.database}")
-    private String databaseName;
-
-    @Value("${v.mongodb.host}")
-    private String host;
-
-    @Value("${v.mongodb.port}")
-    private int port;
+    @Value("${v.mongodb.uri}")
+    private String mongoUri;
 
     @Override
     @NonNull
     protected String getDatabaseName() {
-        return databaseName;
+        System.out.println(mongoUri);
+        return new ConnectionString(mongoUri).getDatabase();
     }
 
     @Override
     @NonNull
     public MongoClient mongoClient() {
-        ConnectionString connectionString = new ConnectionString("mongodb://" + host + ":" + port + "/" + databaseName);
         MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
-                .applyConnectionString(connectionString)
+                .applyConnectionString(new ConnectionString(mongoUri))
                 .build();
         return MongoClients.create(mongoClientSettings);
     }

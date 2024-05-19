@@ -1,0 +1,31 @@
+version: '3.8'
+
+networks:
+  my-network:
+    driver: bridge
+
+services:
+  hexagonal-architecture-springboot-mongodb-co-work-booking-app:
+    build: .
+    container_name: "hexagonal-architecture-container"
+    ports:
+      - 8080:8080  # Puesto que 27017 es para MongoDB, necesitas exponer el puerto de tu app aquí
+    depends_on:
+      - mongodb
+    networks:
+      - my-network
+    environment:
+      - V_MONGODB_HOST=CoWorkBooking-mongodb
+      - V_MONGODB_PORT=27017
+      - V_MONGODB_URI=mongodb://CoWorkBooking-mongodb:27017/CoWorkBooking
+
+  mongodb:
+    container_name: "CoWorkBooking-mongodb"
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    networks:
+      - my-network
+
+volumes:
+  mongo-data:

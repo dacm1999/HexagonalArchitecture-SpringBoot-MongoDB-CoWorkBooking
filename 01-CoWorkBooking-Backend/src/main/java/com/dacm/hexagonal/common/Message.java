@@ -12,7 +12,7 @@ public class Message {
     public static final String USERNAME_MANDATORY= "UserID must be mandatory";
 
     // Messages for user login
-    public static final String LOGIN_INVALID_USERNAME= "Invalid userId";
+    public static final String LOGIN_INVALID_USERNAME= "Invalid username, introduce a valid username";
     public static final String LOGIN_INVALID_PASSWORD= "Invalid password";
 
     // Messages for JWT
@@ -34,6 +34,7 @@ public class Message {
     public static final String SPACE_DELETE_SUCCESSFULLY= "space deleted successfully";
     public static final String SPACE_NOT_FOUND= "space not found";
     public static final String SPACE_NOT_AVAILABLE = "space not available";
+    public static final String SPACE_FOUND_SUCCESSFULLY = "Space found";
     public static final String SPACE_ID_ALREADY_EXISTS = "space id already exists";
 
     // Messages for booking
@@ -51,6 +52,9 @@ public class Message {
     public static final String BOOKING_TIME_NOT_AVAILABLE = "This time slot is already booked. Please choose a different time.";
     public static final String NO_AVAILABLE_HOURS = "No available hours for this date";
     public static final String AVAILABLE_HOURS = "Available hours for this date";
+    public static final String BOOKING_CANCELLED_SUCCESSFULLY = "Booking cancelled successfully";
+    public static final String BOOKING_RETREIVED_SUCCESSFULLY = "Bookings retrieved successfully";
+    public static final String BOOKING_CONFIRMED_SUCCESSFULLY = "Booking confirmed successfully";
 
     // Messages for password reset
     public static final String PASSWORD_RESET_EMAIL_SENT = "A password reset email has been sent.";

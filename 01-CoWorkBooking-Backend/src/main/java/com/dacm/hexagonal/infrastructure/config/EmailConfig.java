@@ -14,7 +14,6 @@ import java.util.Properties;
 @Configuration
 public class EmailConfig {
 
-
     @Autowired
     private Environment env;
 
@@ -23,10 +22,10 @@ public class EmailConfig {
     @Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(env.getProperty("v.email.host"));
+        mailSender.setHost(env.getProperty("V-EMAIL-SMTP-HOST"));
         mailSender.setPort(port);
-        mailSender.setUsername(env.getProperty("v.email.username"));
-        mailSender.setPassword(env.getProperty("v.email.password"));
+        mailSender.setUsername(env.getProperty("V-EMAIL-USERNAME"));
+        mailSender.setPassword(env.getProperty("V-EMAIL-PASSWORD"));
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");

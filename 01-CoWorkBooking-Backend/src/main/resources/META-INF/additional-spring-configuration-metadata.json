@@ -21,11 +21,6 @@
       "description": "Email password."
     },
     {
-      "name": "v.email.from",
-      "type": "java.lang.String",
-      "description": "Email from."
-    },
-    {
       "name": "v.mongodb.host",
       "type": "java.lang.String",
       "description": "MongoDb Host."

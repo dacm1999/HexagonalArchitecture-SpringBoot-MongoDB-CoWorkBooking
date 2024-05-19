@@ -8,10 +8,13 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.models.GroupedOpenApi;
+import org.springdoc.core.properties.SpringDocConfigProperties;
+import org.springdoc.core.properties.SwaggerUiConfigParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //@EnableWebMvc
@@ -35,13 +38,13 @@ public class SwaggerWebConfig implements WebMvcConfigurer {
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
     }
 
-    @Bean
-    public GroupedOpenApi publicApi() {
-        return GroupedOpenApi.builder()
-                .group("public")
-                .pathsToMatch("/public/**")
-                .build();
-    }
+//    @Bean
+//    public GroupedOpenApi publicApi() {
+//        return GroupedOpenApi.builder()
+//                .group("public")
+//                .pathsToMatch("/api/**")
+//                .build();
+//    }
 
     @Bean
     public SecurityScheme securityScheme() {
@@ -51,5 +54,23 @@ public class SwaggerWebConfig implements WebMvcConfigurer {
                 .bearerFormat("JWT")
                 .in(SecurityScheme.In.HEADER)
                 .name(HttpHeaders.AUTHORIZATION);
+    }
+
+    @Bean
+    public SecurityRequirement securityRequirement() {
+        return new SecurityRequirement().addList("Authorization");
+    }
+
+    @Bean
+    public SpringDocConfigProperties springDocConfigProperties() {
+        return new SpringDocConfigProperties();
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Configurar el manejador de recursos para SwaggerUI
+        registry.addResourceHandler("/swagger-ui/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+                .resourceChain(false);
     }
 }

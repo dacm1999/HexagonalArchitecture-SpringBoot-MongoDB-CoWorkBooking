@@ -7,6 +7,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,10 +17,11 @@ import java.util.HashMap;
 
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret}")
-    private String SECRET_KEY;
+    @Value("${V-JWT-SECRET-KEY}")
+    public String SECRET_KEY;
 
     public String getToken(UserEntity user) {
         return getToken(new HashMap<>(), user);

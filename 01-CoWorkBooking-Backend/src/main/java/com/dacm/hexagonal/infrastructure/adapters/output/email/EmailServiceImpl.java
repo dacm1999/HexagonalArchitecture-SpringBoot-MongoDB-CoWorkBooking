@@ -16,7 +16,7 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 @RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
-    @Value("${v.email.from}")
+    @Value("${V-EMAIL-FROM}")
     private String emailFrom;
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;

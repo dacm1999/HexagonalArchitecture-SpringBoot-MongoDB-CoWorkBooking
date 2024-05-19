@@ -1,22 +1,20 @@
 package com.dacm.hexagonal.infrastructure.adapters.input.controller;
 
 import com.dacm.hexagonal.application.port.in.UserService;
-import com.dacm.hexagonal.domain.model.User;
-import com.dacm.hexagonal.domain.model.dto.UserDto;
-import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.common.Message;
+import com.dacm.hexagonal.domain.model.User;
+import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.entity.UserEntity;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.AddedResponse;
-import com.dacm.hexagonal.infrastructure.adapters.input.response.ApiResponse;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.UserPaginationResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 /**
  * User Controller
@@ -44,8 +42,14 @@ public class UserController {
      * @param user
      * @return
      */
+    @Operation(summary = "Create a new user")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = Message.USER_SAVE_SUCCESSFULLY),
+            @ApiResponse(responseCode = "400", description = Message.USER_EMAIL_ALREADY_EXISTS),
+            @ApiResponse(responseCode = "400", description = Message.USER_NAME_ALREADY_EXISTS)
+    })
     @PostMapping("/create")
-    public ResponseEntity<ApiResponse> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.save(user));
     }
 
@@ -54,6 +58,12 @@ public class UserController {
      * @param users
      * @return
      */
+    @Operation(summary = "Create multiple users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = Message.USER_SAVE_SUCCESSFULLY),
+            @ApiResponse(responseCode = "400", description = Message.USER_EMAIL_ALREADY_EXISTS),
+            @ApiResponse(responseCode = "400", description = Message.USER_NAME_ALREADY_EXISTS)
+    })
     @PostMapping("/createMultiple")
     public ResponseEntity<AddedResponse> createMultipleUsers(@RequestBody User[] users) {
         return ResponseEntity.ok(userService.saveMultipleUsers(users));
@@ -64,6 +74,11 @@ public class UserController {
      * @param userId
      * @return
      */
+    @Operation(summary = "Find user by userId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = Message.USER_FOUND),
+            @ApiResponse(responseCode = "400", description = Message.USER_NOT_FOUND)
+    })
     @GetMapping("/find/{userId}")
     public ResponseEntity<?> findByUserID(@PathVariable String userId) {
         return ResponseEntity.ok(userService.findByUserId(userId));
@@ -79,6 +94,11 @@ public class UserController {
      * @param email
      * @return
      */
+    @Operation(summary = "Retrieve all users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = Message.USER_FOUND),
+            @ApiResponse(responseCode = "400", description = Message.USER_NOT_FOUND)
+    })
     @GetMapping("/allUsers")
     public ResponseEntity<?> showAllUsers(
             @RequestParam(defaultValue = "0") int page,
@@ -99,8 +119,13 @@ public class UserController {
      * @param userId
      * @return
      */
+    @Operation(summary = "Delete user by userId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = Message.USER_DELETE_SUCCESSFULLY),
+            @ApiResponse(responseCode = "400", description = Message.USER_NOT_FOUND)
+    })
     @DeleteMapping("/delete/{userId}")
-    public ResponseEntity<ApiResponse> deleteByUserId(@PathVariable String userId) {
+    public ResponseEntity<?> deleteByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(userService.deleteByUserId(userId));
     }
 
@@ -110,8 +135,13 @@ public class UserController {
      * @param user
      * @return
      */
+    @Operation(summary = "Update user by userId")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = Message.USER_UPDATE_SUCCESSFULLY),
+            @ApiResponse(responseCode = "400", description = Message.USER_NOT_FOUND)
+    })
     @PutMapping("/update/{username}")
-    public ResponseEntity<ApiResponse> updateByUsername(@PathVariable String username, @RequestBody User user) {
+    public ResponseEntity<?> updateByUsername(@PathVariable String username, @RequestBody User user) {
         return ResponseEntity.ok(userService.updateUser(username, user));
     }
 

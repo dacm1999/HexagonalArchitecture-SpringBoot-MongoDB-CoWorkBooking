@@ -5,6 +5,8 @@ import com.dacm.hexagonal.domain.model.dto.RegisterDto;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
 import com.dacm.hexagonal.application.service.RegisterServiceImpl;
 import com.dacm.hexagonal.infrastructure.adapters.input.response.JwtLoginResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +32,8 @@ public class RegisterController {
      * @param request A RegisterDto object that contains all necessary user registration information such as username, password, email, etc.
      * @return ResponseEntity containing a JwtLoginResponse object with the JWT token on successful registration.
      */
+    @Operation(summary = "Register a new user")
+    @ApiResponse(responseCode = "200", description = "User registered successfully")
     @PostMapping
     public ResponseEntity<JwtLoginResponse> register(@RequestBody RegisterDto request) throws MessagingException {
         return ResponseEntity.ok(registerService.signUp(request));

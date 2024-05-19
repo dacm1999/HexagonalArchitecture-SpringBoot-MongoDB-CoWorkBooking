@@ -1,0 +1,28 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="SpaceControllerTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="hexagonal" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.dacm.hexagonal.infrastructure.adapters.input.controller.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="com.dacm.hexagonal.infrastructure.adapters.input.controller" />
+    <option name="MAIN_CLASS_NAME" value="com.dacm.hexagonal.infrastructure.adapters.input.controller.SpaceControllerTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <envs>
+      <env name="V_EMAIL_FROM" value="example@domain.com" />
+      <env name="V_EMAIL_PASSWORD" value="password" />
+      <env name="V_EMAIL_USERNAME" value="example@hotmail.com" />
+      <env name="V_MONGO_HOST" value="localhost" />
+      <env name="V_MONGO_PORT" value="27017" />
+      <env name="V_MONGODB_DATABASE" value="CoWorkBooking-Test" />
+      <env name="V_MONGODB_URI" value="mongodb://localhost:27017/CoWorkBooking-Test" />
+      <env name="V_JWT_SECRET_KEY" value="v2ZQhjIROzzMkAflVH/0k1RbqCuqeqZTxcczDkiQVEs=" />
+    </envs>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,9 +1,9 @@
-N:
+networks:
   my-network:
     driver: bridge
 
 services:
-  12>hexagonal-architecture-springboot-mongodb-co-work-booking-app:
+  hexagonal-architecture-springboot-mongodb-co-work-booking-app:
     build: .
     container_name: "hexagonal-architecture-container"
     ports:
@@ -51,8 +51,3 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     networks:
       - my-network
-#    consumer:
-#      group:
-#        id: email-consumer-group
-#      topic:
-#        email: email-topic-2

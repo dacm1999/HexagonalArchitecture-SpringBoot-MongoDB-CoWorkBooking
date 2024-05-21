@@ -1,0 +1,11 @@
+▶️ LEVANTAR CONTENEDOR
+docker-compose up -d
+
+▶️ COMPROBAR SI EL SERVIDOR ZOOKEEPER SE HA LEVANTADO
+docker ps | Select-String -Pattern "zookeeper"
+
+▶️ COMPROBAR SI EL SERVIDOR KAFKA SE HA LEVANTADO
+docker ps | Select-String -Pattern "kafka"
+
+▶ VERIFICAR EN QUE PUERTO SE EJECUTA KAFKA 
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container-name>

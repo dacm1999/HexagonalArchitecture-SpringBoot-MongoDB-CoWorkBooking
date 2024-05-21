@@ -1,0 +1,15 @@
+INSTALAR JAVA 
+sudo yum install java-1.8.0-amazon-corretto-devel
+
+cd kafka_2.13-3.7.0
+
+# Iniciar Zookeeper
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+# En otra terminal, iniciar el servidor de Kafka
+bin/kafka-server-start.sh config/server.properties
+
+▶️ Inicia una consola para ver mensajes de un topic específico
+bin/kafka-topics.sh --create --topic test-topic --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+
+

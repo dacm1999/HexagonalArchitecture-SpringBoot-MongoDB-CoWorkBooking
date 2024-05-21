@@ -13,15 +13,15 @@ services:
     environment:
       - V_MONGODB_HOST=CoWorkBooking-mongodb
       - V_MONGODB_PORT=27017
-      - V_MONGODB_URI=mongodb://CoWorkBooking-mongodb:27017/CoWorkBooking
       - V_JWT_SECRET_KEY=v2ZQhjIROzzMkAflVH/0k1RbqCuqeqZTxcczDkiQVEs=
-      - V_EMAIL_FROM=example@hotmail.com
-      - V_EMAIL_USERNAME=example@hotmail.com
-      - V_EMAIL_PASSWORD=example
       - V_EMAIL_SMTP_HOST=smtp-mail.outlook.com
       - V_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
       - V_KAFKA_CONSUMER_GROUP_ID=email-consumer-group
       - V_KAFKA_TOPIC_EMAIL=email-topic-2
+      - V_EMAIL_FROM=example@mail.com
+      - V_EMAIL_USERNAME=example@mail.com
+      - V_EMAIL_PASSWORD=example
+      - V_MONGODB_URI=mongodb://CoWorkBooking-mongodb:27017/CoWorkBooking
     depends_on:
       - kafka
 

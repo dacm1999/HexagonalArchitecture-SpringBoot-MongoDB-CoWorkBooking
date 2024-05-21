@@ -61,15 +61,6 @@ class UserControllerTest {
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-
-//        UserEntity userEntity = UserEntity.builder()
-//                .userId("dacm")
-//                .firstName("Daniel")
-//                .lastName("Contreras")
-//                .email("dacm.dev@icloud.com")
-//                .password("1234")
-//                .build();
-//        userRepository.save(userEntity);
     }
 
     @Test

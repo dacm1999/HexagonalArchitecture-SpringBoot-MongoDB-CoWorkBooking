@@ -1,6 +1,7 @@
 package com.dacm.hexagonal.application.service;
 
 import com.dacm.hexagonal.application.port.in.BookingService;
+import com.dacm.hexagonal.application.port.in.KafkaProducerService;
 import com.dacm.hexagonal.domain.enums.BookingStatus;
 import com.dacm.hexagonal.domain.model.Booking;
 import com.dacm.hexagonal.domain.model.dto.BookingDto;
@@ -48,16 +49,18 @@ public class BookingServiceImpl implements BookingService {
     private final SpaceRepository spaceRepository;
     private final BookingRepository bookingRepository;
     private final MongoTemplate mongoTemplate;
+    private final KafkaProducerService kafkaProducerService;
     private static final LocalTime OPENING_TIME = LocalTime.of(9, 0); // 9:00 AM
     private static final LocalTime CLOSING_TIME = LocalTime.of(21, 0); // 9:00 PM
 
     @Autowired
-    public BookingServiceImpl(EmailService emailService, UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, MongoTemplate mongoTemplate) {
+    public BookingServiceImpl(EmailService emailService, UserRepository userRepository, SpaceRepository spaceRepository, BookingRepository bookingRepository, MongoTemplate mongoTemplate, KafkaProducerService kafkaProducerService) {
         this.userRepository = userRepository;
         this.spaceRepository = spaceRepository;
         this.bookingRepository = bookingRepository;
         this.mongoTemplate = mongoTemplate;
         this.emailService = emailService;
+        this.kafkaProducerService = kafkaProducerService;
     }
 
 
@@ -125,7 +128,7 @@ public class BookingServiceImpl implements BookingService {
                 .build();
 
         bookingRepository.save(booking);
-        emailService.sendHtmlMessage(user.getEmail(), "Booking Confirmation", model, "booking-created.html");
+        kafkaProducerService.sendHtmlMessage(user.getEmail(), "Booking Confirmation", model, "booking-created.html");
         return new ApiResponse(200, Message.BOOKING_CREATED_SUCCESSFULLY, HttpStatus.OK, LocalDateTime.now(), BookingMapper.entityToDto(booking));
     }
 
@@ -163,7 +166,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setStatus(BookingStatus.CONFIRMED);
         Model model = new ExtendedModelMap();
         model.addAttribute("bookingId", booking.getId());
-        emailService.sendHtmlMessage(user.getEmail(), "Booking Confirmation", model, "booking-confirmation.html");
+        kafkaProducerService.sendHtmlMessage(user.getEmail(), "Booking Confirmation", model, "booking-confirmation.html");
         bookingRepository.save(booking);
 
         return BookingMapper.toDomain(booking);
@@ -186,7 +189,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setStatus(BookingStatus.CANCELLED);
         booking.setActive(false);
         Model model = new ExtendedModelMap();
-        emailService.sendHtmlMessage(user.getEmail(), "Booking Cancelled", model, "booking-cancelled.html");
+        kafkaProducerService.sendHtmlMessage(user.getEmail(), "Booking Cancelled", model, "booking-cancelled.html");
         bookingRepository.save(booking);
         return BookingMapper.toDomain(booking);
     }

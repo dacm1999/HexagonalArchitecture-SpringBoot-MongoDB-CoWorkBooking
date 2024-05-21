@@ -1,34 +1,58 @@
-networks:
+N:
   my-network:
     driver: bridge
 
 services:
-  hexagonal-architecture-springboot-mongodb-co-work-booking-app:
+  12>hexagonal-architecture-springboot-mongodb-co-work-booking-app:
     build: .
     container_name: "hexagonal-architecture-container"
     ports:
       - 8080:8080
-    depends_on:
-      - mongodb
     networks:
       - my-network
     environment:
       - V_MONGODB_HOST=CoWorkBooking-mongodb
       - V_MONGODB_PORT=27017
       - V_MONGODB_URI=mongodb://CoWorkBooking-mongodb:27017/CoWorkBooking
-      - V-JWT-SECRET-KEY=v2ZQhjIROzzMkAflVH/0k1RbqCuqeqZTxcczDkiQVEs=
-      - V-EMAIL-FROM=example@hotmail.com
-      - V-EMAIL-USERNAME=example@hotmail.com
-      - V-EMAIL-PASSWORD=example
-      - V-EMAIL-SMTP-HOST=smtp-mail.outlook.com
+      - V_JWT_SECRET_KEY=v2ZQhjIROzzMkAflVH/0k1RbqCuqeqZTxcczDkiQVEs=
+      - V_EMAIL_FROM=example@hotmail.com
+      - V_EMAIL_USERNAME=example@hotmail.com
+      - V_EMAIL_PASSWORD=example
+      - V_EMAIL_SMTP_HOST=smtp-mail.outlook.com
+      - V_KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - V_KAFKA_CONSUMER_GROUP_ID=email-consumer-group
+      - V_KAFKA_TOPIC_EMAIL=email-topic-2
+    depends_on:
+      - kafka
 
-  mongodb:
-    container_name: "CoWorkBooking-mongodb"
-    image: mongo:latest
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - 27017:27017
+      - 22181:2181
     networks:
       - my-network
-
-volumes:
-  mongo-data:
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - my-network
+#    consumer:
+#      group:
+#        id: email-consumer-group
+#      topic:
+#        email: email-topic-2

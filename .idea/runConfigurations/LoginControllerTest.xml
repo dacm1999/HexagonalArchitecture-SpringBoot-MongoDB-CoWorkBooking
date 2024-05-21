@@ -15,11 +15,14 @@
       <env name="V_EMAIL_FROM" value="example@domain.com" />
       <env name="V_EMAIL_PASSWORD" value="password" />
       <env name="V_EMAIL_USERNAME" value="example@hotmail.com" />
+      <env name="V_JWT_SECRET_KEY" value="v2ZQhjIROzzMkAflVH/0k1RbqCuqeqZTxcczDkiQVEs=" />
+      <env name="V_KAFKA_BOOTSTRAP_SERVERS" value="localhost:9092" />
       <env name="V_MONGO_HOST" value="localhost" />
       <env name="V_MONGO_PORT" value="27017" />
       <env name="V_MONGODB_DATABASE" value="CoWorkBooking-Test" />
       <env name="V_MONGODB_URI" value="mongodb://localhost:27017/CoWorkBooking-Test" />
-      <env name="V_JWT_SECRET_KEY" value="v2ZQhjIROzzMkAflVH/0k1RbqCuqeqZTxcczDkiQVEs=" />
+      <env name="V_KAFKA_CONSUMER_GROUP_ID" value="email-consumer" />
+      <env name="V_KAFKA_TOPIC_EMAIL" value="email-topic" />
     </envs>
     <method v="2">
       <option name="Make" enabled="true" />

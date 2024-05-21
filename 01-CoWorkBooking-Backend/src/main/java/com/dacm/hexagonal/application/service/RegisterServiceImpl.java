@@ -1,5 +1,6 @@
 package com.dacm.hexagonal.application.service;
 
+import com.dacm.hexagonal.application.port.in.KafkaProducerService;
 import com.dacm.hexagonal.application.port.in.RegisterService;
 import com.dacm.hexagonal.infrastructure.adapters.output.email.EmailService;
 import com.dacm.hexagonal.infrastructure.adapters.output.persistence.repository.UserRepository;
@@ -28,12 +29,15 @@ public class RegisterServiceImpl implements RegisterService {
 
     private final EmailService emailService;
 
+    private final KafkaProducerService kafkaProducerService;
+
     @Autowired
-    public RegisterServiceImpl(JwtTokenProvider jwtTokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
+    public RegisterServiceImpl(JwtTokenProvider jwtTokenProvider, UserRepository userRepository, PasswordEncoder passwordEncoder, EmailService emailService, KafkaProducerService kafkaProducerService) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
+        this.kafkaProducerService = kafkaProducerService;
     }
 
     @Override
@@ -65,13 +69,14 @@ public class RegisterServiceImpl implements RegisterService {
                 .firstName(request.getFirstname())
                 .lastName(request.getLastname())
                 .email(request.getEmail())
-                .role(UserRole.ROLE_ADMIN)
+                .role(UserRole.ROLE_USER)
                 .build();
 
         userRepository.save(user);
         model.addAttribute("nombre", fullName);
-        emailService.sendHtmlMessage(user.getEmail(), "Bienvenido a Nuestro Servicio", model, "successful-registration.html");
 
+//        emailService.sendHtmlMessage(user.getEmail(), "Bienvenido a Nuestro Servicio", model, "successful-registration.html");
+        kafkaProducerService.sendHtmlMessage(user.getEmail(), "Bienvenido a Nuestro Servicio", model, "successful-registration.html");
         return JwtLoginResponse.builder()
                 .token(jwtTokenProvider.getToken(user))
                 .build();

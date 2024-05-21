@@ -1,5 +1,6 @@
 package com.dacm.hexagonal.application.service;
 
+import com.dacm.hexagonal.application.port.in.KafkaProducerService;
 import com.dacm.hexagonal.application.port.in.PasswordService;
 import com.dacm.hexagonal.common.Message;
 import com.dacm.hexagonal.domain.model.dto.PasswordDto;
@@ -27,6 +28,7 @@ public class PasswordServiceImpl implements PasswordService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final KafkaProducerService kafkaProducerService;
     private static final String ALLOWED_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?";
 
 
@@ -49,8 +51,7 @@ public class PasswordServiceImpl implements PasswordService {
         model.addAttribute("fullName", fullName);
         model.addAttribute("newPassword", newPassword);
 
-        emailService.sendHtmlMessage(request.getEmail(), "Password Reset", model, "password-reset");
-
+        kafkaProducerService.sendHtmlMessage(request.getEmail(), "Password Reset", model, "password-reset");
         return new ApiResponse(
                 HttpStatus.OK.value(),
                 Message.PASSWORD_RESET_EMAIL_SENT,
@@ -81,7 +82,7 @@ public class PasswordServiceImpl implements PasswordService {
         Model model = new ExtendedModelMap();
         model.addAttribute("fullName", fullName);
 
-        emailService.sendHtmlMessage(user.getEmail(), "Password Update", model, "password-updated");
+        kafkaProducerService.sendHtmlMessage(user.getEmail(), "Password Update", model, "password-updated");
         return new ApiResponse(200, Message.PASSWORD_UPDATED, HttpStatus.OK, LocalDateTime.now(), "");
     }
 
